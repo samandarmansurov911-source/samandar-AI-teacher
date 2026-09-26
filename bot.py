@@ -1,4 +1,8 @@
+```python
 import os
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -9,10 +13,12 @@ from telegram.ext import (
 )
 from google import genai
 
+
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 
 client = genai.Client(api_key=GEMINI_API_KEY)
+
 
 SAMANDAR_PROMPT = """
 You are Samandar Teacher's personal English Essay Assessment Assistant.
@@ -25,9 +31,11 @@ LANGUAGE AND STYLE:
 - Keep the tone natural, friendly and teacher-like.
 - You may occasionally use "bro", but do not overuse it.
 - Never insult, mock or humiliate the student.
-- Be encouraging, but never increase a score simply to make the student happy. and use siz pronoun instead of sen.
-- if students say samthing, reply according to their sentences. 
-- you are a partner of the students so they can ask all kind of questions. answer naturally as a teacher. 
+- Be encouraging, but never increase a score simply to make the student happy.
+- Use "siz" pronoun instead of "sen".
+- If students say something, reply according to their sentences.
+- You are a partner of the students so they can ask all kinds of questions.
+- Answer naturally as a teacher.
 
 SCORING SYSTEM:
 
@@ -98,7 +106,7 @@ Do not list every tiny issue if it does not materially help the student.
 
 FEEDBACK STRUCTURE:
 
-Begin with a short natural personal reaction and reply more politely and not formal but informal .
+Begin with a short natural personal reaction and reply politely but informally.
 
 Then give:
 
@@ -142,6 +150,47 @@ Never claim that an essay is excellent, weak, B2, C1, IELTS 7,
 or any other level unless the available evidence supports that conclusion.
 """
 
+
+# ---------------------------------------------------------
+# RENDER HEALTH CHECK SERVER
+# ---------------------------------------------------------
+
+class HealthHandler(BaseHTTPRequestHandler):
+
+    def do_GET(self):
+        if self.path == "/health":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"Samandar Essay Checker is running!")
+        else:
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"Samandar Essay Checker")
+
+
+    def log_message(self, format, *args):
+        return
+
+
+def run_health_server():
+    port = int(os.environ.get("PORT", 10000))
+
+    server = HTTPServer(
+        ("0.0.0.0", port),
+        HealthHandler
+    )
+
+    print(f"Health server running on port {port}")
+
+    server.serve_forever()
+
+
+# ---------------------------------------------------------
+# TELEGRAM BOT
+# ---------------------------------------------------------
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Assalomu alaykum! 👋\n\n"
@@ -151,6 +200,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
     essay = update.message.text
 
     await update.message.reply_text(
@@ -158,9 +208,12 @@ async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     try:
+
         response = client.models.generate_content(
             model="gemini-3.1-flash-lite",
-            contents=SAMANDAR_PROMPT + "\n\nSTUDENT ESSAY:\n" + essay
+            contents=SAMANDAR_PROMPT
+            + "\n\nSTUDENT ESSAY:\n"
+            + essay
         )
 
         result = response.text
@@ -172,17 +225,35 @@ async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     except Exception as e:
+
         print("ERROR:", e)
 
         await update.message.reply_text(
-            "❌ bro azgina tushunmovchilik bopqoldi tushunasiz endi agar boshqattan yuborsez yana harakat qilib koraman."
+            "❌ bro azgina tushunmovchilik bopqoldi tushunasiz endi "
+            "agar boshqattan yuborsez yana harakat qilib koraman."
         )
 
 
+# ---------------------------------------------------------
+# MAIN
+# ---------------------------------------------------------
+
 def main():
+
+    # Render uchun health serverni alohida thread'da ishga tushiramiz
+    health_thread = threading.Thread(
+        target=run_health_server,
+        daemon=True
+    )
+
+    health_thread.start()
+
+    # Telegram bot
     app = Application.builder().token(TOKEN).build()
 
-    app.add_handler(CommandHandler("start", start))
+    app.add_handler(
+        CommandHandler("start", start)
+    )
 
     app.add_handler(
         MessageHandler(
@@ -198,3 +269,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
