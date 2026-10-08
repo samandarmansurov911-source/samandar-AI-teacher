@@ -6,6 +6,8 @@ Keyingi safar: darhol agentni ishga tushiradi.
 
 import asyncio
 import os
+import re
+import traceback
 from pathlib import Path
 
 ENV_FILE = Path(__file__).with_name(".env")
@@ -29,18 +31,41 @@ def save_env(values):
     )
 
 
-def ask(values, key, question):
-    while not values.get(key):
-        values[key] = input(question).strip()
+# Bloknotdan "api_id: 123" ko'rinishida ko'chirilsa ham to'g'ri qiymatni ajratib olamiz
+def clean_api_id(text):
+    digits = re.sub(r"\D", "", text)
+    return digits if 4 <= len(digits) <= 12 else None
+
+
+def clean_api_hash(text):
+    match = re.search(r"\b[0-9a-fA-F]{32}\b", text)
+    return match.group(0).lower() if match else None
+
+
+def clean_gemini_key(text):
+    match = re.search(r"AIza[0-9A-Za-z_\-]{20,}", text)
+    return match.group(0) if match else None
+
+
+def ask(values, key, question, cleaner, hint):
+    value = cleaner(values.get(key, "")) if values.get(key) else None
+    while not value:
+        value = cleaner(input(question))
+        if not value:
+            print(f"❌ Noto'g'ri. {hint}\n")
+    values[key] = value
     save_env(values)
 
 
 def main():
     values = load_env()
 
-    ask(values, "TELEGRAM_API_ID", "Telegram api_id ni yozing (faqat raqam): ")
-    ask(values, "TELEGRAM_API_HASH", "Telegram api_hash ni yozing: ")
-    ask(values, "GEMINI_API_KEY", "Gemini API kalitini yozing: ")
+    ask(values, "TELEGRAM_API_ID", "Telegram api_id ni yozing (faqat raqam): ",
+        clean_api_id, "api_id faqat raqamlardan iborat, masalan 21234567.")
+    ask(values, "TELEGRAM_API_HASH", "Telegram api_hash ni yozing: ",
+        clean_api_hash, "api_hash 32 ta harf va raqamdan iborat.")
+    ask(values, "GEMINI_API_KEY", "Gemini API kalitini yozing: ",
+        clean_gemini_key, "Gemini kaliti AIza bilan boshlanadi.")
 
     if not values.get("TELEGRAM_SESSION"):
         from telethon.sessions import StringSession
@@ -64,4 +89,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nAgent to'xtatildi.")
+    except Exception:
+        print("\n❌ XATOLIK YUZ BERDI. Shu oynaning skrinshotini yuboring:\n")
+        traceback.print_exc()
