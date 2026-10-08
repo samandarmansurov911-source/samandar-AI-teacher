@@ -220,3 +220,4 @@ __marimo__/
 # Telegram agent sessiyalari
 *.session
 *.session-journal
+qr.svg

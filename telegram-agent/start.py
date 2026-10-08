@@ -11,6 +11,7 @@ import traceback
 from pathlib import Path
 
 ENV_FILE = Path(__file__).with_name(".env")
+QR_FILE = Path(__file__).with_name("qr.svg")
 
 
 def load_env():
@@ -59,6 +60,54 @@ def ask(values, key, question, cleaner, hint):
     save_env(values)
 
 
+def show_qr(url):
+    import qrcode
+    import qrcode.image.svg
+
+    qrcode.make(url, image_factory=qrcode.image.svg.SvgFillImage, box_size=20).save(QR_FILE)
+    print("\n📱 QR kod ochildi (brauzerda yoki rasm sifatida).")
+    print("Telefoningizda: Telegram → Sozlamalar → Qurilmalar → 'Kompyuterni ulash'")
+    print("va QR kodni skanerlang. Kutyapman...\n")
+    try:
+        os.startfile(QR_FILE)
+    except AttributeError:
+        print(f"QR fayl: {QR_FILE}")
+
+
+async def qr_login(api_id, api_hash):
+    """Telegram'ga QR kod orqali kirish: SMS/kod kutish shart emas."""
+    from getpass import getpass
+
+    from telethon import TelegramClient, errors
+    from telethon.sessions import StringSession
+
+    client = TelegramClient(StringSession(), api_id, api_hash)
+    await client.connect()
+    try:
+        qr = await client.qr_login()
+        while True:
+            show_qr(qr.url)
+            try:
+                await qr.wait(timeout=60)
+                break
+            except asyncio.TimeoutError:
+                # QR eskirdi, yangisini chiqaramiz
+                await qr.recreate()
+            except errors.SessionPasswordNeededError:
+                while True:
+                    password = getpass("Ikki bosqichli parolingizni yozing (ekranda ko'rinmaydi): ")
+                    try:
+                        await client.sign_in(password=password)
+                        break
+                    except errors.PasswordHashInvalidError:
+                        print("❌ Parol noto'g'ri, qaytadan yozing.")
+                break
+        return client.session.save()
+    finally:
+        QR_FILE.unlink(missing_ok=True)
+        await client.disconnect()
+
+
 def main():
     values = load_env()
 
@@ -70,17 +119,9 @@ def main():
         clean_gemini_key, "Gemini kalitini to'liq ko'chiring (u juda uzun bo'ladi).")
 
     if not values.get("TELEGRAM_SESSION"):
-        from telethon.sessions import StringSession
-        from telethon.sync import TelegramClient
-
-        print("\nEndi Telegram hisobingizga kiramiz.")
-        print("Telefon raqamni +998 bilan yozing, keyin Telegram'ga kelgan kodni kiriting.\n")
-        with TelegramClient(
-            StringSession(),
-            int(values["TELEGRAM_API_ID"]),
-            values["TELEGRAM_API_HASH"],
-        ) as client:
-            values["TELEGRAM_SESSION"] = client.session.save()
+        values["TELEGRAM_SESSION"] = asyncio.run(
+            qr_login(int(values["TELEGRAM_API_ID"]), values["TELEGRAM_API_HASH"])
+        )
         save_env(values)
         print("\n✅ Telegram'ga kirildi va saqlandi.\n")
 
