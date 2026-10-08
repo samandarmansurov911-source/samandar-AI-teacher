@@ -1,3 +1,5 @@
 telethon
 google-genai>=1.40.0
 qrcode
+python-telegram-bot>=21
+tzdata

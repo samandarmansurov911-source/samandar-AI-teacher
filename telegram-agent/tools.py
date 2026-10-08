@@ -5,6 +5,8 @@ from zoneinfo import ZoneInfo
 
 from telethon import TelegramClient, utils
 
+from essay_bot_control import EssayBotController
+
 
 class TelegramTools:
 
@@ -12,6 +14,7 @@ class TelegramTools:
         self.client = client
         self.tz = tz
         self.my_id = None
+        self.essay_bot = EssayBotController(tz)
         self.auto_reply_enabled = False
         self.auto_reply_instructions = ""
 
@@ -188,6 +191,15 @@ class TelegramTools:
             return f"Avto-javob yoqildi. Ko'rsatma: {self.auto_reply_instructions or '(umumiy)'}"
         return "Avto-javob o'chirildi."
 
+    async def start_essay_bot(self):
+        return await self.essay_bot.start()
+
+    async def stop_essay_bot(self):
+        return await self.essay_bot.stop()
+
+    async def essay_bot_status(self):
+        return self.essay_bot.status()
+
 
 # ---------------------------------------------------------
 # GEMINI UCHUN TOOL TAVSIFLARI
@@ -317,5 +329,20 @@ TOOL_SCHEMAS = [
             },
             "required": ["enabled"],
         },
+    },
+    {
+        "name": "start_essay_bot",
+        "description": "O'quvchilar uchun essay tekshiruvchi bot'ni yoqadi ('botni yoq', 'botlarni ishga tushir').",
+        "parameters": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "stop_essay_bot",
+        "description": "Essay tekshiruvchi bot'ni o'chiradi ('botni o'chir', 'botlarni to'xtat').",
+        "parameters": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "essay_bot_status",
+        "description": "Essay tekshiruvchi bot yoniq yoki o'chiqligini aytadi.",
+        "parameters": {"type": "object", "properties": {}},
     },
 ]

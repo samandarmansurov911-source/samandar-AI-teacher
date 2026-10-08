@@ -45,6 +45,8 @@ QOIDALAR:
 - Foydalanuvchi so'ramagan xabarni hech kimga yubormang.
 - Xulosa so'ralsa, avval read_messages bilan xabarlarni o'qing, keyin qisqa xulosa qiling.
 - Hech qachon ma'lumot to'qib chiqarmang: faqat tool natijalariga tayaning.
+- "Bot" yoki "botlar" deyilsa, bu o'quvchilar uchun essay tekshiruvchi bot:
+  start_essay_bot / stop_essay_bot / essay_bot_status tool'larini ishlating.
 - Bajarilgan ishni oxirida qisqa qilib ayting.
 """
 
@@ -274,7 +276,8 @@ async def main():
     await client.send_message(
         "me",
         f"🤖 Agent ishga tushdi. Buyruqni shu yerga '{PREFIX}' bilan boshlab yozing.\n"
-        f"Masalan: {PREFIX}qaysi chatlarda o'qilmagan xabar bor?",
+        f"Masalan: {PREFIX}qaysi chatlarda o'qilmagan xabar bor?\n"
+        f"Essay bot o'chiq. Yoqish uchun: {PREFIX}botni yoq",
     )
     await client.run_until_disconnected()
 

@@ -49,11 +49,21 @@ Saqlangan xabarlarga tushadi.
    ```
    Saqlangan xabarlarda "🤖 Agent ishga tushdi" chiqadi.
 
-### Render'da 24/7 ishlatish
+### Render'da 24/7 ishlatish (essay bot bilan birga)
 
-Yangi **Web Service** yarating: Root Directory `telegram-agent`, Build `pip install -r requirements.txt`,
-Start `python agent.py`. Environment bo'limiga `.env.example` dagi o'zgaruvchilarni qo'shing.
-`/` manzili health check uchun javob beradi.
+Bitta **Web Service** (Free) yarating:
+- Branch: `claude/projects-qani-u8aetj`, Root Directory: bo'sh
+- Build Command: `pip install -r telegram-agent/requirements.txt`
+- Start Command: `python telegram-agent/agent.py`
+- Environment: `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION`,
+  `GEMINI_API_KEY` (hammasi `.env` faylida) va essay bot uchun `TELEGRAM_BOT_TOKEN`.
+
+Essay bot (`../bot.py`) agent ichida ishlaydi va faqat buyruq bilan yonadi:
+`.botni yoq`, `.botni o'chir`, `.bot holati`. Server qayta ishga tushsa, bot o'chiq holatda turadi.
+
+Servis uxlab qolmasligi uchun UptimeRobot'da servis manziliga har 5 daqiqada
+murojaat qiladigan monitor qo'shing. ⚠️ Render'da ishga tushirgach, kompyuterdagi agentni yoping:
+bitta sessiya ikki joyda ishlasa, Telegram uni bekor qilishi mumkin.
 
 ## ⚠️ Xavfsizlik
 

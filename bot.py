@@ -208,7 +208,7 @@ async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     try:
 
-        response = client.models.generate_content(
+        response = await client.aio.models.generate_content(
             model="gemini-3.1-flash-lite",
             contents=SAMANDAR_PROMPT
             + "\n\nSTUDENT ESSAY:\n"
