@@ -6,7 +6,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from zoneinfo import ZoneInfo
 
 from google import genai
-from google.genai import types
+from google.genai import errors, types
 from telethon import TelegramClient, events, utils
 from telethon.sessions import StringSession
 
@@ -90,6 +90,18 @@ def to_schema(s):
     return types.Schema(**kwargs)
 
 
+async def generate(**kwargs):
+    # Gemini band bo'lsa (503) yoki limitga yetsak (429), biroz kutib qayta urinamiz
+    for delay in (2, 5, 10, None):
+        try:
+            return await gemini.aio.models.generate_content(model=MODEL, **kwargs)
+        except errors.APIError as e:
+            if e.code not in (429, 500, 503) or delay is None:
+                raise
+            print(f"Gemini {e.code}, {delay}s dan keyin qayta urinaman")
+            await asyncio.sleep(delay)
+
+
 def tool_config():
     declarations = []
     for t in TOOL_SCHEMAS:
@@ -132,8 +144,7 @@ async def run_agent(command):
     actions = []
 
     for _ in range(MAX_STEPS):
-        response = await gemini.aio.models.generate_content(
-            model=MODEL,
+        response = await generate(
             contents=history,
             config=config,
         )
@@ -188,6 +199,13 @@ async def on_command(event):
     async with lock:
         try:
             answer, actions = await run_agent(command)
+        except errors.APIError as e:
+            print("ERROR:", e)
+            if e.code in (429, 500, 503):
+                answer = "⏳ Gemini hozir band yoki limit tugagan. Bir-ikki daqiqadan keyin qayta yozing."
+            else:
+                answer = f"❌ Xatolik: {e}"
+            actions = []
         except Exception as e:
             print("ERROR:", e)
             answer, actions = f"❌ Xatolik: {e}", []
@@ -209,8 +227,7 @@ async def on_private_message(event):
     chat_log = "\n".join(tg._format_message(m) for m in reversed(messages))
 
     try:
-        response = await gemini.aio.models.generate_content(
-            model=MODEL,
+        response = await generate(
             contents=AUTO_REPLY_PROMPT.format(
                 instructions=tg.auto_reply_instructions or "Umumiy, xushmuomala javob ber.",
                 history=chat_log,
