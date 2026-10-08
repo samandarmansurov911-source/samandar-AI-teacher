@@ -12,6 +12,8 @@ from telegram.ext import (
 )
 from google import genai
 
+from bots.retry import gemini_generate
+
 
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
@@ -208,7 +210,8 @@ async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     try:
 
-        response = await client.aio.models.generate_content(
+        response = await gemini_generate(
+            client,
             model="gemini-3.1-flash-lite",
             contents=SAMANDAR_PROMPT
             + "\n\nSTUDENT ESSAY:\n"

@@ -9,6 +9,8 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardR
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 from google import genai
 
+from bots.retry import gemini_generate
+
 # ==================== SOZLAMALAR ====================
 # Kalitlar serverdagi (Render) Environment bo'limidan olinadi
 TOKEN = os.environ["INTIZOR_BOT_TOKEN"]
@@ -189,7 +191,7 @@ async def process_ai_question(update: Update, question: str):
     """
 
     try:
-        response = await ai_client.aio.models.generate_content(
+        response = await gemini_generate(ai_client, 
             model='gemini-3.8-flash',
             contents=prompt,
         )
@@ -316,7 +318,7 @@ async def get_report(update: Update, context: ContextTypes.DEFAULT_TYPE):
     Rahbar uchun oylar va guruhlar kesimida tushunarli, professional va aniq hisobot tuzib ber.
     """
 
-    response = await ai_client.aio.models.generate_content(
+    response = await gemini_generate(ai_client, 
         model='gemini-3.8-flash',
         contents=prompt,
     )

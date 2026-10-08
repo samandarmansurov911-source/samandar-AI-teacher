@@ -6,6 +6,8 @@ from aiogram.filters import Command
 from google import genai
 from google.genai import types as genai_types
 
+from bots.retry import gemini_generate
+
 # Kalitlar serverdagi (Render) Environment bo'limidan olinadi
 TELEGRAM_TOKEN = os.environ["WRITING_BOT_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
@@ -52,7 +54,8 @@ async def chat_with_teacher(message: types.Message):
         )
 
         # Gemini yordamida javob olish
-        response = await client.aio.models.generate_content(
+        response = await gemini_generate(
+            client,
             model='gemini-3.5-flash-lite',  
             contents=f"{system_instruction}\n\nO'quvchidan kelgan xabar/matn:\n{user_text}",
             config=config

@@ -6,6 +6,8 @@ from aiogram.types import Message
 from google import genai
 from google.genai import types as genai_types
 
+from bots.retry import gemini_generate, with_retry
+
 # Kalitlar serverdagi (Render) Environment bo'limidan olinadi
 TELEGRAM_BOT_TOKEN = os.environ["SPEAKING_BOT_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
@@ -35,7 +37,7 @@ async def handle_voice(message: Message):
     await bot.download_file(voice_file.file_path, file_path)
 
     try:
-        gemini_audio = await client.aio.files.upload(file=file_path)
+        gemini_audio = await with_retry(lambda: client.aio.files.upload(file=file_path))
 
         # CEFR bo'yicha maxsus ko'rsatma
         prompt = """
@@ -64,7 +66,8 @@ async def handle_voice(message: Message):
             temperature=0.0
         )
 
-        response = await client.aio.models.generate_content(
+        response = await gemini_generate(
+            client,
             model="gemini-3.5-flash-lite", 
             contents=[gemini_audio, prompt],
             config=config
