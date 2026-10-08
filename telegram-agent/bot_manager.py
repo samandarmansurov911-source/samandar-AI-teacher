@@ -17,6 +17,7 @@ BOTS = {
     "writing": {"title": "Writing teacher", "module": "bots.writing", "kind": "aiogram", "env": "WRITING_BOT_TOKEN"},
     "speaking": {"title": "Speaking checker", "module": "bots.speaking", "kind": "aiogram", "env": "SPEAKING_BOT_TOKEN"},
     "vocab": {"title": "Vocab quiz", "module": "bots.vocab", "kind": "aiogram", "env": "VOCAB_BOT_TOKEN"},
+    "intizor": {"title": "Intizor (Nur Academy to'lovlari)", "module": "bots.intizor", "kind": "ptb", "env": "INTIZOR_BOT_TOKEN"},
 }
 
 
@@ -45,11 +46,7 @@ class BotManager:
         return importlib.import_module(module_name)
 
     async def _start_ptb(self, mod):
-        from telegram.ext import Application, CommandHandler, MessageHandler, filters
-
-        app = Application.builder().token(mod.TOKEN).build()
-        app.add_handler(CommandHandler("start", mod.start))
-        app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, mod.check_essay))
+        app = mod.build_application()
         await app.initialize()
         await app.start()
         # Bot o'chiq paytda kelgan eski xabarlarni tashlab yuboramiz

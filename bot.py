@@ -237,17 +237,7 @@ async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # MAIN
 # ---------------------------------------------------------
 
-def main():
-
-    # Render uchun health serverni alohida thread'da ishga tushiramiz
-    health_thread = threading.Thread(
-        target=run_health_server,
-        daemon=True
-    )
-
-    health_thread.start()
-
-    # Telegram bot
+def build_application():
     app = Application.builder().token(TOKEN).build()
 
     app.add_handler(
@@ -260,6 +250,22 @@ def main():
             check_essay
         )
     )
+
+    return app
+
+
+def main():
+
+    # Render uchun health serverni alohida thread'da ishga tushiramiz
+    health_thread = threading.Thread(
+        target=run_health_server,
+        daemon=True
+    )
+
+    health_thread.start()
+
+    # Telegram bot
+    app = build_application()
 
     print("Samandar Essay Checker ishga tushdi!")
 

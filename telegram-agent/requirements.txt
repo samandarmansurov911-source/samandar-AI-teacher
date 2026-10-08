@@ -1,6 +1,7 @@
 telethon
 google-genai>=1.40.0
 qrcode
-python-telegram-bot>=21
+python-telegram-bot[job-queue]>=21
 aiogram>=3
+gspread>=6
 tzdata

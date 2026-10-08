@@ -1,4 +1,4 @@
 # Botlar
 
-Bu papkaga vocab, speaking teacher va intizor bot fayllari yuklanadi.
+Bu papkaga writing, speaking, vocab va intizor botlari turadi.
 Agent ularni bitta servis ichida yoqib-o'ochiradi.

@@ -64,6 +64,10 @@ Bitta **Web Service** (Free) yarating:
 | Writing teacher | `bots/writing.py` | `WRITING_BOT_TOKEN` |
 | Speaking checker | `bots/speaking.py` | `SPEAKING_BOT_TOKEN` |
 | Vocab quiz | `bots/vocab.py` (+ `bots/words.txt`) | `VOCAB_BOT_TOKEN` |
+| Intizor (Nur Academy to'lovlari) | `bots/intizor.py` | `INTIZOR_BOT_TOKEN` |
+
+Intizor bot Google Sheets'ga ulanadi. Google kalitini (`service_account.json`) **GitHub'ga yuklamang**:
+Render → Environment → **Secret Files** bo'limiga `service_account.json` nomi bilan qo'shing.
 
 Botlar agent ichida ishlaydi va faqat buyruq bilan yonadi: `.hamma botlarni yoq`,
 `.vocabni o'chir`, `.qaysi botlar yoniq?`. Server qayta ishga tushsa, hamma bot o'chiq turadi.
