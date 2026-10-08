@@ -60,8 +60,7 @@ Bitta **Web Service** (Free) yarating:
 
 | Bot | Fayl | Token |
 |---|---|---|
-| Essay checker | `bot.py` | `TELEGRAM_BOT_TOKEN` |
-| Writing teacher | `bots/writing.py` | `WRITING_BOT_TOKEN` |
+| Writing checker | `bots/writing.py` | `WRITING_BOT_TOKEN` |
 | Speaking checker | `bots/speaking.py` | `SPEAKING_BOT_TOKEN` |
 | Vocab quiz | `bots/vocab.py` (+ `bots/words.txt`) | `VOCAB_BOT_TOKEN` |
 | Intizor (Nur Academy to'lovlari) | `bots/intizor.py` | `INTIZOR_BOT_TOKEN` |

@@ -13,8 +13,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 BOTS = {
-    "essay": {"title": "Essay checker", "module": "bot", "kind": "ptb", "env": "TELEGRAM_BOT_TOKEN"},
-    "writing": {"title": "Writing teacher", "module": "bots.writing", "kind": "aiogram", "env": "WRITING_BOT_TOKEN"},
+    "writing": {"title": "Writing checker", "module": "bots.writing", "kind": "aiogram", "env": "WRITING_BOT_TOKEN"},
     "speaking": {"title": "Speaking checker", "module": "bots.speaking", "kind": "aiogram", "env": "SPEAKING_BOT_TOKEN"},
     "vocab": {"title": "Vocab quiz", "module": "bots.vocab", "kind": "aiogram", "env": "VOCAB_BOT_TOKEN"},
     "intizor": {"title": "Intizor (Nur Academy to'lovlari)", "module": "bots.intizor", "kind": "ptb", "env": "INTIZOR_BOT_TOKEN"},
