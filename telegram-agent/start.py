@@ -43,8 +43,10 @@ def clean_api_hash(text):
 
 
 def clean_gemini_key(text):
-    match = re.search(r"AIza[0-9A-Za-z_\-]{20,}", text)
-    return match.group(0) if match else None
+    # "gemini: KALIT" kabi yozuvdan oxirgi bo'lakni olamiz
+    parts = text.replace(":", " ").split()
+    key = parts[-1].strip("'\"") if parts else ""
+    return key if len(key) >= 20 else None
 
 
 def ask(values, key, question, cleaner, hint):
@@ -65,7 +67,7 @@ def main():
     ask(values, "TELEGRAM_API_HASH", "Telegram api_hash ni yozing: ",
         clean_api_hash, "api_hash 32 ta harf va raqamdan iborat.")
     ask(values, "GEMINI_API_KEY", "Gemini API kalitini yozing: ",
-        clean_gemini_key, "Gemini kaliti AIza bilan boshlanadi.")
+        clean_gemini_key, "Gemini kalitini to'liq ko'chiring (u juda uzun bo'ladi).")
 
     if not values.get("TELEGRAM_SESSION"):
         from telethon.sessions import StringSession
