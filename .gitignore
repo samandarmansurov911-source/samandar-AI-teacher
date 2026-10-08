@@ -221,3 +221,7 @@ __marimo__/
 *.session
 *.session-journal
 qr.svg
+
+# Google maxfiy kalitlari hech qachon GitHub ga chiqmasin
+service_account*.json
+*credentials*.json
