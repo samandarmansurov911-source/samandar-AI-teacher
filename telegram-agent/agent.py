@@ -10,6 +10,7 @@ from google.genai import errors, types
 from telethon import TelegramClient, events, utils
 from telethon.sessions import StringSession
 
+from quick import run_quick
 from tools import TOOL_SCHEMAS, TelegramTools
 
 
@@ -196,6 +197,15 @@ async def on_command(event):
         await client.send_message("me", "🤖 Suhbat tarixi tozalandi.")
         return
 
+    # Botlarni yoqish/o'chirish kabi oddiy buyruqlar Gemini'siz, darhol
+    quick_answer = await run_quick(tg, command)
+    if quick_answer:
+        await send_long("me", "🤖 " + quick_answer)
+        return
+
+    # Uzoqroq ishlar uchun darhol "bajaryapman" deb javob beramiz
+    waiting = await client.send_message("me", "🤖 ⏳ Bajaryapman...")
+
     async with lock:
         try:
             answer, actions = await run_agent(command)
@@ -213,6 +223,7 @@ async def on_command(event):
     footer = ""
     if actions:
         footer = "\n\n🛠 " + "\n🛠 ".join(a[:150] for a in actions)
+    await waiting.delete()
     await send_long("me", "🤖 " + answer + footer)
 
 
