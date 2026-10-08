@@ -45,8 +45,9 @@ QOIDALAR:
 - Foydalanuvchi so'ramagan xabarni hech kimga yubormang.
 - Xulosa so'ralsa, avval read_messages bilan xabarlarni o'qing, keyin qisqa xulosa qiling.
 - Hech qachon ma'lumot to'qib chiqarmang: faqat tool natijalariga tayaning.
-- "Bot" yoki "botlar" deyilsa, bu o'quvchilar uchun essay tekshiruvchi bot:
-  start_essay_bot / stop_essay_bot / essay_bot_status tool'larini ishlating.
+- "Bot" yoki "botlar" deyilsa, bu o'quvchilar botlari (essay, writing, speaking, vocab):
+  start_bot / stop_bot / bots_status tool'larini ishlating. "Hamma botlar" = name="all".
+  Qaysi bot ekani aniq bo'lmasa (masalan faqat "botni yoq"), qaysi birini so'rang.
 - Bajarilgan ishni oxirida qisqa qilib ayting.
 """
 
@@ -268,6 +269,8 @@ async def main():
     await client.start()
     me = await client.get_me()
     tg.my_id = me.id
+    # Botlar natijalarni shu odamga (ustozga) yuboradi
+    os.environ.setdefault("TEACHER_ID", str(me.id))
 
     client.add_event_handler(on_command, events.NewMessage(outgoing=True))
     client.add_event_handler(on_private_message, events.NewMessage(incoming=True))
@@ -277,7 +280,7 @@ async def main():
         "me",
         f"🤖 Agent ishga tushdi. Buyruqni shu yerga '{PREFIX}' bilan boshlab yozing.\n"
         f"Masalan: {PREFIX}qaysi chatlarda o'qilmagan xabar bor?\n"
-        f"Essay bot o'chiq. Yoqish uchun: {PREFIX}botni yoq",
+        f"O'quvchilar botlari o'chiq. Yoqish uchun: {PREFIX}hamma botlarni yoq",
     )
     await client.run_until_disconnected()
 

@@ -49,17 +49,25 @@ Saqlangan xabarlarga tushadi.
    ```
    Saqlangan xabarlarda "🤖 Agent ishga tushdi" chiqadi.
 
-### Render'da 24/7 ishlatish (essay bot bilan birga)
+### Render'da 24/7 ishlatish (botlar bilan birga)
 
 Bitta **Web Service** (Free) yarating:
 - Branch: `claude/projects-qani-u8aetj`, Root Directory: bo'sh
 - Build Command: `pip install -r telegram-agent/requirements.txt`
 - Start Command: `python telegram-agent/agent.py`
-- Environment: `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION`,
-  `GEMINI_API_KEY` (hammasi `.env` faylida) va essay bot uchun `TELEGRAM_BOT_TOKEN`.
+- Environment: `TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION`, `GEMINI_API_KEY`
+  (hammasi `.env` faylida) va botlar tokenlari:
 
-Essay bot (`../bot.py`) agent ichida ishlaydi va faqat buyruq bilan yonadi:
-`.botni yoq`, `.botni o'chir`, `.bot holati`. Server qayta ishga tushsa, bot o'chiq holatda turadi.
+| Bot | Fayl | Token |
+|---|---|---|
+| Essay checker | `bot.py` | `TELEGRAM_BOT_TOKEN` |
+| Writing teacher | `bots/writing.py` | `WRITING_BOT_TOKEN` |
+| Speaking checker | `bots/speaking.py` | `SPEAKING_BOT_TOKEN` |
+| Vocab quiz | `bots/vocab.py` (+ `bots/words.txt`) | `VOCAB_BOT_TOKEN` |
+
+Botlar agent ichida ishlaydi va faqat buyruq bilan yonadi: `.hamma botlarni yoq`,
+`.vocabni o'chir`, `.qaysi botlar yoniq?`. Server qayta ishga tushsa, hamma bot o'chiq turadi.
+Natijalar agent egasiga (ustozga) yuboriladi.
 
 Servis uxlab qolmasligi uchun UptimeRobot'da servis manziliga har 5 daqiqada
 murojaat qiladigan monitor qo'shing. ⚠️ Render'da ishga tushirgach, kompyuterdagi agentni yoping:

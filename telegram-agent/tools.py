@@ -5,7 +5,7 @@ from zoneinfo import ZoneInfo
 
 from telethon import TelegramClient, utils
 
-from essay_bot_control import EssayBotController
+from bot_manager import BOTS, BotManager
 
 
 class TelegramTools:
@@ -14,7 +14,7 @@ class TelegramTools:
         self.client = client
         self.tz = tz
         self.my_id = None
-        self.essay_bot = EssayBotController(tz)
+        self.bots = BotManager(tz)
         self.auto_reply_enabled = False
         self.auto_reply_instructions = ""
 
@@ -191,14 +191,14 @@ class TelegramTools:
             return f"Avto-javob yoqildi. Ko'rsatma: {self.auto_reply_instructions or '(umumiy)'}"
         return "Avto-javob o'chirildi."
 
-    async def start_essay_bot(self):
-        return await self.essay_bot.start()
+    async def start_bot(self, name):
+        return await self.bots.start(name)
 
-    async def stop_essay_bot(self):
-        return await self.essay_bot.stop()
+    async def stop_bot(self, name):
+        return await self.bots.stop(name)
 
-    async def essay_bot_status(self):
-        return self.essay_bot.status()
+    async def bots_status(self):
+        return self.bots.status()
 
 
 # ---------------------------------------------------------
@@ -206,6 +206,10 @@ class TelegramTools:
 # ---------------------------------------------------------
 
 CHAT = {"type": "string", "description": "Chat nomi, @username, t.me link, ID yoki 'me' (Saqlangan xabarlar)."}
+BOT_NAME = {
+    "type": "string",
+    "description": "Bot: " + ", ".join(f"{k} ({v['title']})" for k, v in BOTS.items()) + ", yoki hammasi uchun 'all'.",
+}
 IDS = {"type": "array", "items": {"type": "integer"}, "description": "Xabar ID'lari."}
 
 TOOL_SCHEMAS = [
@@ -331,18 +335,18 @@ TOOL_SCHEMAS = [
         },
     },
     {
-        "name": "start_essay_bot",
-        "description": "O'quvchilar uchun essay tekshiruvchi bot'ni yoqadi ('botni yoq', 'botlarni ishga tushir').",
-        "parameters": {"type": "object", "properties": {}},
+        "name": "start_bot",
+        "description": "O'quvchilar botini yoqadi ('botni yoq', 'vocabni yoq', 'hamma botlarni yoq').",
+        "parameters": {"type": "object", "properties": {"name": BOT_NAME}, "required": ["name"]},
     },
     {
-        "name": "stop_essay_bot",
-        "description": "Essay tekshiruvchi bot'ni o'chiradi ('botni o'chir', 'botlarni to'xtat').",
-        "parameters": {"type": "object", "properties": {}},
+        "name": "stop_bot",
+        "description": "O'quvchilar botini o'chiradi ('botni o'chir', 'hamma botlarni o'chir').",
+        "parameters": {"type": "object", "properties": {"name": BOT_NAME}, "required": ["name"]},
     },
     {
-        "name": "essay_bot_status",
-        "description": "Essay tekshiruvchi bot yoniq yoki o'chiqligini aytadi.",
+        "name": "bots_status",
+        "description": "Qaysi o'quvchilar botlari yoniq yoki o'chiqligini ko'rsatadi.",
         "parameters": {"type": "object", "properties": {}},
     },
 ]
