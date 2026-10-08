@@ -73,15 +73,28 @@ lock = asyncio.Lock()
 # GEMINI AGENT SIKLI
 # ---------------------------------------------------------
 
+def to_schema(s):
+    # google-genai'ning eski versiyalari ham tushunadigan Schema obyekti
+    kwargs = {"type": s["type"].upper()}
+    if "description" in s:
+        kwargs["description"] = s["description"]
+    if s.get("properties"):
+        kwargs["properties"] = {k: to_schema(v) for k, v in s["properties"].items()}
+    if "items" in s:
+        kwargs["items"] = to_schema(s["items"])
+    if s.get("required"):
+        kwargs["required"] = s["required"]
+    return types.Schema(**kwargs)
+
+
 def tool_config():
-    declarations = [
-        types.FunctionDeclaration(
-            name=t["name"],
-            description=t["description"],
-            parameters_json_schema=t["parameters"],
-        )
-        for t in TOOL_SCHEMAS
-    ]
+    declarations = []
+    for t in TOOL_SCHEMAS:
+        decl = {"name": t["name"], "description": t["description"]}
+        # Parametrsiz tool'larga bo'sh OBJECT yubormaymiz
+        if t["parameters"].get("properties"):
+            decl["parameters"] = to_schema(t["parameters"])
+        declarations.append(types.FunctionDeclaration(**decl))
     now = datetime.now(TZ).strftime("%Y-%m-%d %H:%M")
     return types.GenerateContentConfig(
         system_instruction=SYSTEM_PROMPT + f"\nHozirgi vaqt: {now}",
