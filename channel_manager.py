@@ -51,7 +51,9 @@ from telegram.ext import (
     filters,
 )
 
-log = logging.getLogger("channel_manager")
+from tg_backup import find_pinned_document
+
+log =logging.getLogger("channel_manager")
 
 
 # ---------------------------------------------------------
@@ -290,9 +292,8 @@ class Memory:
         if ADMIN_ID is None:
             return
         try:
-            chat = await bot.get_chat(ADMIN_ID)
-            msg = chat.pinned_message
-            if msg and msg.document and msg.document.file_name == BACKUP_FILENAME:
+            msg = await find_pinned_document(bot, ADMIN_ID, BACKUP_FILENAME)
+            if msg:
                 file = await bot.get_file(msg.document.file_id)
                 raw = await file.download_as_bytearray()
                 self.data.update(json.loads(raw.decode("utf-8")))

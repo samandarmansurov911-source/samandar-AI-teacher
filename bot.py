@@ -14,6 +14,7 @@ from telegram.ext import (
 from google import genai
 
 import channel_manager
+import instagram_manager
 
 
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
@@ -261,6 +262,9 @@ def main():
 
     # Kanal menejeri (CHANNEL_ID berilmagan bo'lsa o'chiq turadi)
     channel_manager.setup(app, client)
+
+    # Instagram menejeri (IG_ACCESS_TOKEN berilmagan bo'lsa o'chiq turadi)
+    instagram_manager.setup(app, client)
 
     app.add_handler(
         CommandHandler("start", start, filters=filters.ChatType.PRIVATE)
