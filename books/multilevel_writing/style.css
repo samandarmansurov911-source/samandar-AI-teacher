@@ -1,0 +1,15 @@
+@page { size: A4; margin: 16mm 15mm; }
+body { font-family: "Inter", "DejaVu Sans", Arial, sans-serif; font-size: 10.5pt; line-height: 1.45; color: #1d1d1f; }
+h1 { color: #fff; background: #2f5d8a; padding: 8px 12px; border-radius: 6px; font-size: 17pt; page-break-before: always; margin-top: 0; }
+h1.title { page-break-before: avoid; background: none; color: #2f5d8a; text-align: center; font-size: 24pt; margin-top: 40mm; }
+header p.subtitle, header p.author { text-align: center; color: #555; font-size: 12pt; }
+h2 { color: #2f5d8a; border-bottom: 2px solid #2f5d8a; padding-bottom: 2px; font-size: 14pt; margin-top: 18px; }
+h3 { color: #b4541a; font-size: 12pt; margin: 16px 0 6px; page-break-after: avoid; }
+blockquote { background: #f4f6f9; border-left: 4px solid #8aa9c8; margin: 8px 0; padding: 6px 12px; font-style: italic; }
+table { border-collapse: collapse; width: 100%; margin: 6px 0 12px; font-size: 9.5pt; page-break-inside: auto; }
+tr { page-break-inside: avoid; }
+th { background: #2f5d8a; color: #fff; text-align: left; padding: 4px 8px; }
+td { border: 1px solid #d5dbe3; padding: 3px 8px; vertical-align: top; }
+td:first-child { font-weight: 600; width: 45%; color: #1f3d5c; }
+tr:nth-child(even) td { background: #f7f9fb; }
+p { margin: 5px 0; }
