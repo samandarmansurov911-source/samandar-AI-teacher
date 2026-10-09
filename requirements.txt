@@ -1,3 +1,6 @@
 python-telegram-bot[job-queue]>=21.6
 google-genai
 tzdata
+httpx
+Pillow>=10.1
+imageio-ffmpeg
