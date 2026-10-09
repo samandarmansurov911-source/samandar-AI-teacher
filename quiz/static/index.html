@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lug'at musobaqasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Lug'at <span>musobaqasi</span></div>
+
+  <form id="join" class="card stack hidden" autocomplete="off">
+    <label for="name" style="font-weight:800">Ismingizni yozing</label>
+    <input id="name" class="input" maxlength="20" placeholder="Masalan: Aziz" autofocus>
+    <button class="btn primary block" type="submit">Kirish</button>
+    <div class="error" id="joinErr"></div>
+  </form>
+
+  <div id="view"></div>
+</div>
+
+<script src="/static/common.js"></script>
+<script>
+let state = null;
+let me = null;
+let sig = "";
+let joining = false;
+const view = $("#view");
+
+const sock = connect({
+  onOpen() {
+    const token = store("quiz_token");
+    if (token) sock.send({ t: "join", token });
+    else showJoin();
+  },
+  onMessage(msg) {
+    if (msg.t === "joined") {
+      me = msg.name;
+      joining = false;
+      store("quiz_token", msg.token);
+      $("#join").classList.add("hidden");
+    } else if (msg.t === "error") {
+      joining = false;
+      if (!me) {
+        store("quiz_token", null);
+        showJoin(msg.text);
+      } else toast(msg.text);
+    } else if (msg.t === "kicked" || msg.t === "left") {
+      store("quiz_token", null);
+      me = null;
+      state = null;
+      sig = "";
+      view.innerHTML = "";
+      showJoin(msg.t === "kicked" ? "O'qituvchi sizni o'yindan chiqardi" : "");
+    } else if (msg.t === "state" && msg.you) {
+      state = msg;
+      render();
+    }
+  },
+});
+
+function showJoin(err = "") {
+  $("#join").classList.remove("hidden");
+  $("#joinErr").textContent = err;
+  view.innerHTML = "";
+  sig = "";
+  $("#name").focus();
+}
+
+$("#join").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = $("#name").value.trim();
+  if (!name) return ($("#joinErr").textContent = "Ismingizni yozing");
+  if (joining) return;
+  joining = true;
+  sock.send({ t: "join", name });
+});
+
+function render() {
+  const s = state;
+  const q = s.question;
+  const newSig = [s.phase, q && q.num, s.you.answered].join("|");
+  const changed = newSig !== sig;
+  sig = newSig;
+
+  if (s.phase === "lobby") return renderLobby();
+  if (s.phase === "question") return changed ? renderQuestion() : null;
+  if (s.phase === "reveal") return changed ? renderReveal() : updateBoard();
+  if (s.phase === "final") return renderFinal();
+}
+
+function header() {
+  return `<div class="qmeta"><span class="pill">👤 ${esc(state.you.name)}</span>
+    <span class="pill gold">${state.you.score} ball · ${state.you.rank}-o'rin</span></div>`;
+}
+
+function renderLobby() {
+  const names = state.leaderboard
+    .map((r) => `<span class="${r.id === state.you.id ? "me" : ""}">${esc(r.name)}</span>`)
+    .join("");
+  view.innerHTML = `${header()}
+    <div class="big-status"><div class="emoji">⏳</div><h2>Siz o'yindasiz!</h2>
+    <p>O'qituvchi boshlashini kuting</p>
+    ${state.list ? `<p style="opacity:.75">Lug'at: <b>${esc(state.list.name)}</b></p>` : ""}</div>
+    <div class="section-title center">O'yinchilar: ${state.playerCount}</div>
+    <div class="lobby-names">${names}</div>
+    <p class="center" style="margin-top:28px"><button class="btn ghost small" id="leave">Ismni o'zgartirish</button></p>`;
+  $("#leave").onclick = () => sock.send({ t: "leave" });
+}
+
+function renderQuestion() {
+  const q = state.question;
+  view.innerHTML = `${header()}
+    <div class="timer-bar"><div id="bar"></div></div>
+    <div class="qmeta"><span class="pill">${q.num}-savol</span><span class="pill" style="font-size:20px">⏱ <span id="sec"></span></span></div>
+    <div class="word pop"><small>Inglizchasini yozing</small>${esc(q.uz)}</div>
+    ${
+      state.you.answered
+        ? `<div class="big-status"><div class="emoji">✍️</div><h2>Javob qabul qilindi</h2><p>Boshqalarni kutamiz…</p></div>`
+        : `<form class="answer-form" id="ans" autocomplete="off">
+            <input class="input" id="ansIn" placeholder="English…" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send">
+            <button class="btn primary">Yuborish</button></form>`
+    }`;
+  startTimer(q, $("#bar"), $("#sec"));
+  const form = $("#ans");
+  if (form) {
+    $("#ansIn").focus();
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = $("#ansIn").value.trim();
+      if (!text) {
+        form.classList.remove("shake");
+        void form.offsetWidth;
+        form.classList.add("shake");
+        return;
+      }
+      form.querySelector("button").disabled = true;
+      sock.send({ t: "answer", text });
+    });
+  }
+}
+
+function renderReveal() {
+  const q = state.question;
+  const r = state.you.result;
+  const box = r.correct
+    ? `<div class="result good pop"><h2>✅ To'g'ri!</h2><div class="pts">+${r.points} ball</div>
+        ${r.typo ? `<div class="ans">Kichik xato bor edi: <b>${esc(r.text)}</b></div>` : ""}
+        ${state.you.streak >= 2 ? `<div class="ans">🔥 ketma-ket ${state.you.streak} ta</div>` : ""}</div>`
+    : `<div class="result bad pop"><h2>${r.text ? "❌ Noto'g'ri" : "⌛ Vaqt tugadi"}</h2>
+        ${r.text ? `<div class="ans">Siz yozdingiz: <b>${esc(r.text)}</b></div>` : ""}</div>`;
+  view.innerHTML = `${header()}
+    <div class="word" style="padding:20px 16px"><small>${esc(q.uz)}</small>${esc(q.en)}</div>
+    <div style="margin-top:14px">${box}</div>
+    <div class="rankbox"><div><b id="myRank">${state.you.rank}</b><span>o'rin</span></div>
+      <div><b id="myScore">${state.you.score}</b><span>ball</span></div>
+      <div><b>${q.correctCount}/${state.playerCount}</b><span>to'g'ri topdi</span></div></div>
+    <div class="section-title">Reyting</div><div id="board"></div>`;
+  updateBoard();
+}
+
+function updateBoard() {
+  const el = $("#board");
+  if (el) el.innerHTML = boardHTML(state.leaderboard, state.you.id);
+}
+
+function renderFinal() {
+  view.innerHTML = `${header()}
+    <div class="big-status" style="padding:16px 0 0"><div class="emoji">🏆</div><h2>Natijalar</h2>
+    <p>Siz <b>${state.you.rank}-o'rin</b>, ${state.you.score} ball</p></div>
+    ${podiumHTML(state.leaderboard)}
+    <div class="section-title">To'liq reyting</div><div id="board"></div>`;
+  updateBoard();
+}
+</script>
+</body>
+</html>

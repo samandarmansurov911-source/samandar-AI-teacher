@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O'qituvchi paneli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+<style>
+  .host { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 20px; max-width: 1400px; margin: 0 auto; padding: 16px; }
+  @media (max-width: 960px) { .host { grid-template-columns: 1fr; } }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; grid-column: 1 / -1; }
+  .top .brand { margin: 0; font-size: 24px; }
+  .stage { min-width: 0; }
+  .joinbox { background: #fff; color: var(--ink); border-radius: var(--radius); padding: 18px; text-align: center; box-shadow: 0 6px 0 rgba(0,0,0,.18); }
+  .joinbox .url { font-size: clamp(22px, 4vw, 40px); font-weight: 900; word-break: break-all; color: var(--bg); }
+  .stage .word { font-size: clamp(36px, 6vw, 72px); padding: 50px 20px; }
+  .count-big { font-size: 64px; font-weight: 900; line-height: 1; }
+  .side { background: #fff; color: var(--ink); border-radius: var(--radius); padding: 0; align-self: start; box-shadow: 0 6px 0 rgba(0,0,0,.18); overflow: hidden; }
+  .tabs { display: flex; border-bottom: 2px solid var(--line); }
+  .tabs button { flex: 1; background: none; border: 0; padding: 14px; font-weight: 800; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; }
+  .tabs button.on { color: var(--bg); border-color: var(--bg); }
+  .pane { padding: 16px; }
+  .pane h3 { margin: 18px 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+  .pane h3:first-child { margin-top: 0; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .row > .btn { flex: 1; }
+  select.input { font-size: 15px; padding: 11px 12px; }
+  .check { display: flex; align-items: center; gap: 10px; font-weight: 700; margin: 10px 0; cursor: pointer; }
+  .check input { width: 20px; height: 20px; accent-color: var(--bg); }
+  .times { display: flex; gap: 6px; flex-wrap: wrap; }
+  .times button { flex: 1; min-width: 44px; padding: 9px 0; border-radius: 8px; border: 2px solid var(--line); background: #fff; font-weight: 800; cursor: pointer; color: var(--ink); }
+  .times button.on { background: var(--bg); color: #fff; border-color: var(--bg); }
+  .lists { list-style: none; padding: 0; margin: 0; }
+  .lists li { display: flex; align-items: center; gap: 8px; padding: 10px; border: 2px solid var(--line); border-radius: 10px; margin-bottom: 8px; }
+  .lists li.cur { border-color: var(--bg); background: #f4effd; }
+  .lists .nm { flex: 1; min-width: 0; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lists .nm small { display: block; color: var(--muted); font-weight: 600; }
+  .preview { font-size: 13px; max-height: 180px; overflow: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 8px; }
+  .preview table { width: 100%; border-collapse: collapse; }
+  .preview td { padding: 5px 8px; border-bottom: 1px solid var(--line); }
+  .preview td:first-child { font-weight: 700; }
+  .hint { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 6px 0; }
+  .hint code { background: #f1eef7; padding: 1px 5px; border-radius: 4px; }
+  .warn { background: #fff4d6; color: #7a5a00; padding: 10px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+  .players .board li { cursor: pointer; }
+  .players .board li:hover .nm::after { content: "  ✕ chiqarish"; color: var(--bad); font-size: 12px; }
+  .players .board li.done .rk::after { content: "✓"; color: var(--good); margin-left: 2px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips span { background: rgba(255,255,255,.16); padding: 6px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; }
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .twocol { grid-template-columns: 1fr; } }
+  .stage .lobby-names span { cursor: pointer; }
+  .stage .lobby-names span:hover { background: var(--bad); }
+</style>
+</head>
+<body>
+
+<div class="wrap hidden" id="login">
+  <div class="brand">O'qituvchi <span>paneli</span></div>
+  <form class="card stack" id="loginForm">
+    <label style="font-weight:800" for="pw">Parol</label>
+    <input class="input" type="password" id="pw" autofocus>
+    <button class="btn primary block">Kirish</button>
+    <div class="error" id="loginErr"></div>
+  </form>
+</div>
+
+<div class="host hidden" id="app">
+  <div class="top">
+    <div class="brand">Lug'at <span>musobaqasi</span></div>
+    <div class="row" style="align-items:center">
+      <span class="pill" id="topList"></span>
+      <span class="pill gold" id="topPlayers"></span>
+    </div>
+  </div>
+
+  <div class="stage" id="stage"></div>
+
+  <div class="side">
+    <div class="tabs">
+      <button data-tab="control" class="on">Boshqaruv</button>
+      <button data-tab="lists">Lug'atlar</button>
+    </div>
+
+    <div class="pane" data-pane="control">
+      <div class="warn hidden" id="pwWarn">Standart parol ishlatilmoqda. Hostingda <code>HOST_PASSWORD</code> o'rnating.</div>
+      <h3>O'yin</h3>
+      <div class="stack">
+        <button class="btn primary block" id="mainBtn">Boshlash</button>
+        <div class="row">
+          <button class="btn blue small" id="finishBtn">🏁 Yakunlash</button>
+          <button class="btn small" id="lobbyBtn">⏸ Kutish zali</button>
+        </div>
+      </div>
+
+      <h3>Joriy lug'at</h3>
+      <select class="input" id="listSel"></select>
+      <p class="hint">Istalgan payt almashtirsangiz, keyingi savol yangi lug'atdan chiqadi. Ballar saqlanib qoladi.</p>
+
+      <h3>Har bir savolga vaqt (soniya)</h3>
+      <div class="times" id="times"></div>
+      <label class="check"><input type="checkbox" id="auto"> Avtomatik keyingi savol</label>
+      <label class="check"><input type="checkbox" id="typos"> Bitta harf xatosini qabul qilish</label>
+
+      <h3>O'yinchilar <span id="pc"></span></h3>
+      <p class="hint">Ismni bossangiz, o'sha o'quvchi o'yindan chiqariladi.</p>
+      <div class="players" id="players"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn small" id="resetBtn">↺ Ballarni nolga</button>
+        <button class="btn red small" id="clearBtn">Hammani chiqarish</button>
+      </div>
+    </div>
+
+    <div class="pane hidden" data-pane="lists">
+      <h3>Saqlangan lug'atlar</h3>
+      <ul class="lists" id="lists"></ul>
+      <div class="row">
+        <button class="btn small" id="exportBtn">⬇ Zaxira yuklab olish</button>
+        <label class="btn small" style="flex:1">⬆ Zaxiradan tiklash<input type="file" id="importFile" accept=".json" hidden></label>
+      </div>
+
+      <h3 id="formTitle">Yangi lug'at</h3>
+      <form id="listForm" class="stack" autocomplete="off">
+        <input class="input" id="lname" placeholder="Nomi: masalan, Unit 5" maxlength="60" style="font-size:16px">
+        <textarea class="input" id="ltext" placeholder="apple - olma&#10;book - kitob&#10;big / large - katta"></textarea>
+        <p class="hint">Har qatorda bitta so'z: <code>inglizcha - o'zbekcha</code>. Ajratuvchi <code>-</code>, <code>=</code>, <code>:</code> yoki Excel'dan nusxa (tab) bo'lishi mumkin. Bir nechta to'g'ri javob bo'lsa: <code>big / large - katta</code>.</p>
+        <label class="check"><input type="checkbox" id="swap"> Chapda o'zbekcha, o'ngda inglizcha</label>
+        <label class="btn small" style="width:100%">📄 .txt yoki .csv fayldan olish<input type="file" id="txtFile" accept=".txt,.csv,text/plain" hidden></label>
+        <div id="preview"></div>
+        <div class="row">
+          <button class="btn primary" type="submit">Saqlash</button>
+          <button class="btn hidden" type="button" id="cancelEdit">Bekor qilish</button>
+        </div>
+        <div class="error" id="listErr"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/static/common.js"></script>
+<script>
+let pw = store("quiz_host_pw") || "";
+let state = null;
+let sig = "";
+let editId = null;
+let sock = null;
+
+const api = async (path, opts = {}) => {
+  const res = await fetch(path, {
+    ...opts,
+    headers: { "Content-Type": "application/json", "X-Host-Password": pw, ...(opts.headers || {}) },
+  });
+  const data = res.headers.get("content-type")?.includes("json") ? await res.json() : await res.text();
+  if (!res.ok) throw new Error((data && data.error) || "Xatolik");
+  return data;
+};
+
+function start() {
+  sock = connect({
+    onOpen: () => sock.send({ t: "host_auth", password: pw }),
+    onMessage(msg) {
+      if (msg.t === "host_ok") {
+        store("quiz_host_pw", pw);
+        $("#login").classList.add("hidden");
+        $("#app").classList.remove("hidden");
+      } else if (msg.t === "error") {
+        if (!state) {
+          store("quiz_host_pw", null);
+          $("#app").classList.add("hidden");
+          $("#login").classList.remove("hidden");
+          $("#loginErr").textContent = msg.text;
+        } else toast(msg.text);
+      } else if (msg.t === "state") {
+        state = msg;
+        render();
+      }
+    },
+  });
+}
+
+$("#loginForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  pw = $("#pw").value;
+  $("#loginErr").textContent = "";
+  if (sock) sock.send({ t: "host_auth", password: pw });
+  else start();
+});
+
+if (pw) start();
+else $("#login").classList.remove("hidden");
+
+// --- tablar
+document.querySelectorAll(".tabs button").forEach((b) =>
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach((x) => x.classList.toggle("on", x === b));
+    document.querySelectorAll(".pane").forEach((p) => p.classList.toggle("hidden", p.dataset.pane !== b.dataset.tab));
+  })
+);
+
+// --- boshqaruv tugmalari
+const send = (t, extra = {}) => sock.send({ t, ...extra });
+$("#mainBtn").onclick = () => send(state.phase === "question" ? "reveal" : "next");
+$("#finishBtn").onclick = () => send("finish");
+$("#lobbyBtn").onclick = () => send("lobby");
+$("#resetBtn").onclick = () => confirm("Hamma ballar nolga tushadi. Davom etamizmi?") && send("reset");
+$("#clearBtn").onclick = () => confirm("Barcha o'quvchilar o'yindan chiqariladi. Davom etamizmi?") && send("clear_players");
+$("#listSel").onchange = (e) => send("set_list", { id: e.target.value });
+$("#auto").onchange = (e) => send("settings", { settings: { auto: e.target.checked } });
+$("#typos").onchange = (e) => send("settings", { settings: { typos: e.target.checked } });
+$("#times").innerHTML = [5, 10, 15, 20, 30, 45, 60].map((t) => `<button data-t="${t}">${t}</button>`).join("");
+$("#times").onclick = (e) => {
+  const t = +e.target.dataset.t;
+  if (t) send("settings", { settings: { time: t } });
+};
+
+function kick(id) {
+  const p = state.leaderboard.find((r) => r.id === id);
+  if (p && confirm(`${p.name} o'yindan chiqarilsinmi?`)) send("kick", { id });
+}
+$("#players").onclick = (e) => {
+  const li = e.target.closest("li[data-id]");
+  if (li) kick(li.dataset.id);
+};
+$("#stage").addEventListener("click", (e) => {
+  const el = e.target.closest(".lobby-names [data-id]");
+  if (el) kick(el.dataset.id);
+});
+
+// --- chizish
+function render() {
+  const s = state;
+  $("#pwWarn").classList.toggle("hidden", !s.defaultPassword);
+  $("#topList").textContent = s.list ? `📚 ${s.list.name} · ${s.list.count} so'z` : "Lug'at tanlanmagan";
+  $("#topPlayers").textContent = `👥 ${s.playerCount}`;
+  $("#pc").textContent = `(${s.playerCount})`;
+
+  const labels = { lobby: "▶ Boshlash", question: "⏭ Javobni ko'rsatish", reveal: "▶ Keyingi savol", final: "▶ Davom ettirish" };
+  $("#mainBtn").textContent = labels[s.phase];
+  $("#mainBtn").disabled = !s.list;
+
+  $("#listSel").innerHTML = s.lists.map((l) => `<option value="${l.id}" ${l.id === s.listId ? "selected" : ""}>${esc(l.name)} (${l.count})</option>`).join("");
+  $("#auto").checked = s.settings.auto;
+  $("#typos").checked = s.settings.typos;
+  document.querySelectorAll("#times button").forEach((b) => b.classList.toggle("on", +b.dataset.t === s.settings.time));
+
+  const done = new Set(s.answeredIds);
+  $("#players").innerHTML = boardHTML(s.leaderboard);
+  if (s.phase === "question") document.querySelectorAll("#players li").forEach((li) => li.classList.toggle("done", done.has(li.dataset.id)));
+
+  renderLists();
+  renderStage();
+}
+
+function renderStage() {
+  const s = state;
+  const q = s.question;
+  const st = $("#stage");
+  const newSig = [s.phase, q && q.num].join("|");
+  const changed = newSig !== sig;
+  sig = newSig;
+  const joinUrl = location.origin;
+
+  if (s.phase === "lobby") {
+    st.innerHTML = `<div class="joinbox pop"><div class="muted" style="font-weight:800">O'quvchilar shu manzilga kirsin:</div>
+        <div class="url">${esc(joinUrl.replace(/^https?:\/\//, ""))}</div></div>
+      <div class="big-status" style="padding:26px 0 10px"><div class="count-big">${s.playerCount}</div><p>o'yinchi kirdi</p></div>
+      <div class="lobby-names">${s.leaderboard.map((r) => `<span data-id="${r.id}" title="Chiqarish">${esc(r.name)}</span>`).join("")}</div>`;
+    return;
+  }
+
+  if (s.phase === "question") {
+    if (changed) {
+      st.innerHTML = `<div class="timer-bar"><div id="bar"></div></div>
+        <div class="qmeta"><span class="pill">${q.num}-savol · qoldi: ${q.left}</span><span class="pill" style="font-size:26px">⏱ <span id="sec"></span></span></div>
+        <div class="word pop"><small>Inglizchasini yozing</small>${esc(q.uz)}</div>
+        <div class="big-status" style="padding:26px 0"><div class="count-big"><span id="ansCount"></span></div><p>javob berdi</p></div>`;
+      startTimer(q, $("#bar"), $("#sec"));
+    }
+    $("#ansCount").textContent = `${q.answered}/${s.playerCount}`;
+    return;
+  }
+
+  if (s.phase === "reveal") {
+    const fastest = q.fastest.map((f, i) => `<span>${i + 1}. ${esc(f.name)} · ${(f.ms / 1000).toFixed(1)}s</span>`).join("");
+    const wrong = (s.wrongAnswers || []).map(([w, n]) => `<span>${esc(w)}${n > 1 ? ` ×${n}` : ""}</span>`).join("");
+    st.innerHTML = `<div class="word" style="padding:24px 16px"><small>${esc(q.uz)}</small>${esc(q.en)}</div>
+      <div class="rankbox"><div><b>${q.correctCount}/${s.playerCount}</b><span>to'g'ri topdi</span></div>
+        <div><b>${q.left}</b><span>so'z qoldi</span></div></div>
+      <div class="twocol">
+        <div><div class="section-title">Reyting</div>${boardHTML(s.leaderboard, null, 10)}</div>
+        <div>
+          ${fastest ? `<div class="section-title">⚡ Eng tezlar</div><div class="chips">${fastest}</div>` : ""}
+          ${wrong ? `<div class="section-title">Xato javoblar</div><div class="chips">${wrong}</div>` : ""}
+          ${s.settings.auto ? `<p style="margin-top:20px;opacity:.8">Keyingi savol bir necha soniyada…</p>` : ""}
+        </div>
+      </div>`;
+    return;
+  }
+
+  if (s.phase === "final") {
+    st.innerHTML = `<div class="big-status" style="padding:10px 0 0"><div class="emoji">🏆</div><h2>G'oliblar</h2></div>
+      ${podiumHTML(s.leaderboard)}
+      <div class="section-title">To'liq reyting</div>${boardHTML(s.leaderboard)}`;
+  }
+}
+
+// --- lug'atlar
+function renderLists() {
+  $("#lists").innerHTML = state.lists
+    .map(
+      (l) => `<li class="${l.id === state.listId ? "cur" : ""}">
+        <div class="nm">${esc(l.name)}<small>${l.count} so'z${l.id === state.listId ? " · hozir o'ynalmoqda" : ""}</small></div>
+        ${l.id === state.listId ? "" : `<button class="btn blue small" data-act="use" data-id="${l.id}">O'ynash</button>`}
+        <button class="btn small" data-act="edit" data-id="${l.id}">✎</button>
+        <button class="btn red small" data-act="del" data-id="${l.id}">🗑</button></li>`
+    )
+    .join("") || '<p class="hint">Hali lug\'at yo\'q.</p>';
+}
+
+$("#lists").onclick = async (e) => {
+  const b = e.target.closest("button[data-act]");
+  if (!b) return;
+  const { act, id } = b.dataset;
+  const l = state.lists.find((x) => x.id === id);
+  if (act === "use") send("set_list", { id });
+  if (act === "del" && confirm(`"${l.name}" o'chirilsinmi?`)) {
+    await api(`/api/lists/${id}`, { method: "DELETE" }).catch((err) => toast(err.message));
+    if (editId === id) resetForm();
+  }
+  if (act === "edit") {
+    const data = await api(`/api/lists/${id}`);
+    editId = id;
+    $("#lname").value = data.name;
+    $("#ltext").value = data.text;
+    $("#swap").checked = false;
+    $("#formTitle").textContent = `Tahrirlash: ${data.name}`;
+    $("#cancelEdit").classList.remove("hidden");
+    preview();
+    $("#lname").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+};
+
+function resetForm() {
+  editId = null;
+  $("#listForm").reset();
+  $("#formTitle").textContent = "Yangi lug'at";
+  $("#cancelEdit").classList.add("hidden");
+  $("#preview").innerHTML = "";
+  $("#listErr").textContent = "";
+}
+$("#cancelEdit").onclick = resetForm;
+
+let previewTimer;
+function preview() {
+  clearTimeout(previewTimer);
+  previewTimer = setTimeout(async () => {
+    const text = $("#ltext").value;
+    if (!text.trim()) return ($("#preview").innerHTML = "");
+    const { words, bad } = await api("/api/parse", { method: "POST", body: JSON.stringify({ text, swap: $("#swap").checked }) });
+    $("#preview").innerHTML = `<div class="hint"><b>${words.length}</b> ta so'z topildi${bad.length ? `, <span style="color:var(--bad)">${bad.length} ta qator tushunilmadi</span>` : ""}</div>
+      <div class="preview"><table><tr><td class="muted">English</td><td class="muted">O'zbekcha</td></tr>
+      ${words.map((w) => `<tr><td>${esc(w.en)}</td><td>${esc(w.uz)}</td></tr>`).join("")}
+      ${bad.map((b) => `<tr><td colspan="2" style="color:var(--bad)">⚠ ${esc(b)}</td></tr>`).join("")}</table></div>`;
+  }, 250);
+}
+$("#ltext").addEventListener("input", preview);
+$("#swap").addEventListener("change", preview);
+
+$("#txtFile").onchange = async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  $("#ltext").value = await f.text();
+  if (!$("#lname").value) $("#lname").value = f.name.replace(/\.[^.]+$/, "");
+  e.target.value = "";
+  preview();
+};
+
+$("#listForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("#listErr").textContent = "";
+  const name = $("#lname").value.trim();
+  if (!name) return ($("#listErr").textContent = "Lug'atga nom bering");
+  try {
+    const res = await api("/api/lists", {
+      method: "POST",
+      body: JSON.stringify({ id: editId, name, text: $("#ltext").value, swap: $("#swap").checked }),
+    });
+    toast(`Saqlandi: ${res.count} ta so'z`);
+    resetForm();
+  } catch (err) {
+    $("#listErr").textContent = err.message;
+  }
+});
+
+$("#exportBtn").onclick = async () => {
+  const text = await api("/api/export");
+  const blob = new Blob([typeof text === "string" ? text : JSON.stringify(text, null, 1)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "lugatlar.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+$("#importFile").onchange = async (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    const res = await api("/api/import", { method: "POST", body: await f.text() });
+    toast(`${res.added} ta lug'at tiklandi`);
+  } catch (err) {
+    toast(err.message);
+  }
+  e.target.value = "";
+};
+</script>
+</body>
+</html>
