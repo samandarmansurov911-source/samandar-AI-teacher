@@ -1,5 +1,5 @@
 ---
-title: "Multilevel Writing — 9 Mock"
+title: "General Writing"
 subtitle: "Topshiriqlar · Namuna javoblar · Asosiy iboralar va tarjimasi"
-author: "Manba: Ulugbek Davlatov, iTeacher — Multilevel Writing (New Format)"
+author: "Muallif: Mansurov Samandar"
 ---
