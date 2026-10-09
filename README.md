@@ -1,6 +1,10 @@
 # samandar-AI-teacher
 AI assisstant
 
+## Lug'at musobaqasi (Kahoot uslubida)
+
+O'quvchilar ism bilan kiradi, o'zbekcha so'zning inglizchasini yozadi, reyting jonli ko'rinadi. Batafsil: [`quiz/README.md`](quiz/README.md).
+
 ## Avtonom kanal menejeri
 
 `bot.py` ishga tushganda essay tekshiruvchi bot bilan birga **avtonom kanal menejeri** ham ishlaydi (`channel_manager.py`). U har kuni belgilangan vaqtlarda:
