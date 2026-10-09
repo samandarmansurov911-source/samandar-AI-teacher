@@ -237,6 +237,11 @@ def similar(a: str, b: str) -> bool:
     return a == b or difflib.SequenceMatcher(None, a, b).ratio() > 0.85
 
 
+def is_quota_error(error: Exception) -> bool:
+    text = str(error)
+    return "429" in text or "RESOURCE_EXHAUSTED" in text
+
+
 def slot_name(hour: int) -> str:
     if hour < 12:
         return "morning"
@@ -358,6 +363,7 @@ class ChannelManager:
         self.init_lock = asyncio.Lock()
         self.cycle_lock = asyncio.Lock()
         self.last_alerts = {}
+        self.last_error = ""
 
     # ---------------- startup ----------------
 
@@ -414,7 +420,9 @@ class ChannelManager:
             except Exception as e:
                 last_error = e
                 log.warning("Gemini call failed (attempt %d): %s", attempt + 1, e)
-                await asyncio.sleep(2 ** attempt * 3)
+                if attempt < 2:
+                    # Per-minute quota (429) needs a real pause before retrying.
+                    await asyncio.sleep(40 * (attempt + 1) if is_quota_error(e) else 2 ** attempt * 3)
         raise RuntimeError(f"Gemini failed: {last_error}")
 
     # ---------------- analysis of history ----------------
@@ -705,9 +713,17 @@ Before answering, double-check every answer key.{fix_note}"""
                 return None
             except Exception as e:
                 log.exception("Cycle failed")
+                if is_quota_error(e):
+                    reason = (
+                        "Gemini API limiti tugadi (429). Bepul kalitda daqiqalik va "
+                        "kunlik so'rovlar soni cheklangan."
+                    )
+                else:
+                    reason = str(e)[:500]
+                self.last_error = reason
                 await self.alert(
                     bot, "cycle_failed",
-                    f"❌ Post tayyorlab bo'lmadi: {str(e)[:500]}\n"
+                    f"❌ Post tayyorlab bo'lmadi: {reason}\n"
                     "Keyingi rejalashtirilgan vaqtda yana urinaman.",
                 )
                 return None
@@ -750,10 +766,16 @@ Before answering, double-check every answer key.{fix_note}"""
     async def refresh_trends(self, bot):
         await self.ensure_ready(bot)
         trends = self.memory.data["trends"]
+        now = datetime.now(TZ)
         if trends.get("updated"):
-            age = datetime.now(TZ) - datetime.fromisoformat(trends["updated"])
-            if age < timedelta(days=7):
+            if now - datetime.fromisoformat(trends["updated"]) < timedelta(days=7):
                 return
+        # Do not spend Gemini quota retrying on every restart after a failure.
+        if trends.get("last_attempt"):
+            if now - datetime.fromisoformat(trends["last_attempt"]) < timedelta(days=1):
+                return
+        trends["last_attempt"] = now.isoformat()
+        self.memory.save_local()
         try:
             response = await self.client.aio.models.generate_content(
                 model=GEMINI_MODEL,
@@ -871,7 +893,9 @@ Before answering, double-check every answer key.{fix_note}"""
                 f"✅ Chiqdi: {record['content_type']} ({record['level']}) — {record['topic']}"
             )
         else:
-            await update.message.reply_text("❌ Post chiqmadi, loglarni tekshiring.")
+            await update.message.reply_text(
+                f"❌ Post chiqmadi: {self.last_error or 'sababini Render Logs dan ko‘ring.'}"
+            )
 
     async def cmd_preview(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         await self.ensure_ready(context.bot)
@@ -889,7 +913,8 @@ Before answering, double-check every answer key.{fix_note}"""
             if post.get("answer_reveal_html"):
                 await self.send_html(context.bot, update.effective_chat.id, post["answer_reveal_html"])
         except Exception as e:
-            await update.message.reply_text(f"❌ Xato: {str(e)[:500]}")
+            reason = "Gemini API limiti tugadi (429)." if is_quota_error(e) else str(e)[:500]
+            await update.message.reply_text(f"❌ Xato: {reason}")
 
     async def cmd_pause(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         await self.ensure_ready(context.bot)
