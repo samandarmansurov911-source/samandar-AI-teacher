@@ -72,6 +72,9 @@ MEMORY_FILE = os.environ.get("MEMORY_FILE", "channel_memory.json")
 BACKUP_FILENAME = "channel_memory.json"
 MAX_POSTS_KEPT = 400
 MAX_ATTEMPTS = 3
+SLOT_CATCHUP_WINDOW = timedelta(hours=3)
+SLOT_MAX_TRIES = 3
+SLOT_RETRY_GAP = timedelta(minutes=20)
 ALERT_COOLDOWN = 6 * 3600
 
 PILLARS = [
@@ -365,6 +368,7 @@ class ChannelManager:
         self.cycle_lock = asyncio.Lock()
         self.last_alerts = {}
         self.last_error = ""
+        self.slot_tries = {}
 
     # ---------------- startup ----------------
 
@@ -832,9 +836,45 @@ Before answering, double-check every answer key.{fix_note}"""
 
     # ---------------- jobs ----------------
 
-    async def job_post(self, context: ContextTypes.DEFAULT_TYPE):
-        # Small random delay so posts do not land at exactly the same minute.
-        await asyncio.sleep(random.randint(0, 600))
+    def due_slot(self, now: datetime) -> datetime | None:
+        """Today's posting slot that has passed recently and has no post yet.
+
+        Checked every few minutes instead of firing once at the exact time,
+        so a slot missed while the host was asleep or restarting is still
+        posted (within SLOT_CATCHUP_WINDOW) and never posted twice.
+        """
+        posted = []
+        for p in self.memory.posts[-20:]:
+            try:
+                posted.append(datetime.fromisoformat(p["datetime"]))
+            except Exception:
+                continue
+        for t in parse_post_times():
+            slot = now.replace(hour=t.hour, minute=t.minute, second=0, microsecond=0)
+            if not slot <= now < slot + SLOT_CATCHUP_WINDOW:
+                continue
+            if any(d >= slot for d in posted):
+                continue
+            tries = self.slot_tries.get(slot.isoformat(), [])
+            if len(tries) >= SLOT_MAX_TRIES or (tries and now - tries[-1] < SLOT_RETRY_GAP):
+                continue
+            return slot
+        return None
+
+    async def job_tick(self, context: ContextTypes.DEFAULT_TYPE):
+        try:
+            await self.ensure_ready(context.bot)
+        except Exception as e:
+            log.error("Channel manager not ready: %s", e)
+            return
+        if self.memory.data.get("paused") or self.cycle_lock.locked():
+            return
+        now = datetime.now(TZ)
+        slot = self.due_slot(now)
+        if slot is None:
+            return
+        self.slot_tries.setdefault(slot.isoformat(), []).append(now)
+        log.info("Slot %s is due (now %s)", slot.strftime("%H:%M"), now.strftime("%H:%M"))
         await self.run_cycle(context.bot)
 
     async def job_backup(self, context: ContextTypes.DEFAULT_TYPE):
@@ -857,6 +897,10 @@ Before answering, double-check every answer key.{fix_note}"""
 
     # ---------------- owner commands ----------------
 
+    def posts_today(self) -> int:
+        today = datetime.now(TZ).date().isoformat()
+        return sum(1 for p in self.memory.posts if p["datetime"][:10] == today)
+
     async def cmd_status(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         await self.ensure_ready(context.bot)
         posts = self.memory.posts
@@ -865,6 +909,7 @@ Before answering, double-check every answer key.{fix_note}"""
             f"📡 Kanal: {CHANNEL_ID}",
             f"⏸ Pauza: {'ha' if self.memory.data.get('paused') else 'yo‘q'}",
             f"🕒 Post vaqtlari: {POST_TIMES} ({TZ.key})",
+            f"📅 Bugun chiqqan postlar: {self.posts_today()}",
             f"📝 Jami postlar xotirada: {len(posts)}",
             f"⏳ Javobi kutilayotgan topshiriqlar: {len(self.memory.data['pending_reveals'])}",
         ]
@@ -961,8 +1006,7 @@ def setup(app: Application, gemini_client: genai.Client) -> ChannelManager | Non
     jq = app.job_queue
 
     jq.run_once(manager.job_startup, when=5)
-    for t in parse_post_times():
-        jq.run_daily(manager.job_post, time=t, name=f"post_{t.strftime('%H%M')}")
+    jq.run_repeating(manager.job_tick, interval=300, first=60, name="channel_tick")
     jq.run_repeating(manager.job_backup, interval=1800, first=1800)
     if TREND_RESEARCH:
         jq.run_repeating(manager.job_trends, interval=timedelta(hours=12), first=120)
