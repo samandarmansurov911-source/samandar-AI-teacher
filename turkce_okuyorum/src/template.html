@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Türkçe Okuyorum 1</title>
+<style>
+:root{
+  --bg:#f6f3ee; --card:#ffffff; --ink:#1f2328; --muted:#6b6f76; --line:#e6e1d8;
+  --accent:#b4232c; --accent-ink:#fff; --hl:#fff2b3; --sp:#1d4e89; --pop:#20242b; --pop-ink:#fff;
+  --chip:#f1ece4;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#15171a; --card:#1e2125; --ink:#e8e6e3; --muted:#9aa0a6; --line:#2e3238;
+    --accent:#e0525a; --accent-ink:#fff; --hl:#4a4020; --sp:#8cb8ff; --pop:#f1f1f1; --pop-ink:#111;
+    --chip:#262a30;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:17px/1.65 Georgia,"Times New Roman",serif;-webkit-text-size-adjust:100%}
+header.top{position:sticky;top:0;z-index:20;background:var(--accent);color:var(--accent-ink);
+  padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+header.top h1{font-size:18px;margin:0;flex:1;white-space:nowrap}
+header.top label{font-size:13px;display:flex;align-items:center;gap:6px}
+header.top select,header.top button{font:inherit;font-size:13px;border:0;border-radius:6px;padding:5px 8px;
+  background:rgba(255,255,255,.18);color:inherit}
+header.top select option{color:#000}
+main{max-width:820px;margin:0 auto;padding:16px}
+.intro{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:14px;color:var(--muted);
+  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.intro b{color:var(--ink)}
+.warn{color:var(--accent);font-weight:600;display:none}
+nav.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px;margin-bottom:24px;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:14px}
+nav.toc a{display:flex;gap:8px;text-decoration:none;color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+nav.toc a span{color:var(--accent);font-weight:700;min-width:22px}
+section.lesson{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 18px 8px;margin-bottom:28px;scroll-margin-top:70px}
+.lhead{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.lnum{font-family:system-ui,sans-serif;font-weight:800;color:var(--accent);font-size:14px;
+  border:2px solid var(--accent);border-radius:50%;width:34px;height:34px;display:grid;place-items:center;flex:none}
+.lhead h2{margin:2px 0 0;font-size:22px;letter-spacing:.5px;flex:1;min-width:180px}
+.play{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:15px;font-weight:600;
+  background:var(--accent);color:var(--accent-ink);border:0;border-radius:999px;padding:9px 16px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px}
+.play.on{background:var(--ink);color:var(--card)}
+.text p{margin:0 0 12px;text-indent:1.5em;text-align:justify}
+.line{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;padding:3px 6px;border-radius:6px;margin:0 -6px}
+.line .who{font-weight:700;color:var(--sp);white-space:nowrap;cursor:pointer}
+.line .who::after{content:" –";color:var(--muted);font-weight:400}
+.speaking{background:var(--hl)}
+p.speaking{border-radius:6px}
+.w{cursor:pointer;border-radius:3px;transition:background .1s}
+.w:hover{background:var(--chip)}
+.w.sel{background:var(--accent);color:var(--accent-ink)}
+h3{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:15px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin:18px 0 8px;border-top:1px dashed var(--line);padding-top:14px}
+.vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:4px 16px;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:14.5px;line-height:1.4;margin-bottom:8px}
+.vocab div{padding:5px 0;border-bottom:1px solid var(--line)}
+.vocab b{cursor:pointer}
+.vocab b::after{content:" 🔊";font-size:11px;opacity:.5}
+.vocab i{font-style:normal;color:var(--muted)}
+details.ex{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:15px;margin:6px 0 12px}
+details.ex summary{cursor:pointer;font-weight:600;color:var(--accent);padding:6px 0}
+.ex ol{padding-left:22px;margin:6px 0}
+.ex li{margin:6px 0}
+.ex .ans{display:none;color:#1a7f37;font-weight:600;margin-top:2px}
+@media (prefers-color-scheme: dark){.ex .ans{color:#57d27a}}
+.ex li.show .ans{display:block}
+.ex .rev{font-size:12px;margin-left:6px;border:1px solid var(--line);background:var(--chip);color:var(--ink);
+  border-radius:6px;padding:1px 7px;cursor:pointer}
+.ex .all{margin-top:6px;border:0;background:var(--chip);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;font-size:14px}
+.ex .sub{font-weight:700;margin-top:10px}
+#pop{position:absolute;z-index:50;display:none;max-width:min(320px,calc(100vw - 32px));background:var(--pop);color:var(--pop-ink);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;border-radius:10px;padding:10px 12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:15px;line-height:1.4}
+#pop .tw{font-weight:700;font-size:17px;display:flex;align-items:center;gap:8px}
+#pop .tw button{border:0;background:transparent;font-size:18px;cursor:pointer;padding:0;color:inherit}
+#pop .uz{margin-top:3px}
+#pop .lm{margin-top:6px;font-size:13px;opacity:.75}
+footer{text-align:center;font-family:system-ui,sans-serif;font-size:12px;color:var(--muted);padding:20px 16px 40px}
+@media (max-width:520px){
+  body{font-size:16px}
+  main{padding:12px}
+  section.lesson{padding:14px 12px 6px}
+  .text p{text-align:left}
+  .line{grid-template-columns:1fr;gap:0}
+  .line .who::after{content:":"}
+  header.top{padding:8px 12px;gap:8px;flex-wrap:nowrap}
+  header.top h1{font-size:15px}
+  header.top label{font-size:0}
+  header.top label select{font-size:13px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>📖 Türkçe Okuyorum 1</h1>
+  <label>Tezlik
+    <select id="rate">
+      <option value="0.6">0.6×</option><option value="0.75">0.75×</option>
+      <option value="0.9" selected>0.9×</option><option value="1">1×</option><option value="1.2">1.2×</option>
+    </select>
+  </label>
+  <button id="stopAll" type="button" title="To'xtatish">■</button>
+</header>
+<main>
+  <div class="intro">
+    <b>Qanday foydalaniladi:</b> tushunmagan so'zingiz ustiga bosing — o'zbekcha tarjimasi chiqadi
+    (🔊 tugmasi so'zni o'qib beradi). Har bir matn tepasidagi <b>▶ O'qib berish</b> tugmasi butun dialogni
+    turkcha ovozda o'qiydi, o'qilayotgan qator sariq bilan belgilanadi. Gapiruvchi ismiga bossangiz, faqat o'sha qator o'qiladi.
+    Har bir matn tagida — shu matndagi lug'at va mashqlar (javoblari bilan).
+    <div class="warn" id="noVoice">⚠ Qurilmangizda turkcha ovoz topilmadi. Telefon sozlamalarida "Matnni nutqqa aylantirish" (Text-to-speech) bo'limidan Türkçe ovozini o'rnating yoki Chrome/Safari brauzeridan oching.</div>
+  </div>
+  <nav class="toc" id="toc"></nav>
+  <div id="book"></div>
+</main>
+<div id="pop" role="dialog"></div>
+<footer>Hakan Yılmaz — «Türkçe Okuyorum 1» (Dilmer Yayınları) asosida, shaxsiy o'qish uchun interaktiv nusxa.</footer>
+<script>
+const DATA = /*DATA*/null;
+const forms = DATA.forms, lemmas = DATA.lemmas;
+const WORD = /[A-Za-zÇĞİÖŞÜçğıöşüâÂîûÎÛ]+(?:'[A-Za-zÇĞİÖŞÜçğıöşüâîû]+)?/g;
+const low = s => s.toLocaleLowerCase('tr');
+function lookup(w){
+  w = low(w);
+  const base = w.split("'")[0];
+  for (const c of [w, w.replace(/ı/g,'i'), base, base.replace(/ı/g,'i')]) if (forms[c]) return c;
+  return null;
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function wrap(text){
+  let out='', last=0;
+  text.replace(WORD,(m,i)=>{ out+=esc(text.slice(last,i))+'<span class="w">'+esc(m)+'</span>'; last=i+m.length; return m; });
+  return out+esc(text.slice(last));
+}
+
+/* ---------- render ---------- */
+const toc = document.getElementById('toc'), book = document.getElementById('book');
+DATA.lessons.forEach((L,i)=>{
+  const id='d'+(i+1);
+  toc.insertAdjacentHTML('beforeend',`<a href="#${id}"><span>${i+1}</span>${esc(L.title)}</a>`);
+  const hasDialog = L.blocks.some(b=>b[0]==='S');
+  let body='';
+  for (const [t,sp,tx] of L.blocks){
+    if (t==='S') body+=`<div class="line" data-sp="${esc(sp)}"><span class="who">${esc(sp)}</span><span class="tx">${wrap(tx)}</span></div>`;
+    else body+=`<p>${wrap(tx)}</p>`;
+  }
+  const vocab = L.vocab.map(k=>`<div><b data-say="${esc(k)}">${esc(k)}</b> — <i>${esc(lemmas[k]||'')}</i></div>`).join('');
+  const nq=L.q.length;
+  const qa = L.q.map((q,j)=>`<li>${wrap(q)}<button class="rev" type="button">javob</button><div class="ans">${wrap(L.a[j])}</div></li>`).join('');
+  const da = L.d.map((q,j)=>`<li value="${nq+j+1}">${wrap(q)} <button class="rev" type="button">javob</button><div class="ans">${L.a[nq+j]==='Doğru'?'✔ Doğru (to\'g\'ri)':'✘ Yanlış (noto\'g\'ri)'}</div></li>`).join('');
+  book.insertAdjacentHTML('beforeend',`
+  <section class="lesson" id="${id}">
+    <div class="lhead"><div class="lnum">${i+1}</div><h2>${wrap(L.title)}</h2>
+      <button class="play" type="button" data-i="${i}">▶ ${hasDialog?"Dialogni o'qib berish":"Matnni o'qib berish"}</button></div>
+    <div class="text">${body}</div>
+    <h3>📚 Lug'at — shu matndagi so'zlar</h3>
+    <div class="vocab">${vocab}</div>
+    <details class="ex"><summary>✍ Mashqlar (A — savollar, B — Doğru mu, yanlış mı?)</summary>
+      <div class="sub">A) Lütfen cevap veriniz.</div><ol>${qa}</ol>
+      ${L.d.length?`<div class="sub">B) Doğru mu, yanlış mı?</div><ol start="${nq+1}">${da}</ol>`:''}
+      <button class="all" type="button">Barcha javoblarni ko'rsatish</button>
+    </details>
+  </section>`);
+});
+
+/* ---------- speech ---------- */
+const synth = window.speechSynthesis;
+let trVoices = [];
+function loadVoices(){
+  if (!synth) return;
+  const all = synth.getVoices();
+  trVoices = all.filter(v=>/^tr([-_]|$)/i.test(v.lang));
+  document.getElementById('noVoice').style.display = (all.length && !trVoices.length) ? 'block' : 'none';
+}
+if (synth){ loadVoices(); synth.onvoiceschanged = loadVoices; }
+else document.getElementById('noVoice').style.display='block';
+
+const rateSel = document.getElementById('rate');
+let runId = 0, activeBtn = null, activeEl = null;
+const PITCH = [1, 0.8, 1.25, 0.95, 1.12];
+function utter(text, voiceIdx){
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'tr-TR';
+  u.rate = parseFloat(rateSel.value);
+  if (trVoices.length){ u.voice = trVoices[voiceIdx % trVoices.length]; }
+  u.pitch = trVoices.length > 1 ? 1 : PITCH[voiceIdx % PITCH.length];
+  return u;
+}
+function sentences(t){ return t.match(/[^.!?…]+[.!?…]*["']?\s*/g) || [t]; }
+function clearHL(){ if (activeEl) activeEl.classList.remove('speaking'); activeEl=null; }
+function stopAll(){
+  runId++;
+  if (synth) synth.cancel();
+  clearHL();
+  if (activeBtn){ activeBtn.classList.remove('on'); activeBtn.textContent = activeBtn.dataset.label; activeBtn=null; }
+}
+function speakQueue(items, btn){
+  stopAll();
+  if (!synth) return;
+  const my = ++runId;
+  if (btn){ activeBtn=btn; btn.dataset.label=btn.textContent; btn.classList.add('on'); btn.textContent='■ To\'xtatish'; }
+  let k = 0;
+  const next = () => {
+    if (my !== runId) return;
+    clearHL();
+    if (k >= items.length){ stopAll(); return; }
+    const it = items[k++];
+    if (it.el){ activeEl = it.el; it.el.classList.add('speaking');
+      const r = it.el.getBoundingClientRect();
+      if (r.top < 70 || r.bottom > innerHeight - 20) it.el.scrollIntoView({block:'center',behavior:'smooth'}); }
+    const parts = sentences(it.text);
+    let p = 0;
+    const say = () => {
+      if (my !== runId) return;
+      if (p >= parts.length){ setTimeout(next, it.el ? 350 : 0); return; }
+      const u = utter(parts[p++].trim(), it.v);
+      u.onend = say; u.onerror = say;
+      synth.speak(u);
+    };
+    say();
+  };
+  next();
+}
+function lessonItems(sec){
+  const speakers = [];
+  const items = [];
+  items.push({el: sec.querySelector('h2'), text: sec.querySelector('h2').textContent, v: 0});
+  sec.querySelectorAll('.text > p, .text > .line').forEach(el=>{
+    if (el.classList.contains('line')){
+      const sp = el.dataset.sp;
+      if (!speakers.includes(sp)) speakers.push(sp);
+      items.push({el, text: el.querySelector('.tx').textContent, v: speakers.indexOf(sp) % 2 === 0 ? 0 : 1 + (speakers.indexOf(sp) >> 1)});
+    } else items.push({el, text: el.textContent.replace(/^\*\s*/,''), v: 0});
+  });
+  return items;
+}
+book.addEventListener('click', e=>{
+  const play = e.target.closest('.play');
+  if (play){ if (play.classList.contains('on')) stopAll(); else speakQueue(lessonItems(play.closest('section')), play); return; }
+  const who = e.target.closest('.who');
+  if (who){ const line = who.parentElement; const sec = line.closest('section');
+    const it = lessonItems(sec).find(x=>x.el===line); speakQueue([it]); return; }
+  const say = e.target.closest('[data-say]');
+  if (say){ speakQueue([{text: say.dataset.say, v:0}]); return; }
+  const rev = e.target.closest('.rev');
+  if (rev){ rev.parentElement.classList.toggle('show'); return; }
+  const all = e.target.closest('.all');
+  if (all){ const lis = all.parentElement.querySelectorAll('li'); const show = ![...lis].every(l=>l.classList.contains('show'));
+    lis.forEach(l=>l.classList.toggle('show', show)); all.textContent = show ? 'Javoblarni yashirish' : "Barcha javoblarni ko'rsatish"; return; }
+});
+document.getElementById('stopAll').onclick = stopAll;
+
+/* ---------- word popup ---------- */
+const pop = document.getElementById('pop');
+let selW = null;
+function hidePop(){ pop.style.display='none'; if (selW) selW.classList.remove('sel'); selW=null; }
+document.addEventListener('click', e=>{
+  const w = e.target.closest('.w');
+  if (!w){ if (!e.target.closest('#pop')) hidePop(); return; }
+  if (e.target.closest('.who')) return;
+  if (selW === w){ hidePop(); return; }
+  hidePop();
+  selW = w; w.classList.add('sel');
+  const word = w.textContent, key = lookup(word);
+  let html = `<div class="tw">${esc(word)} <button type="button" data-sayw="${esc(word)}" aria-label="Talaffuz">🔊</button></div>`;
+  if (key){
+    const [uz, lem] = forms[key];
+    html += `<div class="uz">${esc(uz)}</div>`;
+    if (lem !== key && lemmas[lem] && !/ism|joy nomi/.test(lemmas[lem]))
+      html += `<div class="lm">Asosi: <b>${esc(lem)}</b> — ${esc(lemmas[lem])}</div>`;
+  } else html += `<div class="uz">Tarjima topilmadi</div>`;
+  pop.innerHTML = html;
+  pop.style.display = 'block';
+  const r = w.getBoundingClientRect();
+  const pw = pop.offsetWidth, ph = pop.offsetHeight;
+  let left = r.left + scrollX + r.width/2 - pw/2;
+  left = Math.max(scrollX + 16, Math.min(left, scrollX + document.documentElement.clientWidth - pw - 16));
+  let top = r.bottom + scrollY + 8;
+  if (r.bottom + ph + 12 > innerHeight && r.top > ph + 12) top = r.top + scrollY - ph - 8;
+  pop.style.left = left + 'px'; pop.style.top = top + 'px';
+});
+pop.addEventListener('click', e=>{
+  const b = e.target.closest('[data-sayw]');
+  if (b) speakQueue([{text: b.dataset.sayw, v:0}]);
+});
+document.addEventListener('keydown', e=>{ if (e.key==='Escape'){ hidePop(); stopAll(); } });
+addEventListener('resize', hidePop);
+</script>
+</body>
+</html>

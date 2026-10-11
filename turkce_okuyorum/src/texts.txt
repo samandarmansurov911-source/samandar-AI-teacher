@@ -1,0 +1,587 @@
+# NERELERDE ALIŞVERİŞ YAPIYORUZ?
+S|Ayşe Hanım|Merhaba Janin, nereye gidiyorsun?
+S|Janin|Markete gidiyorum, evde hiçbir şey yok.
+S|Ayşe Hanım|Ne almak istiyorsun?
+S|Janin|Ekmek, yoğurt, yumurta, meyve ve sebze.
+S|Ayşe Hanım|Sebze ve meyve pazarda daha ucuz ve taze.
+S|Janin|Evet, pazar ucuz ve ilginç, ama her gün pazar yok.
+S|Ayşe Hanım|Nereden et alıyorsun?
+S|Janin|Marketten.
+S|Ayşe Hanım|Ben kasaptan alıyorum. Beşiktaş'ta çok iyi bir kasap var.
+S|Janin|Ben çok et yemiyorum. Balık seviyorum.
+S|Ayşe Hanım|Taksim'de iyi balıkçılar var. Çok taze balık satıyorlar.
+S|Janin|Bazen o balıkçılardan balık alıyorum. Ayşe, Taksim'de çiçekçi var mı?
+S|Ayşe Hanım|Meydanda çiçekçiler var; ucuz ve güzel çiçekler satıyorlar.
+S|Janin|Ayşe, bir de ev için perde ve masa örtüsü almak istiyorum. Nerede var, biliyor musun?
+S|Ayşe Hanım|Bu tip şeyler Sirkeci'de var. Sirkeci İstanbul'da eski bir ticaret merkezi. Burada beyaz eşya mağazaları, spor mağazaları, bisiklet dükkanları, kitapçılar, matbaalar, kırtasiyeler ve benzeri bir çok yer var.
+S|Janin|Tamam, Sirkeci'yi biliyorum. Çok teşekkür ederim.
+S|Ayşe Hanım|Bir şey değil. Sonra görüşürüz.
+S|Janin|Görüşürüz.
+Q|Janin nereye gidiyor?
+Q|Janin ne almak istiyor?
+Q|Ayşe Hanım nereden et alıyor?
+Q|Nerede iyi balıkçılar var?
+D|Her gün pazar var.
+D|Meydanda çiçekçiler var.
+D|Janin Sirkeci'yi bilmiyor.
+D|Sirkeci eski bir ticaret merkezi.
+
+# KİRALIK EV
+S|Julia|Merhaba.
+S|Emine|Merhaba.
+S|Julia|Ben kiralık ev arıyorum.
+S|Emine|Bakın, şu panoda ilanlar var. Seçin ve telefon edin, sonra gidin, bakın.
+S|Julia|Tamam, teşekkürler.
+S|Emine|Rica ederim.
+S|Julia|Alo, merhaba! Ben ev kiralamak istiyorum.
+S|Yıldız Hanım|Tabii, benim evim kiralık. İki oda, bir salon, mutfak, banyo var.
+S|Julia|Evde mobilya var mı?
+S|Yıldız Hanım|Evet, var. Mobilyalar, buzdolabı ve fırın var.
+S|Julia|Televizyon ve müzik seti var mı?
+S|Yıldız Hanım|Televizyon var, ama müzik seti yok.
+S|Julia|Balkon var mı?
+S|Yıldız Hanım|Evet, var ve balkondan Boğaz'ı görüyorsunuz.
+S|Julia|Ooo.. Çok iyi. Kira ne kadar?
+S|Yıldız Hanım|Dokuz yüz dolar.
+S|Julia|Çok pahalı değil mi?
+S|Yıldız Hanım|Hayır, pahalı değil. Boğaz manzarası var ve ev çok temiz, mobilyalar yeni.
+S|Julia|Tamam, evi görmek istiyorum.
+S|Yıldız Hanım|Tabii, ne zaman geliyorsunuz?
+S|Julia|Yarın saat ikide, ama ben İstanbul'u iyi bilmiyorum.
+S|Yıldız Hanım|Problem değil, ben yarın kursa geliyorum.
+S|Julia|Tamam, teşekkürler, yarın görüşürüz.
+S|Yıldız Hanım|Görüşürüz.
+Q|Julia ne arıyor?
+Q|Nerede ilanlar var?
+Q|Evde ne var, ne yok?
+Q|Kira niçin pahalı değil?
+D|Evde iki oda, bir salon, mutfak ve banyo var.
+D|Kira dokuz yüz dolar.
+D|Julia evi görmek istiyor.
+D|Julia İstanbul'u iyi biliyor.
+
+# MUTLU
+P|Ben Mutlu. Her sabah saat yedi buçukta kalkıyorum. Kalkmak istemiyorum, ama okul var. Kahvaltı yapıyorum ve evden çıkıyorum. Saat sekizde okula geliyorum. Okulda kafeterya var. Ben kafeteryada çay içiyorum ve arkadaşlarla konuşuyorum. Arkadaşlarım ve ben futbolu seviyoruz, her pazartesi futbol konuşuyoruz. Bazen ben kızıyorum, bazen arkadaşlar kızıyorlar, çünkü her hafta bazı takımlar iyi, bazı takımlar kötü. Saat 08:30'da ders başlıyor. Benim okulum çok güzel. Okulda çok güzel bir bahçe var. Biz teneffüste bahçede geziyoruz, oynuyoruz. Sonra tekrar derse giriyoruz. Okulda çok ders var, ama en güzel ders spor dersi.
+P|Dersler saat 13:00'te bitiyor. Okuldan sonra genellikle eve gidiyorum. Yemek yiyorum ve öğleden sonra dışarıya çıkıyorum. Arkadaşlarla buluşuyoruz ve futbol, basketbol oynuyoruz. Bazen sinemaya gidiyoruz. Saat 16:00-17:00 arası eve dönüyorum. Ders çalışıyorum, akşam ben ve ailem beraber yemek yiyoruz, konuşuyoruz. Ben erken yatıyorum, çünkü ertesi gün okul var.
+Q|Mutlu sabah saat kaçta kalkıyor?
+Q|Mutlu okulda kafeteryada ne yapıyor?
+Q|Mutlu ve arkadaşları ne zaman futbol oynuyor?
+Q|Mutlu ve arkadaşları teneffüste ne yapıyorlar?
+Q|Mutlu niçin erken yatıyor?
+D|Mutlu sabah kalkmak istemiyor, ama okul var.
+D|Okulda kafeterya yok.
+D|Okulda en güzel ders spor dersi.
+D|Mutlu öğleden sonra dışarıya çıkıyor.
+
+# PAHALI ELBİSE
+S|Tekin|Merhaba.
+S|Ebru|Merhaba, hoşgeldiniz!
+S|Tekin|Hoşbulduk! Pantalon ve ceketlere bakmak istiyorum.
+S|Ebru|Tabii, buyurun, ceketler burada.
+S|Tekin|Bu ceket güzel. Denemek istiyorum.
+S|Ebru|Buyurun.
+S|Tekin|Bu ceket küçük, bir numara büyük ceket var mı?
+S|Ebru|Tabii. Buyurun, bu ceketi deneyin!
+S|Tekin|Tamam, bu iyi. Ne kadar?
+S|Ebru|400 lira.
+S|Tekin|Ooo.. Çok pahalı. Biraz ucuz fiyat söyleyin, lütfen!
+S|Ebru|Fiyatlar standart, beyefendi. Pazarlık yapmıyoruz.
+S|Tekin|Ehh.. peki.
+S|Ebru|Pantalonlara bakmak istiyor musunuz?
+S|Tekin|Evet.
+S|Ebru|Buyurun, pantalonlar orada.
+S|Tekin|Bu pantalonu denemek istiyorum.
+S|Ebru|Kabin burada, buyurun.
+S|Tekin|Teşekkürler.
+S|Ebru|Nasıl? Tamam mı?
+S|Tekin|Evet, iyi. Bu ne kadar?
+S|Ebru|170 lira.
+S|Tekin|Fiyatlar gerçekten çok pahalı.
+S|Ebru|Beyefendi, biz kaliteli elbiseler satıyoruz. Elbiseler güzel, değil mi?
+S|Tekin|Evet, güzel, ama...
+S|Ebru|Elbiselerimiz gerçekten çok kaliteli, beyefendi.
+S|Tekin|Tamam, alıyorum.
+S|Ebru|Gömlek istiyor musunuz? Çok güzel gömleklerimiz ve kravatlarımız var.
+S|Tekin|Gömlek istemiyorum, çok gömleğim var. Kravatlar ne kadar?
+S|Ebru|Buyurun, etiketlere bakın.
+S|Tekin|Hıım. Evet. Şimdi kravat almıyorum. Belki sonra. İyi günler!
+S|Ebru|İyi günlerde giyin!
+Q|Birinci ceket nasıl?
+Q|Ceket ucuz mu?
+Q|Ebru niçin pazarlık yapmıyor?
+Q|Tekin pantolonu nerede deniyor?
+Q|Tekin gömlek aldı mı?
+D|Tekin pantolon ve ceketlere bakmak istiyor.
+D|Mağazada fiyatlar ucuz.
+D|Mağazada elbiseler güzel değil.
+D|Tekin ceket ve pantolon almıyor.
+
+# MARCUS TIRAŞ OLUYOR
+S|Marcus|Merhaba.
+S|Berber Ali|Merhaba, buyurun!
+S|Marcus|Tıraş olmak istiyorum.
+S|Berber Ali|Buyurun, oturun. Saç mı, sakal mı?
+S|Marcus|Saç.
+S|Berber Ali|Nasıl bir model istiyorsunuz?
+S|Marcus|Kısa saç istiyorum ve favorileri uzun istiyorum.
+S|Berber Ali|Tamam. Siz güzel Türkçe konuşuyorsunuz.
+S|Marcus|Hayır, hayır. Çok az konuşuyorum.
+S|Berber Ali|Bence güzel konuşuyorsunuz. Nasıl öğrendiniz?
+S|Marcus|Kursa gidiyorum.
+S|Berber Ali|Enseniz nasıl oldu? Aynaya bakın! Daha kısa istiyor musunuz?
+S|Marcus|Ense iyi. Yanları ve üstü biraz daha kesin, lütfen.
+S|Berber Ali|Tamam.
+S|Marcus|Siz İngilizce biliyor musunuz?
+S|Berber Ali|Maalesef çok çok az. Tarzan İngilizcesi.
+S|Marcus|Okulda öğrenmediniz mi?
+S|Berber Ali|Biraz öğrendim, ama unuttum. Evet, şimdi nasıl, bakın!
+S|Marcus|Çok iyi, teşekkürler.
+S|Berber Ali|Sıhhatler olsun!
+S|Marcus|Teşekkür ederim.
+Q|Marcus Türkçe konuşuyor mu?
+Q|Berber Ali İngilizce biliyor mu?
+Q|Berber Ali okulda İngilizce öğrendi mi?
+D|Marcus kısa model saç istiyor.
+D|Marcus kısa favori istiyor.
+D|Marcus kursa gidiyor.
+D|O sakal tıraşı olmak istiyor.
+
+# MARIANNA TAKSİDE
+P|Marianna iki yıl önce Türkiye'ye geldi. O öğretmen. Taksim'de bir lisede çalışıyor. Onun çok öğrencisi var. Onun öğrencileri Marianna'yı çok seviyorlar, çünkü iyi öğretiyor ve her zaman güleryüzlü. Dersler çok iyi ve neşeli geçiyor. Bazen öğrencileri ile videoda çizgi film seyrediyor. Çocuklar çizgi filmleri çok seviyorlar ve Marianna'ya teşekkür ediyorlar. Marianna Beşiktaş'ta oturuyor ve bazen okula taksiyle gidiyor. Bu sabah Marianna yine okula taksiyle gitti.
+S|Marianna|Taksi!!! Merhaba!
+S|Şoför|Merhaba, günaydın!
+S|Marianna|Günaydın! Taksim'e gidiyoruz.
+S|Şoför|Tamam.
+S|Marianna|Bugün trafik çok kötü.
+S|Şoför|Evet, niçin bilmiyorum. Nereden geliyorsunuz?
+S|Marianna|Amerika'dan.
+S|Şoför|Ne iş yapıyorsunuz?
+S|Marianna|Öğretmenim.
+S|Şoför|Ne öğretiyorsunuz?
+S|Marianna|İngilizce öğretiyorum.
+S|Şoför|Dünyada pek çok insan İngilizce konuşuyor. Hangi okulda çalışıyorsunuz?
+S|Marianna|Beyoğlu Lisesi'nde. Şimdi sağa dönün, lütfen. Şimdi sola, doğru. Tamam, burada iniyorum.
+S|Şoför|Buyurun.
+S|Marianna|Teşekkürler, iyi işler!
+S|Şoför|Ben teşekkür ederim, iyi günler!
+P|Marianna taksiden indi ve okula girdi. Öğretmen arkadaşlarıyla on beş dakika konuştu, kahve içti ve sınıfa gitti.
+Q|Marianna ne zaman Türkiye'ye geldi?
+Q|Marianna ne iş yapıyor?
+Q|Öğrenciler Marianna'yı niçin seviyorlar?
+Q|Çocuklar hangi filmleri çok seviyorlar?
+Q|Marianna nerede oturuyor?
+D|Marianna bazen okula taksiyle gidiyor.
+D|Marianna Taksim Lisesi'nde çalışıyor.
+D|Marianna matematik öğretiyor.
+
+# SOHBET
+S|Nicolas|Nasılsın?
+S|Aida|Gribim, çok kötü.
+S|Nicolas|Niçin dikkat etmiyorsun? Hava çok soğuk.
+S|Aida|Evet, çok soğuk. İki gün önce sabah, hava güneşliydi; tişört giydim. Ama öğleden sonra çok soğudu, çok üşüdüm ve hasta oldum. Boğazım da iyi değil.
+S|Neomi|Sıcak limonlu çay iç, soğuk şeyler yeme!
+S|Ayhan|Bence bir hafta çalışma, evde dinlen!
+S|Aida|Ama çok işim var.
+S|Neomi|Patrondan izin al!
+S|Aida|Evet, ama gerçekten çok işim var.
+S|Ayhan|Sen ne yapıyorsun, Michael?
+S|Michael|Araba bozuldu, servise götürdüm.
+S|Deni|Problem büyük mü?
+S|Michael|Problem büyük değil, ama tamir ve parçalar çok pahalı.
+S|Ayhan|Ne düşünüyorsun, Neomi?
+S|Neomi|Bir ceket ve etek aldım. Eteği bir defa giydim, fermuarı bozuldu.
+S|Aida|Pahalı bir etek mi?
+S|Neomi|Ucuz değil.
+S|Ayhan|Götür ve değiştir!
+S|Neomi|Ama giydim.
+S|Ayhan|Önemli değil. Değiştiriyorlar.
+Q|Aida niçin hasta oldu?
+Q|Michael niçin servise gitti?
+Q|Serviste ne pahalı?
+Q|Neomi eteği niçin değiştiriyor?
+Q|Aida niçin izin almak istemiyor?
+D|Aida'nın boğazı iyi değil.
+D|Sabah hava yağmurluydu.
+
+# YILDIZ AİLESİ ALIŞVERİŞTE
+P|Yıldız Ailesi bugün alışverişe çıkmak istiyor. Onlar uzun zaman beraber alışverişe gitmediler. Bu cumartesi Gökhan Bey çalışmıyor. Onun ailesi beraber alışverişe gitmek istiyor. Gökhan Bey cumartesi sabah işe gidiyor, işleri biraz kontrol ediyor ve saat on buçukta eve dönüyor. Saat 11:00'de eşi ve çocuklarıyla evden çıkıyorlar. Gökhan Bey'in oğlu yeni bir okul çantası ve spor ayakkabı istiyor, kızı da yeni bir elbise istiyor. Sevda Hanım ev için birşeyler almak istiyor.
+S|Gökhan|Bak Sevda, şu mağazada okul çantaları var.
+S|Sevda|Evet, hadi çocuklar şu mağazaya gidiyoruz.
+S|Satıcı|Hoş geldiniz!
+S|Gökhan|Hoş bulduk! Çantalara bakmak istiyoruz.
+S|Satıcı|Tabii, buyurun, burada.
+S|Metin|Baba bak, bu kırmızı çanta güzel, değil mi?
+S|Gökhan|Oğlum, o çok büyük. Bak, bu siyah çanta daha iyi.
+S|Sevda|Onun rengi güzel değil, Gökhan. Bu renkli çanta daha iyi. Nasıl oğlum, iyi mi?
+S|Metin|İyi.
+S|Gökhan|Tamam, bunu alıyoruz, kasa nerede?
+S|Satıcı|Bakın, orada, sağda.
+S|Kasiyer|Adınız ve adresiniz, lütfen!
+S|Gökhan|Niçin istiyorsunuz?
+S|Kasiyer|Fatura için efendim.
+S|Gökhan|Haa! Tamam. Gökhan Yıldız...
+P|Saat beş oluyor, ama alışveriş bitmiyor. Çünkü çok mağazaya bakıyorlar, ama Gökhan Bey'in kızı Cansu hiçbir elbiseyi beğenmiyor. Sevda Hanım mutfak için yeni bir perde ve salon için küçük bir sehpa almak istiyor. Beş mağazaya bakıyorlar ve bir perde, bir sehpa alıyorlar. Gökhan Bey bir ayakkabı almak istiyor, ama söylemiyor. Çünkü bu uzun alışverişten çok sıkıldı.
+P|Alışverişten sonra bir çay bahçesine gidiyorlar. Bahçede oturuyorlar ve çay içiyorlar. Sonra eve gidiyorlar. Gökhan Bey şimdi çok mutlu, çünkü alışveriş bitti.
+Q|Gökhan Bey'in oğlu ne istiyor?
+Q|Gökhan Bey bu cumartesi işe gidiyor mu?
+Q|Kasiyer niçin adres istiyor?
+Q|Sevda Hanım ne alıyor?
+Q|Niçin Gökhan Bey ayakkabı almadı?
+D|Yıldız ailesi alışverişten sonra kafeye gidiyor.
+D|Yıldız ailesi uzun zaman beraber alışverişe gitmedi.
+D|Gökhan Bey'in kızı yeni bir ayakkabı almak istiyor.
+D|Alışveriş saat 17:00'de bitiyor.
+D|Onlar çay bahçesinde kahve içiyorlar.
+
+# İSTANBUL'DA HAVA NASIL?
+P|İstanbul'da genellikle hava sıcak. Kışın çok yağmur ve kar yağıyor. Ama her yıl başka. Bir yıl çok kar var, bir yıl çok az kar var. İstanbul'da karlı havada arabalar çok yavaş gidiyor ve trafik sıkışıyor. Kışın İstanbul'da evden işe, işten eve gitmek zor. Yazın okullar tatil oluyor, okulların servis arabaları trafiğe çıkmıyor. Bir çok kişi yazlığa veya uzun tatile gidiyor ve trafik daha iyi oluyor.
+P|İlkbahar çok kısa, nisanda başlıyor, haziranda bitiyor. Mart'ta bazen ilkbahar havası, bazen kış havası var. İlkbaharda okullar ve bazı aileler piknik yapıyorlar.
+P|Sonra yaz geliyor. Yaz genellikle uzun. İstanbul'da en güzel zaman yaz. Yazın herkes aktif. Herkes çalışıyor, eğleniyor, denize gidiyor, tatile gidiyor, geliyor ve tekrar çalışıyor. Bir çok insan akşam işten çıkıyor ve restorana gidiyor. Bazı restoranlar caddeye masa koyuyor. Bu restoranlar çok popüler. İnsanlar dışarıda oturuyor, yemek yiyor, konuşuyor. Yazın İstanbul'da çok turist var. İstanbul onlarla daha renkli oluyor.
+P|İstanbul'da sonbahar da kısa. Eylül, ekim, kasım sonbahar, ama eylülde genellikle hava sıcak. Bazen ekimde de hava sıcak.
+Q|İstanbul'da ilkbahar ne zaman başlıyor?
+Q|Yazın herkes ne yapıyor?
+Q|İstanbul'da ne zaman çok turist var?
+Q|Hangi aylar sonbahar?
+Q|İstanbul'da kışın hava nasıl?
+D|İstanbul'da genellikle hava sıcak.
+D|İstanbul'da her yıl çok kar var.
+D|Kışın evden işe gitmek çok kolay.
+D|İstanbul'da bazı restoranlar caddeye masa koyuyor.
+D|İstanbul'da sonbahar uzun.
+
+# HERKES BİR ŞEY İSTİYOR
+P|Ben ve kızkardeşim Songül lisede okuyoruz. Benim adım Murat. Ben ve arkadaşlarım bu yıl liseyi bitiriyoruz. Haziranda üniversite için sınav var. Biz çok çalışıyoruz. Annem ve babam istemiyor, ama ben müzisyen olmak istiyorum. Arkadaşım Ali ekonomist olmak istiyor. Ali matematiği çok seviyor. Onun dersleri çok iyi. Çetin futbolcu olmak istiyor, ama iyi futbol oynamıyor. Onun babası da istiyor, çünkü futbolcular çok para kazanıyor, şimdi. Metin çok iyi futbol oynuyor, ama futbolcu olmak istemiyor, o bilgisayarı çok seviyor. Her akşam internette sörf yapıyor. O bilgisayar mühendisi olmak istiyor.
+P|Songül ve onun arkadaşları iki yıl sonra liseyi bitiriyor. Songül öğretmen olmak istiyor. Benim annem de öğretmen. Ayşe doktor olmak istiyor. Ayşe çok çalışkan bir kız. Hülya modacı olmak istiyor.
+P|Evet! Herkes bir şey istiyor. Ama hasta olmak, fakir olmak, mutsuz olmak istemiyoruz. Tabii ki, istemek yeterli değil. Çalışmak ve zaman önemli.
+Q|Ne zaman üniversite için sınav var?
+Q|Murat öğretmen olmak mı istiyor?
+Q|Ali ne olmak istiyor?
+Q|Metin niçin bilgisayar mühendisi olmak istiyor?
+Q|Songül'ün annesi ne iş yapıyor?
+D|Ali'nin dersleri çok iyi.
+D|Metin çok iyi futbol oynuyor.
+D|Songül bir yıl sonra liseyi bitiriyor.
+
+# VAPUR
+P|Vapurlar İstanbul'da çok önemlidir. Çok insan vapurla işe veya eve gidiyor. Vapura genellikle Asya'da biniyorlar ve Avrupa'ya geliyorlar, çünkü iş yerleri genellikle Avrupa'da. Akşam yine vapura biniyorlar ve eve gidiyorlar. Vapurla yolculuk iyi, çünkü denizde trafik problemi yok. Üsküdar'dan Beşiktaş'a on dakika, Kadıköy'den Beşiktaş'a veya Eminönü'ne yirmi dakika.
+P|Benim adım Turgut. Ben Kadıköy'de oturuyorum. Benim arabam var, ama ben işe vapurla gidiyorum. Sabah saat 08:00'de vapura biniyorum ve genellikle dışarıda oturuyorum. Çaycı geliyor, ben bir çay alıyorum. Bazen simit alıyorum. Çay içiyorum, simit yiyorum ve gazete okuyorum. Saat 08:30'da Beşiktaş'ta vapurdan iniyorum. Dolmuşla Levent'e gidiyorum.
+P|Vapurda bazen Meltem'le karşılaşıyoruz. Meltem Taksim'de çalışıyor. O Beşiktaş'tan Taksim'e gidiyor. Meltem'le vapurda konuşuyoruz. Meltem bazen martılara simit veriyor. İki simit alıyor ve yarım simidi yiyor, bir buçuk simidi martılara atıyor. Martılar vapuru takip ediyorlar ve simitleri yiyorlar.
+P|Vapurda turistler de var. Türkler çay içiyor, konuşuyor veya gazete okuyor, ama turistler manzarayı seyrediyorlar, fotoğraf çekiyorlar. Vapurdan İstanbul manzarası çok güzel. Vapurda her zaman satıcılar var. Onlar küçük şeyler satıyorlar. Satıcılar tiyatrocu gibi.
+S|Satıcı|Beyler, Bayanlar! Bu kalem bir lira! Bu çakmak ve kalem beraber bir lira! Bitmedi! Bu mavi kalem, bu kırmızı kalem ve çakmak bir lira! Bitmedi! Bu mavi kalem, kırmızı kalem, çakmak ve bu silgi bir lira! Ve, ve bu defter de hediye.
+Q|Vapurla yolculuk niçin çok iyi?
+Q|Turgut'un arabası var mı?
+Q|Turgut vapura saat kaçta biniyor?
+Q|Meltem nerede çalışıyor?
+Q|Meltem martılara ne atıyor?
+D|İş yerleri genellikle Avrupa'da.
+D|Vapurla yolculuk zor.
+D|Vapurda Türkler çay içiyor.
+D|Satıcılar vapurda küçük şeyler satıyorlar.
+D|Meltem Beşiktaş'tan Levent'e gidiyor.
+
+# STEFANIE HANIM
+P|Merhaba! Benim adım Stefanie. Ben Almanya'dan geldim. Almanya'da Hamburg'da oturuyorum. Hamburg'da Türkler var. Benim komşum Ayla Hanım çok iyi bir insan. Onun ailesi ve çocukları da çok iyiler. Ayla Hanım'ın üç çocuğu var. İki erkek ve bir kız. Murat ve Ahmet okula gidiyor, ama Leyla okula gitmiyor. Çünkü Leyla küçük. Eşi Mahmut Bey doktor. Benim çocuklarım bazen hasta oluyor ve ben Mahmut Bey'e götürüyorum. Çocuklarım Mahmut Bey'i çok seviyorlar ve korkmuyorlar. Çünkü Mahmut Bey çok sempatik ve tatlı dilli. Çocuklarım başka doktora gitmek istemiyorlar.
+P|Ben ve ailem şimdi İstanbul'da yaşıyoruz. Çünkü eşim ve ben İstanbul'da çalışıyoruz. Bizim bir tekstil firmamız var. Türkiye'de gömlek, tişört, pantalon yapıyoruz, sonra Avrupa'ya satıyoruz. Ben ve eşim Türkiye'yi seviyoruz. Türkiye'de, Efes'e, Marmaris'e, İzmir'e, Gaziantep'e, Çorlu'ya ve Trabzon'a gittim. Ama daha pek çok yere gitmek istiyorum, çünkü Türkiye çok güzel. Benim oğlum Thomas ve kızım Barbara da Türkiye'yi çok seviyorlar. Şimdi onların burada yeni arkadaşları var. Çocuklarım okulda Türkçe öğreniyorlar. Ben de kursta Türkçe öğreniyorum. Kursta çok yabancı arkadaşım var; Fransız, Japon, Amerikalı, Tunuslu. Arkadaşlarım ve ben bazen kurstan sonra lokantada yemek yiyoruz. Maalesef lokantada İngilizce konuşuyoruz. Çünkü şimdi çok iyi Türkçe bilmiyoruz.
+Q|Stephanie Türkiye'de ne iş yapıyor?
+Q|Kimler iyi insan?
+Q|Leyla niçin okula gitmiyor?
+Q|Stephanie'nin çocukları niçin Mahmut Bey'den korkmuyorlar?
+D|Stephanie Efes'e gitti.
+D|Stephanie'nin çocukları okulda Türkçe öğreniyorlar.
+D|Stephanie ve arkadaşları lokantada Türkçe konuşuyorlar.
+D|Thomas ve Barbara Türkiye'yi sevmiyor.
+D|Stephanie ve arkadaşları şimdi çok iyi Türkçe bilmiyorlar.
+
+# ANTONIO'NUN PARTİSİ
+P|Benim adım Muhammed. Benim sınıfımda dokuz öğrenci var ve biz iyi anlaşıyoruz. Bazen dersten sonra restorana veya İstanbul'da güzel yerlere gidiyoruz. Bu haftasonu bir parti var, çünkü on gün sonra kurs bitiyor ve Antonio İspanya'ya dönüyor. Bu haftasonu bir parti yapmak istiyor.
+P|Cumartesi akşam saat yedide Antonio'ya gittik. Ben erken gittim, çünkü zamanım vardı. Sonra Juan ve Veronica geldi. Antonio'nun evi çok büyüktü. Salonda büyük bir masa vardı ve masada çok yiyecek ve içecek vardı. Antonio çok güzel yemekler pişirdi. O çok güzel yemekler pişiriyor, çünkü İspanya'da aşçıydı. Antonio gelecek yıl İstanbul'da bir İspanyol lokantası açmak istiyor. Biz on dakika Antonio'yla sohbet ettik, sonra herkes geldi. Antonio'nun başka arkadaşları da geldi. Parti çok kalabalıktı. Bu partide çok yeni kişiyle tanıştım. Partide herkes çok neşeliydi. Yedik, içtik, dans ettik. Antonio'nun çok kaset ve CD'si vardı. Çok ilginç müzikler dinledik. İspanya'dan, Latin Amerika'dan, Afrika'dan ve Asya'dan otantik müzikler... Herkes gece saat ikide Antonio'nun partisinden ayrıldı.
+P|Antonio gelecek hafta gidiyor, ama yazın tekrar gelmek istiyor. Biz kursa devam ediyoruz.
+Q|Muhammed ve arkadaşlarının diyaloğu nasıl?
+Q|Muhammed ve arkadaşları dersten sonra nereye gidiyorlar?
+Q|Muhammed niçin Antonio'ya erken gitti?
+Q|Antonio'nun mesleği ne?
+Q|Parti ne zaman bitti?
+D|On gün sonra kurs bitiyor.
+D|Antonio'nun evi küçük.
+D|Antonio İstanbul'da restoran açmak istiyor.
+D|Partide herkes çok neşeliydi.
+
+# BİZİM BİR GÜNÜMÜZ
+P|Benim adım Gamze. Ben yirmi yaşındayım. 1 metre 70 santim boyundayım. Kıvırcık, uzun, siyah saçlarım var. Ben kilolu değilim, zayıfım. Güzel bir kızım ve evlenmek istiyorum. Şaka yaptım!!! Şimdi üniversitede ekonomi okuyorum. Her sabah 07:00'de kalkıyorum. Duş yapıyorum, sonra iyi bir kahvaltı yapıyorum. Kahvaltıdan sonra evden çıkıyorum ve otobüse biniyorum. Benim derslerim saat 16:00'da bitiyor. Sonra bazen arkadaşlarla kafeye gidiyoruz, ama genellikle eve gidiyorum. Biraz dinleniyorum, müzik dinliyorum ve anneme yardım ediyorum. Sonra ders çalışıyorum. Akşam herkes eve geliyor. Saat 20:00'de akşam yemeği yiyoruz.
+P|Abim Gökhan da sabah erken kalkıyor ve okula gidiyor. O üniversitede mimarlık okuyor. Gökhan bazen eve geç geliyor, çünkü arkadaşlarıyla sinemaya veya bara gidiyor. Bazen erken geliyor, o zaman ben ve o beraber bara gidiyoruz. Bizim çok iyi arkadaşlarımız var. Onlarla barda eğleniyoruz, sohbet ediyoruz ve dans ediyoruz.
+P|Babam küçük amcamla beraber çalışıyor. Onların bir tekstil firması var. Babam sabah çok erken kalkmıyor. Amcam her sabah erken kalkıyor, namaz kılıyor ve firmaya erken gidiyor. Babam saat 08:30'da kahvaltı yapıyor ve işe gidiyor, ama bazı akşamlar çok geç geliyor. Onun işi bazen saat 23:00'te bitiyor.
+P|Annem ev hanımı, o evde çok çalışıyor. Evde her şeyi o yapıyor: yemek pişiriyor, evi temizliyor, ütü yapıyor. Ben anneme yardım ediyorum. Abim de bazen yardım ediyor, ama o ev işlerinden nefret ediyor. Annem çok güleryüzlü. Ben annemi çok seviyorum. Biz annemle arkadaş gibiyiz. Bazen beraber pazara gidiyoruz, küçük şeyler alıyoruz, biraz dedikodu yapıyoruz ve çok gülüyoruz. Annem ve babam bazı akşamlar restorana gidiyorlar, yemek yiyorlar ve biraz rakı içiyorlar. Eve çok mutlu dönüyorlar. Biz her pazar sabahı beraber kahvaltı yapıyoruz.
+Q|Gamze üniversitede ne okuyor?
+Q|Gökhan niçin bazen eve geç geliyor?
+Q|Gamze'nin babası niçin erken kalkmıyor?
+Q|Gamze annesiyle pazarda ne yapıyor?
+Q|Gamze'nin annesi evde neler yapıyor?
+D|Gamze evlenmek istiyor.
+D|Gamze bazen abisiyle bara gidiyor.
+D|Gamze'nin babası ve amcası beraber çalışıyor.
+D|Gamze annesine yardım ediyor.
+D|Gamze'nin babası akşam eve erken geliyor.
+
+# BİR FİLM
+P|Sevgi Hanım bir bankada şeftir. O evliydi, ama şimdi bekar. Çünkü eşinden boşandı. Sevgi Hanım şimdi 46 yaşında ve iki çocuğu var. Büyük çocuğu erkek, küçük çocuğu kız. Sevgi Hanım her gün bankaya gidiyor, çalışıyor ve akşam bankadan çıkıyor, alışveriş yapıyor, evine gidiyor. Akşam evde kızıyla birlikte sofrayı hazırlıyorlar ve hep beraber akşam yemeği yiyorlar. Yemekte çok konuşuyorlar, çünkü bütün gün görüşmüyorlar. Yalnız akşam yemeğinde ve kahvaltıda görüşüyorlar. Sevgi Hanım'ın oğlu ve kızı üniversiteyi bitirdi ve şimdi çalışıyorlar.
+P|Sevgi Hanım'ın eski kocası Hüseyin ticaret yapıyor. O da çok meşgul, çok çalışıyor. Çocuklarıyla az ilgileniyor. Sevgi Hanım'ın iş arkadaşı Haluk Bey, Sevgi Hanım'ı seviyor ve onunla evlenmek istedi. Sevgi Hanım önce onunla evlenmek istemedi, çünkü Haluk Bey'e inanmadı. Ama şimdi Sevgi Hanım da Haluk Bey'le evlenmek istiyor.
+P|Haluk Bey iyi kalpli, çok sakin ve romantik bir adam. Arkadaşları Haluk Bey'e "ana kuzusu" diyorlar. Çünkü Haluk Bey annesiyle yaşıyor ve her zaman annesine rapor veriyor. Bütün arkadaşları Haluk Bey'i seviyorlar, ama ona çok şaka yapıyorlar.
+P|Filmin sonunda belki Sevgi Hanım ve Haluk Bey evlenecek ve Sevgi Hanım'ın eski kocası çok üzülecek.
+Q|Sevgi Hanım niçin bekar?
+Q|Sevgi Hanım her gün ne yapıyor?
+Q|Sevgi Hanım ve çocukları yemekte niçin çok konuşuyorlar?
+Q|Hüseyin Bey ne iş yapıyor?
+Q|Arkadaşları Haluk Bey'e niçin "ana kuzusu" diyorlar?
+D|Sevgi Hanım'ın iki çocuğu var.
+D|Sevgi Hanım'ın çocukları üniversitede öğrenci.
+D|Bütün arkadaşları Haluk Bey'i seviyorlar.
+D|Filmin sonunda kimse evlenmeyecek.
+
+# AYŞE'DEN MEKTUP
+P|Merhaba Ahmet, nasılsın? Ben iyiyim. Geçen ay Yunanistan'a gittim. Yunanistan çok güzel. Atina'da çok gezdim, tarihi ve turistik güzel yerler gördüm. İki hafta Atina'da kaldım. Atina kalabalık bir şehir ve bence çok ilginç. Atina'da iki hafta çok güzeldi. Şimdi Atina'da yeni çok arkadaşım var. Orada en iyi arkadaşım Yorgos. Yorgos bana çok yardım etti. Yorgos ve arkadaşlarıyla müzelere, tarihi ve turistik yerlere, barlara gittik. Ben Yunan müziğini çok beğendim.
+P|Atina'dan sonra Selanik'e gittim, Olimpia'yı ziyaret ettim. Olimpia çok akıllı, sempatik ve iyi bir kız. Onun ailesi de çok sempatik. Olimpia'nın ailesinin Ada'da evi var. Ben Ada'da, onların evinde kaldım. Babası denizi çok seviyor ve bir teknesi var. Ben, Olimpia ve kuzenleri Olimpia'nın babasının teknesiyle başka adaya gittik, yüzdük ve güneşlendik. Saat dörtte adadan ayrıldık. Bir saat denizde durduk ve balık tuttuk. Sonra eve gittik.
+P|Olimpia'nın annesi balıkları pişirdi. Olimpia ve kuzeni Nikos evin bahçesinde çok güzel bir sofra hazırladılar. Hep beraber yemek yedik ve çok güldük, çünkü Olimpia'nın babası Yannis Amca eski hatıralarını anlattı. Onun çok güzel hatıraları var ve çok güzel anlatıyor. Bir komedyen gibi.
+P|Yarın buradan Tunus'a gideceğim, bir hafta kalacağım. Bir hafta sonra görüşürüz. Hoşçakal! — Ayşe
+Q|Ayşe Atina'da ne yaptı?
+Q|Ayşe Atina'da kaç gün kaldı?
+Q|Ayşe Selanik'te nerede kaldı?
+Q|Akşam nerede balık yediler?
+Q|Ayşe Yunanistan'dan sonra nereye gidecek?
+D|Ayşe'ye Atina'da Yorgos yardım etti.
+D|Olimpia'nın babası denizden korkuyor.
+D|Akşam Ayşe ve Olimpia sofrayı hazırladılar.
+D|Ada çok kalabalıktı ve onlar yüzmedi.
+D|Yannis Amca komedyen gibi.
+
+# SAĞLIKLI OLMAK
+P|Herkes sağlıklı yaşamak istiyor. Ama çok kişi dikkat etmiyor. Çok kişi sigara içiyor, yağlı yemekler, tatlılar yiyor. Hiç kimse spor yapmıyor, diyet yapmıyor. Gazetede bir röportaj okudum. Gazeteci doktora sorular soruyor:
+S|Gazeteci|Çok kişi sağlıklı yaşamak istiyor ve diyet yapıyor, spor yapıyor. Sizce diyet ve spor yeterli mi?
+S|Doktor|Diyet ve spor çok önemli, ama yeterli değil. Stres, sigara, hava kirliliği var.
+S|Gazeteci|Tamam, ben sağlıklı yaşamak istiyorum. Ne yapacağım?
+S|Doktor|Birinci kural: Hareket edin! Belki zamanınız yok ve spor yapmıyorsunuz! Başka alternatifler var; asansöre binmeyin ve merdivenden çıkın, yakın yerlere yürüyün, taksiye veya otobüse binmeyin. Evinizde dans edin!
+S|Gazeteci|Evet, doğru. Yemek için ne tavsiye ediyorsunuz?
+S|Doktor|Yağlı yemekler ve fast food yemeyin. Peynir, süt, kremayı az yağlı yiyin. Çok az kuruyemiş, mayonez, sos yiyin.
+S|Gazeteci|Başka neler tavsiye ediyorsunuz?
+S|Doktor|Stres! Stresten kaçın. Planlı olun. Her gün yarım saat hobilerinizi yapın. Sahilde yürüyün, kitap okuyun, sinemaya gidin. Negatif insanları çok dinlemeyin.
+S|Gazeteci|Evet, çok şey var.
+S|Doktor|Evet, çok şey var, ama ben son bir şey söylemek istiyorum; sigara içmeyin, fazla içki içmeyin, çünkü kanser ve kalp hastalığı yapıyor.
+Q|Sağlık için spor ve diyet yeterli mi?
+Q|Sağlık için neler olumsuz?
+Q|Neler kanser ve kalp hastalığı yapıyor?
+D|Hiç kimse sağlığına dikkat etmiyor.
+D|Sağlıklı hayat için hobilerinizi yapın, kitap okuyun, yürüyün, sinemaya gidin.
+D|Az kuruyemiş, sos, mayonez problem değil.
+D|Çok yürümeyin.
+D|Stresten kaçmayın, stres faydalı.
+
+# KUMKAPI
+P|Kumkapı İstanbul'da çok eski ve ünlü bir yer. Sahilde, küçük bir semt. İstanbul'da her semtin bir özel karakteri vardır. Taksim, Kadıköy, Bakırköy, Kumkapı... Hepsi başka, her semt başka güzel ve farklı kültürleri var.
+P|Kumkapı'da insanların sakin hayatları var, genellikle. Sabah kalkıyorlar işe gidiyorlar, işten sonra alışveriş yapıyorlar ve eve gidiyorlar. Kumkapı'nın sokaklarında bakkallar, manavlar, fırınlar var. Sahilde balıkçılar var ve her zaman taze balık satıyorlar. Kumkapı'da herkes balığı çok seviyor. Bazı akşamlar balıkçılardan balık alıyorlar, evlerinin teraslarında veya balkonlarında arkadaşlarıyla ve komşularıyla yiyorlar, sohbet ediyorlar. Yaz akşamları herkes balkonda veya terasta oturuyor. Çocuklar sokakta top oynuyor, gençler sohbet ediyor.
+P|Kumkapı'da ünlü, turistik bir cadde var. Bu caddede restoranlar var ve restoranların önünde masalar var. İnsanlar sokakta bu masalarda oturuyorlar ve balık, kebap yiyorlar. Sohbet ediyorlar ve müzik dinliyorlar. Caddede her akşam iki veya üç müzisyen var. Onlar çeşitli şarkılar çalıyorlar ve caddede geziyorlar, masalara gidiyorlar ve para alıyorlar. Bu müzisyenler genellikle keman, akordeon, klarnet ve darbuka çalıyorlar.
+P|Eskiden Kumkapı turistik bir yer değildi. Ünlüydü, çok Türk oraya gidiyor ve balık yiyordu, ama turistik değildi. Şimdi turistik bir yer, restore ettiler ve şimdi turizm acentalarının programlarında Kumkapı da var. Turistler burayı seviyorlar, çünkü burası otantik bir yer. Eski İstanbul'un eğlence akşamlarını burada görüyorlar ve onlar da eğleniyorlar.
+Q|Kumkapı neresi?
+Q|Kumkapı'da insanlar normal bir günde neler yapıyor?
+Q|Kumkapı'nın insanları yaz akşamları neler yapıyorlar?
+Q|Caddede müzisyenler neler yapıyorlar?
+Q|Turistler Kumkapı'da ne görüyorlar?
+D|İstanbul'da her semtin kültürü farklı.
+D|Kumkapı eskiden turistik değildi.
+D|Kumkapı'da bakkal, manav var.
+D|Müzisyenler burada yemek yiyorlar.
+D|Kumkapı'da herkes balığı çok seviyor.
+
+# RÜYA
+P|Bütün insanlar rüya görüyor. Her gece uyuyoruz ve bütün gece rüya görüyoruz. Ama sadece bir rüya hatırlıyoruz veya hiç hatırlamıyoruz. Rüyalarımız bazen kötü. Meselâ rüyamızda çok yüksek bir yerden düşüyoruz, düşüyoruz, düşüyoruz! Ama karanlık büyük boşluk bitmiyor. Korkuyoruz ve uyanıyoruz, odamızdayız, yatağımızda oturuyoruz. Çok mutlu oluyoruz, çünkü bu bir rüya! Bazen de rüyalarımız çok güzel. Meselâ rüyamızda çok güzel bir yerdeyiz. Çok güzel bir plajdayız, her yer yeşil, mavi. Arkadaşlarımız da orada, herkes çok mutlu ve eğleniyor. Yüzüyoruz, yemek yiyoruz, sohbet ediyoruz, dans ediyoruz. Sonra korkunç bir ses duyuyoruz: Saat alarmı! Uyanıyoruz, odamızdayız, yatağımızda oturuyoruz. Rüya bitti, hiç mutlu olmuyoruz. Çünkü odamızdayız, plaj yok, arkadaşlar yok, eğlence bitti. Bazen tekrar uyumak istiyoruz, rüyaya devam etmek istiyoruz. Ama işlerimiz bizi bekliyor. Kalkıyoruz, işe gidiyoruz. İşte de rüyamızı düşünüyoruz.
+P|Bazı insanlar rüyalara çok inanıyor. Bütün gün rüyalarını düşünüyorlar. Kötü rüyadan sonra, o gün kötü bir şey bekliyor, iyi rüyadan sonra iyi bir şey bekliyorlar.
+P|Rüyalarımız bize ne anlatıyor? Rüyalar hakkında kitaplar var, bazı insanlar rüyadan sonra bu kitaplara bakıyorlar. Meselâ bir kuş gördünüz; evinize mutluluk gelecek veya bir haber alacaksınız! Bir yaşlı ağaç gördünüz; uzun yaşayacaksınız! Çamaşır yıkadınız: hayatınız değişecek! Siz inanıyor musunuz, bilmiyorum, ama çok insan rüyalara inanıyor.
+Q|Kötü rüyadan sonra niçin mutlu oluyoruz?
+Q|İyi rüyadan sonra niçin mutlu olmuyoruz?
+Q|İyi rüyadan sonra niçin tekrar uyumuyoruz?
+Q|Bazı insanlar rüyadan sonra bütün gün ne bekliyorlar?
+Q|Rüyada kuş görmek ne demek?
+D|İnsanlar bütün rüyalarını hatırlıyorlar.
+D|Bazen rüyamızda çok yüksek yerden düşüyoruz ve çok mutlu oluyoruz.
+D|İyi rüyadan sonra uyanmak istemiyoruz.
+D|Bazı insanlar rüyadan sonra kitaplara bakıyor.
+
+# TELEFON SOHBETİ
+S|Fatih|Alo!
+S|Meltem|Buyurun!
+S|Fatih|Merhaba Meltem, ben Fatih.
+S|Meltem|Merhaba Fatih. Nasılsın, iyi misin?
+S|Fatih|İyiyim. Sen nasılsın?
+S|Meltem|İyiyim, fena değil.
+S|Fatih|Niçin fena değil, bir problem mi var?
+S|Meltem|Küçük bir problem, çok önemli değil. Geçen ay işten ayrıldım.
+S|Fatih|Niçin ayrıldın? Sadece bir ay çalışmadın mı?
+S|Meltem|Patronla tartıştık ve işten ayrıldım. Ama büyük problem değil, çünkü işimi sevmiyordum. On beş gün tatil yaptım; kuzenlerimi, amcalarımı ve teyzelerimi ziyaret ettim.
+S|Fatih|Şimdi ne yapacaksın?
+S|Meltem|Tekrar İstanbul'a geleceğim. İstanbul'da çok arkadaşım var. Arkadaşlarımı ve İstanbul'u çok özledim. Ve Adana'da başka iş bulmak zor.
+S|Fatih|Tekstil firmasında çalışmak kötü müydü? Herkes ihracat departmanında çalışmak istiyor. Sen İstanbul'da ne iş yapmak istiyorsun?
+S|Meltem|Biliyorsun, benim iki diplomam var. İngilizce öğretmeniyim ve bu işi seviyorum. İhracat işini sevmiyorum. Ben İstanbul'da bir okulda veya bir kursta İngilizce öğreteceğim.
+S|Fatih|Ehh.. Tamam. Ne zaman İstanbul'a geleceksin?
+S|Meltem|İki hafta sonra İstanbul'da görüşürüz.
+S|Fatih|Görüşürüz, kendine iyi bak.
+Q|Meltem niçin çok iyi değil?
+Q|Meltem niçin işinden ayrıldı?
+Q|Meltem İstanbul'da ne iş yapmak istiyor?
+Q|Meltem kaç üniversite bitirdi?
+Q|Meltem İstanbul'a ne zaman gidecek?
+D|Meltem on beş gün tatil yaptı ve kuzenlerini ziyaret etti.
+D|Meltem'in İstanbul'da çok arkadaşı var.
+D|Adana'da yeni iş bulmak kolay.
+D|Meltem ihracat işini seviyor.
+
+# DİL ÖĞRENMENİN PÜF NOKTALARI
+P|Milliyet Gazetesi Prof. Dr. Şeyda Ozil'le bir röportaj yaptı. Soru şu: Dil öğrenmek için neler yapacağız? Sayın Ozil şunları söyledi:
+P|* Her şeyi hemen öğrenmek için çalışmayın. Açık ve gerçekçi hedefler seçin ve öğrenme hızınızı belirleyin.
+P|* Bazen yanlış konuşacaksınız. Bu normaldir, korkmayın. Her gün daha az yanlış yapacaksınız.
+P|* Devamlı yeni şeyler öğreneceksiniz, bunları sonra tekrar edin ve gelişiminizi izleyin.
+P|* Çok dinleyin; çok konuşacaksınız. Okuyun; daha iyi yazacaksınız.
+P|* Hangi dili öğreniyorsunuz? Türkçe mi, İngilizce mi, Fransızca mı? O dilin doğal metinlerini okuyun, dinleyin.
+P|* Örneğin, İspanyolca mı öğreniyorsunuz? İspanyol arkadaşlarınıza e-mail, mektup yazın. Onlarla iletişim kurun!
+P|* Dil iletişim için vardır.
+Q|Dil öğrenmek için ne yapmayacağız?
+Q|Dil öğrenmek için neler yapacağız?
+D|Her şeyi çok çabuk öğrenmek için çalışacağız.
+D|Dikkat edeceğiz ve hiç yanlış konuşmayacağız.
+D|Devamlı yeni şeyler öğreneceğiz.
+D|Doğal metinler okuyacağız, dinleyeceğiz.
+D|Dinleyeceğiz, sonra çok konuşacağız.
+
+# KAHVE
+S|Hülya|Ben geldim.
+S|Anne|Neredeydin, kızım? Çok merak ettik.
+S|Hülya|Arkadaşlarla kafedeydik. Neskafe içtik, sohbet ettik.
+S|Dede|Ne içtiniz, ne içtiniz?
+S|Hülya|Neskafe, dede.
+S|Dede|Nes ne, kızım?
+S|Hülya|Dede çok komiksin. Neskafeyi bilmiyor musun?
+S|Dede|Biliyorum, kızım. Şaka yaptım. Biraz önce annen Türk kahvesi pişirdi, ben de Türk kahvesi içtim.
+S|Hülya|Ben de Türk kahvesini seviyorum, ama güzel pişirmiyorum. Türk kahvesi nereden geldi, dede?
+S|Dede|Kahve Yemen'den geldi, sonra Türkiye'den dünyaya yayıldı. Yaklaşık 450 yıl önce Yemen Valisi Özdemir Paşa kahveyi Yemen'den İstanbul'a getirdi. Sonra 1615'te Venedikli tüccarlar ve 1650'de Marsilyalı tüccarlar Türk kahvesini Avrupa'ya ve sonra bütün dünyaya götürdüler. Kahve çok ülkenin kültüründe önemlidir. Meselâ, biz misafirlere kahve ikram ediyoruz. Güzel kahve pişirmek bayanlarımız için önemli. Kız istemek için gidiyoruz, gelin adayı kızımız en güzel kahvesini pişiriyor. Türklerin kahve için şarkıları var, deyimleri var. Örneğin bir deyim şöyle: "Bir kahvenin kırk yıl hatırı vardır." Bu 'Bir kişi bize bir kahve ikram ediyor ve biz bunu kırk yıl unutmuyoruz.' demek.
+S|Hülya|Evet, kahve bizim kültürümüzde çok önemli. Dede, neskafeyi Türkler yapmadı ki!
+S|Dede|Tabii ki, Türkler yapmadı. Avrupalılar Türk kahvesiyle tanıştılar, çok sevdiler. Yıllar sonra kahveyi farklı farklı pişirdiler. Cappucino'yu, Espresso'yu İtalyanlar yaptı, İsviçreliler daha dayanıklı bir kahve yapmak istediler ve Nescafe'yi yaptılar. Şimdi her ülkede farklı kahveler var, ama Avrupalılar ilk Türk kahvesiyle tanıştılar.
+S|Hülya|Çok ilginç dede. Türkiye'de kahve ağacı yok, ama kahveyi dünyaya Türkler tanıttı.
+Q|Dede neskafeyi biliyor mu?
+Q|Kahveyi kim, nereden İstanbul'a getirdi?
+Q|Türk kahvesini kimler bütün dünyaya götürdü?
+Q|İsviçreliler Nescafe'yi niçin yaptılar?
+D|Özdemir Paşa kahveyi 450 yıl önce İstanbul'a getirdi.
+D|Türkiye'de kahve ağacı var.
+D|Hülya çok güzel Türk kahvesi pişiriyor.
+
+# TAMİR
+S|Cevat|O ne, Tahsin?
+S|Tahsin|Priz. Salonun prizi bozuldu, onu değiştireceğim. Bu tip küçük tamir işlerini ben yapıyorum, tamirci çağırmıyorum. Benim için biraz hobi gibi.
+S|Cevat|Benim evimde de üç tane elektrik düğmesi bozuk. Onları değiştireceğim. Geçen gün musluğun contasını değiştirdim.
+S|Tahsin|Sen de tamir işlerini seviyor musun?
+S|Cevat|Benim için hobi değil. Ama bazen tamirciler geç geliyor, o zaman bozuk şeyleri ben tamir ediyorum. Çünkü tamirciyi beklemek istemiyorum. Bir gün kapının kilidi bozuldu ve tamirci çağırdım. Bekledim, bekledim, ama gelmedi. Nalbura gittim, bir kilit aldım. Eve döndüm ve kapıya taktım. Çok zor değil, aslında.
+S|Tahsin|Evinde tamir için aletler var mı?
+S|Cevat|Var. Tornavida, İngiliz anahtarı, çekiç, matkap ve benzeri aletler var.
+S|Tahsin|Benim evimde de geçen gün mutfağın lavabosu tıkandı. Eşim tamirci çağırdı, ama tamirci bütün gün meşgûldü ve gelmedi. Akşam işten sonra lavaboyu ben tamir ettim. Lavabonun borusunu söktüm, süzgecini temizledim ve geri taktım. Problem bitti. Eşim teşekkür etti, çünkü mutfak onun için çok önemli.
+Q|Tahsin küçük tamir işlerini niçin kendisi yapıyor?
+Q|Cevat'ın evinde ne bozuk?
+Q|Evde bozuk şeyleri niçin Cevat tamir ediyor?
+Q|Tahsin mutfağın lavabosuna ne yaptı?
+Q|Tahsin'in eşi neden teşekkür etti?
+D|Küçük tamir işleri Cevat için hobi.
+D|Cevat nalburdan lavabo aldı.
+D|Tahsin'in eşi lavabo için tamirci çağırdı.
+D|Tahsin sabah erken lavabo tamir etti.
+
+# BAYRAM
+S|Chris|Yarın bayram, iyi bayramlar.
+S|Demir|Evet, bayram. Akrabalarla ve arkadaşlarla görüşeceğiz.
+S|Chris|Arkadaşlarla görüşmek güzel.
+S|Demir|Evet, bayramlarda arkadaşlarımızı arıyoruz. Onlarla buluşuyoruz, görüşüyoruz. Bazı arkadaşlarımız başka şehirlerde oturuyor, çok az görüşüyoruz. Ama bayramlarda mutlaka arkadaşlarımızı hatırlıyoruz ve arıyoruz.
+S|Chris|Evet, bayramlar arkadaşlarla görüşmek için iyi bir fırsat. Demir, arkadaş ne demek biliyorum. Ama akraba ne demek?
+S|Demir|Benim amcam, teyzem, amcamın oğlu, teyzemin kızı ve onların çocukları benim akrabam.
+S|Chris|Yani büyük ailen mi?
+S|Demir|Çok yaşa Chris! Büyük aile.
+S|Chris|Ben de bayramlarda akrabalarımla ve arkadaşlarımla görüşüyorum. Gerçekten bayramlar yakınlarımızla görüşmek için iyi bir fırsat. Bazı kişiler bayram da tatile gidiyor, değil mi?
+S|Demir|Evet, bazı insanlar bayramda tatile gidiyorlar. Çünkü çok çalışıyorlar ve tatil için onların başka zamanları yok.
+S|Chris|Sen bu bayramda tatile gidecek misin?
+S|Demir|Geçen bayramda eşimle tatile gittik ve herkese sadece telefon ettik.
+S|Chris|Bu bayramda ne yapacaksın?
+S|Demir|Bu bayramda İstanbul'da kalacağız. Bütün aile erken kalkacağız. Hazırlanacağız ve babamlara gideceğiz. Tabii, çocuklar yeni elbiselerini giyecek. Babamın ve annemin ellerini öpeceğiz ve hep beraber kahvaltı yapacağız. Sonra akrabalarımız, komşularımız ziyarete gelecek. Kuzenlerim, dayım, amcam, teyzem ve onların ailesi gelecek.
+S|Chris|Niçin siz gitmiyorsunuz?
+S|Demir|Birinci gün babamıza gidiyoruz. Sonra en büyük akrabaya.
+S|Chris|Ailede en büyük kişi senin baban mı?
+S|Demir|Evet, en büyük babam. Bütün akrabalar birinci gün onu ziyaret ediyor. Biz babamız ve annemizle kalıyoruz ve hizmet ediyoruz.
+S|Chris|Siz mi hizmet ediyorsunuz?
+S|Demir|Tam değil, gerçekte genç kuzenler hizmet ediyor, ama biz organize ediyoruz ve servise dikkat ediyoruz.
+S|Chris|Evet! Bizde de gençler hizmet ediyor. Bütün dünyada aynı, değil mi?
+S|Demir|Evet. Çünkü insanlar her yerde aynı. Sadece küçük farklar var.
+S|Chris|Doğru.
+S|Demir|Evet, doğru.
+Q|Niçin bazı arkadaşlarımızla az görüşüyoruz?
+Q|Kimler akrabamız?
+Q|Niçin bazı kişiler bayramda tatile gidiyor?
+Q|Niçin bütün akrabalar birinci gün Demir'in babasını ziyaret ediyor?
+D|Demir bu bayramda tatil yapacak.
+D|Bayramlar arkadaşlarla görüşmek için iyi bir şans.
+D|Demir geçen bayramda herkese sadece telefon etti.
+D|Bayramda komşular ziyarete geliyor.
+D|Chris'in ülkesinde insanlar çok farklı.
+
+# PAZARDA
+S|Zeliha|Merhaba Aysel, nasılsın?
+S|Aysel|İyiyim, sen nasılsın?
+S|Zeliha|Çok iyiyim. Pazarda her şey çok ucuzladı.
+S|Aysel|Evet, taze bezelye gördüm.
+S|Zeliha|Ben de tezgahta taze fasulye gördüm. Bizim çocuklar çok seviyorlar. Bunun için üç kilo aldım.
+S|Aysel|Geçen hafta perşembe günü bize niçin gelmedin?
+S|Zeliha|Kızım hastaydı.
+S|Aysel|Şimdi iyi mi?
+S|Zeliha|Evet iyi. Benden erik istedi. Çok pahalı.
+S|Aysel|Erik çıktı mı?
+S|Zeliha|Dün ilk defa manavda gördüm. Ama eriğin fiyatı çok pahalıydı.
+S|Aysel|Evet, erik turfanda meyve. Birkaç hafta sonra al. O zaman daha ucuzlayacak.
+S|Zeliha|Gelecek hafta Ayşe'ye gideceğiz, sen de gel.
+S|Aysel|Tamam, o gün kek de getireceğim. Biliyorsun, benim keklerimi herkes çok beğeniyor.
+S|Zeliha|Evet, ben de yedim. Çok lezzetli pişiriyorsun. Arkadaşlar börek ve tatlı da yapacaklar.
+S|Aysel|Pırasa mı aldın?
+S|Zeliha|Evet, pazarda pırasa kalmadı, sadece bir tezgahta gördüm. Hemen aldım. Eşim pırasayı çok seviyor.
+S|Aysel|Evet, pırasa mevsimi geçti. Pırasayı nasıl yapıyorsun? Zeytinyağlı mı, etli mi?
+S|Zeliha|Genellikle zeytinyağlı yapıyorum.
+S|Aysel|Ben de bu akşam patates kızartmak istiyorum. Çocuklar kabak ve patates kızartmasını çok seviyorlar. Ama ketçap vermiyorum.
+S|Zeliha|Niçin?
+S|Aysel|Çocuklara ketçap ve kola yasak. Çocuklar için iyi değil.
+S|Zeliha|Çok iyi, görüşürüz.
+S|Aysel|Görüşürüz.
+Q|Zeliha niçin fasulye aldı?
+Q|Erik ne zaman daha ucuz olacak?
+Q|Aysel niçin çocuklara ketçap vermiyor?
+Q|Niçin herkes Aysel'in keklerini çok beğeniyor?
+Q|Niçin pazarda pırasa kalmadı?
+D|Zeliha, Aysel'e gitmedi, çünkü kızı hastaydı.
+D|Onlar Aysel'in evinde kek, börek, tatlı yiyecekler.
+D|Çocuklar kızartmayı sevmiyorlar.
+D|Pazarda bezelye yoktu.
+
+# ÜNİVERSİTE YEMEKHANESİNDE
+S|Aslı|Son sınavlar zordu.
+S|Lindsay|Evet, biraz zordu.
+S|Aslı|Kütüphanede çok çalıştım, ama galiba sınavımın sonucu kötü olacak.
+S|Lindsay|Ben kütüphaneye pek gitmiyorum, evde ders çalışıyorum. Çünkü benim için evde çalışmak daha rahat.
+S|Aslı|Yemekhanede de seni sık görmüyorum.
+S|Lindsay|Yemekhaneye bazen geliyorum. Evim okula çok yakın, yemek için genellikle eve gidiyorum.
+S|Aslı|İlk vizeler zordu, ikinci vizeler de zordu. Şimdi finaller de zor.
+S|Lindsay|Aslı, hep şikayet ediyorsun.
+S|Aslı|Bu sınavlardan bıktım.
+S|Lindsay|Sen nasıl bizim bölümü kazandın?
+S|Aslı|Lisede İngilizce öğrendim. Sonra İngilizce kursuna gittim. Önce mimar olmak istedim, ama matematiğim kötüydü. İlk sene sınavı kaybettim. İkinci sene İngilizce sınava girdim. İngilizce Öğretmenliği bölümünü kazandım. Sen nasıl kazandın?
+S|Lindsay|Benim babam Amerikalı, Türk ve Amerikan vatandaşlığım var. Bunun için yabancıların sınavına girdim. Bu sınav Türklerin sınavından daha kolay.
+S|Aslı|Çok şanslısın. İngilizce senin için çok kolay.
+S|Lindsay|Kolay, ama ben İngiliz edebiyatını bilmiyorum. Liseyi İstanbul'da bitirdim.
+S|Aslı|Amerika'ya gidiyor musun?
+S|Lindsay|Evet, iki yılda bir Florida'ya, teyzeme gidiyoruz ve tatil yapıyoruz.
+Q|Lindsay niçin kütüphaneye gitmiyor?
+Q|Lindsay nerede yemek yiyor? Niçin?
+Q|Aslı niçin sınavlardan şikayet ediyor?
+Q|Aslı niçin mimar olmadı?
+Q|Lindsay niçin yabancıların sınavına girdi?
+D|Aslı çok mutlu, çünkü sınavı iyi geçti.
+D|Aslı ikinci sınavda öğretmenlik bölümünü kazandı.
+D|Lindsay her yıl Amerika'ya gidiyor.
