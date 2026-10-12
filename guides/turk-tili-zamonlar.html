@@ -1,0 +1,523 @@
+<title>Turk tili zamonlari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: single reading column with a sticky tense switcher; each tense is a colour-keyed chapter */
+:root {
+  --bg: #fbfbfd;
+  --surface: #ffffff;
+  --sunk: #f1f2f6;
+  --fg: #1b1d26;
+  --muted: #5b6072;
+  --line: #e1e3ea;
+  --accent: #b42318;          /* Turkish red, used sparingly */
+  --accent-soft: #fdecea;
+  --t1: #1f6feb; --t1-soft: #e7f0fe;   /* şimdiki */
+  --t2: #2f7d4f; --t2-soft: #e5f3ea;   /* geniş */
+  --t3: #9a5b00; --t3-soft: #fbf0dc;   /* geçmiş */
+  --t4: #7c3aed; --t4-soft: #f0e9fe;   /* gelecek */
+  --ok: #2f7d4f; --bad: #b42318;
+  --f-display: "Bitter", Georgia, serif;
+  --f-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12131a; --surface: #1a1c25; --sunk: #222531; --fg: #e8e9ef; --muted: #a0a4b5; --line: #2e3140;
+    --accent: #ff7a6b; --accent-soft: #3a1f1d;
+    --t1: #79aaff; --t1-soft: #1b2741; --t2: #6fd39a; --t2-soft: #17301f;
+    --t3: #f0b75a; --t3-soft: #36290f; --t4: #b79bff; --t4-soft: #2a2140;
+    --ok: #6fd39a; --bad: #ff7a6b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12131a; --surface: #1a1c25; --sunk: #222531; --fg: #e8e9ef; --muted: #a0a4b5; --line: #2e3140;
+  --accent: #ff7a6b; --accent-soft: #3a1f1d;
+  --t1: #79aaff; --t1-soft: #1b2741; --t2: #6fd39a; --t2-soft: #17301f;
+  --t3: #f0b75a; --t3-soft: #36290f; --t4: #b79bff; --t4-soft: #2a2140;
+  --ok: #6fd39a; --bad: #ff7a6b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 17px/1.6 var(--f-body); }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 40px 80px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; }
+h3 { font-size: 1.15rem; font-weight: 600; margin-top: 8px; }
+p { margin: 0; max-width: 68ch; }
+code, .m { font-family: var(--f-mono); font-size: 0.88em; }
+.eyebrow { font: 600 0.78rem/1 var(--f-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.lead { color: var(--muted); font-size: 1.1rem; }
+header.hero { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+header.hero .flag { color: var(--accent); }
+
+/* sticky nav */
+nav.tenses { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+  margin-inline: -16px; padding: 10px 16px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+nav.tenses ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; white-space: nowrap; }
+nav.tenses a { display: inline-block; padding: 6px 12px; border-radius: 999px; text-decoration: none;
+  color: var(--fg); background: var(--sunk); font-weight: 600; font-size: 0.92rem; }
+nav.tenses a:hover, nav.tenses a:focus-visible { background: var(--accent-soft); color: var(--accent); outline: none; }
+
+section { display: grid; gap: 16px; padding-top: 48px; scroll-margin-top: 64px; }
+section > * { min-width: 0; }
+.chapter-head { display: grid; gap: 6px; padding-left: 14px; border-left: 4px solid var(--tc, var(--accent)); }
+.chapter-head .suffix { font-family: var(--f-mono); color: var(--tc, var(--accent)); font-size: 1.05rem; }
+.t1 { --tc: var(--t1); --tcs: var(--t1-soft); }
+.t2 { --tc: var(--t2); --tcs: var(--t2-soft); }
+.t3 { --tc: var(--t3); --tcs: var(--t3-soft); }
+.t4 { --tc: var(--t4); --tcs: var(--t4-soft); }
+
+/* overview cards */
+.overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.ov { display: grid; gap: 4px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line);
+  border-top: 3px solid var(--tc); border-radius: 10px; text-decoration: none; color: var(--fg); }
+.ov:hover, .ov:focus-visible { background: var(--tcs); outline: none; }
+.ov .name { font-family: var(--f-display); font-weight: 800; font-size: 1.1rem; }
+.ov .uz { color: var(--muted); font-size: 0.92rem; }
+.ov .ex { font-family: var(--f-mono); font-size: 0.86rem; color: var(--tc); }
+
+/* tables */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.97rem; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: var(--sunk); font-weight: 700; white-space: nowrap; }
+td:first-child { font-weight: 600; color: var(--muted); white-space: nowrap; }
+td b, li b, p b.s { color: var(--tc, var(--accent)); font-weight: 700; }
+.conj td:not(:first-child) { white-space: nowrap; }
+
+.formula { font-family: var(--f-mono); background: var(--tcs, var(--sunk)); color: var(--fg); padding: 10px 14px;
+  border-radius: 8px; font-size: 0.95rem; overflow-x: auto; white-space: nowrap; }
+.formula span { color: var(--tc); font-weight: 700; }
+
+ul.rules, ul.examples { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+ul.examples li span.tr { color: var(--muted); }
+.note { padding: 12px 14px; border-radius: 8px; background: var(--sunk); font-size: 0.97rem; }
+.note.warn { background: var(--accent-soft); }
+.note strong:first-child { margin-right: 4px; }
+.markers { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.markers .lbl { font-weight: 700; margin-right: 4px; }
+.chip { font-size: 0.88rem; padding: 2px 10px; border-radius: 999px; background: var(--tcs, var(--sunk)); color: var(--tc, var(--fg)); font-weight: 600; }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.grid2 > * { min-width: 0; }
+.compare { padding: 14px 16px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); display: grid; gap: 4px; }
+.compare .big { font-family: var(--f-display); font-size: 1.25rem; font-weight: 800; }
+
+/* exceptions grid */
+.exc { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.exc div { padding: 8px 10px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); font-size: 0.95rem; }
+.exc div small { display: block; color: var(--muted); }
+
+/* exercises */
+.quiz { display: grid; gap: 10px; counter-reset: q; }
+.q { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; align-items: center; padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.q > * { min-width: 0; }
+.q .txt::before { counter-increment: q; content: counter(q) ". "; font-weight: 700; color: var(--muted); }
+.q .hint { grid-column: 1 / -1; color: var(--muted); font-size: 0.9rem; }
+.q input { font: 500 1rem var(--f-mono); padding: 6px 10px; border-radius: 6px; border: 1.5px solid var(--line);
+  background: var(--bg); color: var(--fg); width: 190px; max-width: 100%; }
+.q input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.q.ok input { border-color: var(--ok); }
+.q.bad input { border-color: var(--bad); }
+.q .fb { grid-column: 1 / -1; font-size: 0.9rem; font-weight: 600; }
+.q.ok .fb { color: var(--ok); }
+.q.bad .fb { color: var(--bad); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+button { font: 600 0.95rem var(--f-body); padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--fg); cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#score { font-weight: 700; }
+.tr-tag { font-family: var(--f-mono); font-size: 0.85em; }
+footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q { grid-template-columns: 1fr; }
+  .q input { width: 100%; }
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow"><span class="flag">●</span> Türkçe · Dilbilgisi qo'llanmasi</span>
+    <h1>Turk tili zamonlari</h1>
+    <p class="lead">Hozirgi, umumiy, o'tgan va kelasi zamon: yasalishi, tuslanishi, istisnolar, misollar va mashqlar. Barcha izohlar o'zbek tilida.</p>
+  </header>
+
+  <nav class="tenses" aria-label="Bo'limlar">
+    <ul>
+      <li><a href="#uyum">Unli uyg'unligi</a></li>
+      <li><a href="#simdiki">Şimdiki</a></li>
+      <li><a href="#genis">Geniş</a></li>
+      <li><a href="#gecmis">Geçmiş</a></li>
+      <li><a href="#gelecek">Gelecek</a></li>
+      <li><a href="#jadval">Umumiy jadval</a></li>
+      <li><a href="#mashq">Mashqlar</a></li>
+    </ul>
+  </nav>
+
+  <section id="umumiy" aria-label="Qisqacha">
+    <div class="overview">
+      <a class="ov t1" href="#simdiki"><span class="name">Şimdiki zaman</span><span class="uz">Hozirgi davomli</span><span class="ex">gel-iyor-um · kelyapman</span></a>
+      <a class="ov t2" href="#genis"><span class="name">Geniş zaman</span><span class="uz">Umumiy (doimiy)</span><span class="ex">gel-ir-im · kelaman</span></a>
+      <a class="ov t3" href="#gecmis"><span class="name">Geçmiş zaman</span><span class="uz">O'tgan (-dı / -mış)</span><span class="ex">gel-di-m · keldim</span></a>
+      <a class="ov t4" href="#gelecek"><span class="name">Gelecek zaman</span><span class="uz">Kelasi</span><span class="ex">gel-eceğ-im · kelaman</span></a>
+    </div>
+  </section>
+
+  <!-- 0. Uyum -->
+  <section id="uyum">
+    <div class="chapter-head">
+      <span class="eyebrow">Avval bilish shart</span>
+      <h2>Unli uyg'unligi <span class="lead">(ünlü uyumu)</span></h2>
+    </div>
+    <p>Turk tilida qo'shimchalar so'zning <strong>oxirgi unlisiga</strong> qarab o'zgaradi. Ikki xil uyg'unlik bor:</p>
+    <div class="grid2">
+      <div class="tbl"><table>
+        <thead><tr><th>Oxirgi unli</th><th>2 xilli (a / e)</th></tr></thead>
+        <tbody>
+          <tr><td>a, ı, o, u</td><td><b>a</b> &nbsp;(yaz<b>a</b>cak)</td></tr>
+          <tr><td>e, i, ö, ü</td><td><b>e</b> &nbsp;(gel<b>e</b>cek)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Oxirgi unli</th><th>4 xilli (ı / i / u / ü)</th></tr></thead>
+        <tbody>
+          <tr><td>a, ı</td><td><b>ı</b> &nbsp;(al<b>ı</b>yor)</td></tr>
+          <tr><td>e, i</td><td><b>i</b> &nbsp;(gel<b>i</b>yor)</td></tr>
+          <tr><td>o, u</td><td><b>u</b> &nbsp;(otur<b>u</b>yor)</td></tr>
+          <tr><td>ö, ü</td><td><b>ü</b> &nbsp;(gör<b>ü</b>yor)</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div class="note"><strong>Jarangsiz undoshlar:</strong> <code>f, s, t, k, ç, ş, h, p</code>. Eslab qolish uchun: <strong>"FıSTıKÇı ŞaHaP"</strong>. Shu harflardan keyin <code>d</code> o'rniga <code>t</code> keladi: yap + dı → <strong>yaptı</strong>, iç + dı → <strong>içti</strong>, lekin gel + dı → <strong>geldi</strong>.</div>
+    <div class="note"><strong>Fe'l o'zagi</strong> = infinitivdan <code>-mak / -mek</code> olib tashlanadi: gel<em>mek</em> → <strong>gel</strong>, yap<em>mak</em> → <strong>yap</strong>, oku<em>mak</em> → <strong>oku</strong>.</div>
+  </section>
+
+  <!-- 1. Şimdiki -->
+  <section id="simdiki" class="t1">
+    <div class="chapter-head">
+      <span class="eyebrow">1-zamon</span>
+      <h2>Şimdiki zaman</h2>
+      <span class="suffix">-iyor · hozirgi davomli zamon</span>
+    </div>
+    <p><strong>Qachon:</strong> hozir, shu daqiqada bo'layotgan ish; yaqin kelajakdagi reja; hozirgi davrdagi holat. O'zbekchada <em>-yapman, -moqdaman</em>.</p>
+    <div class="formula">o'zak + <span>ı/i/u/ü + yor</span> + shaxs qo'shimchasi</div>
+    <ul class="rules">
+      <li>Undosh bilan tugasa: gel → gel<b>iyor</b>, yaz → yaz<b>ıyor</b>, otur → otur<b>uyor</b>, gör → gör<b>üyor</b></li>
+      <li>Unli bilan tugasa, unli qo'shilmaydi: oku → oku<b>yor</b>, yürü → yürü<b>yor</b></li>
+      <li><strong>a / e</strong> bilan tugasa, u ı/i/u/ü ga aylanadi: bekle → bekl<b>iyor</b>, anla → anl<b>ıyor</b>, söyle → söyl<b>üyor</b></li>
+    </ul>
+    <h3>Tuslanishi (gelmek)</h3>
+    <div class="tbl"><table class="conj">
+      <thead><tr><th>Shaxs</th><th>Bo'lishli (+)</th><th>Bo'lishsiz (–)</th><th>So'roq (?)</th></tr></thead>
+      <tbody>
+        <tr><td>Ben</td><td>geliyor<b>um</b></td><td>gel<b>m</b>iyorum</td><td>geliyor <b>muyum</b>?</td></tr>
+        <tr><td>Sen</td><td>geliyor<b>sun</b></td><td>gelmiyorsun</td><td>geliyor <b>musun</b>?</td></tr>
+        <tr><td>O</td><td>geliyor</td><td>gelmiyor</td><td>geliyor <b>mu</b>?</td></tr>
+        <tr><td>Biz</td><td>geliyor<b>uz</b></td><td>gelmiyoruz</td><td>geliyor <b>muyuz</b>?</td></tr>
+        <tr><td>Siz</td><td>geliyor<b>sunuz</b></td><td>gelmiyorsunuz</td><td>geliyor <b>musunuz</b>?</td></tr>
+        <tr><td>Onlar</td><td>geliyor<b>lar</b></td><td>gelmiyorlar</td><td>geliyor<b>lar mı</b>?</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>Eslatma:</strong> <code>-yor</code> hech qachon o'zgarmaydi, shuning uchun shaxs qo'shimchalari doim <strong>u</strong> bilan keladi: -um, -sun, -uz, -sunuz. Inkorda: yap<strong>mıyor</strong>um, oku<strong>muyor</strong>um, gör<strong>müyor</strong>um.</div>
+    <h3>Istisnolar</h3>
+    <div class="exc">
+      <div>git → <b>gid</b>iyorum<small>bormoq</small></div>
+      <div>et → <b>ed</b>iyorum<small>qilmoq</small></div>
+      <div>de → <b>di</b>yorum<small>demoq</small></div>
+      <div>ye → <b>yi</b>yorum<small>yemoq</small></div>
+    </div>
+    <h3>Misollar</h3>
+    <ul class="examples">
+      <li>Şu an kitap <b>okuyorum</b>. <span class="tr">Hozir kitob o'qiyapman.</span></li>
+      <li>Ahmet televizyon <b>izliyor</b>. <span class="tr">Ahmet televizor ko'ryapti.</span></li>
+      <li>Yarın İstanbul'a <b>gidiyoruz</b>. <span class="tr">Ertaga Istanbulga ketyapmiz.</span></li>
+      <li>Türkçe <b>öğreniyor musun</b>? <span class="tr">Turkcha o'rganyapsanmi?</span></li>
+    </ul>
+    <div class="markers"><span class="lbl">Vaqt so'zlari:</span><span class="chip">şu an</span><span class="chip">şimdi</span><span class="chip">şu sıralarda</span><span class="chip">bugünlerde</span><span class="chip">artık</span></div>
+  </section>
+
+  <!-- 2. Geniş -->
+  <section id="genis" class="t2">
+    <div class="chapter-head">
+      <span class="eyebrow">2-zamon</span>
+      <h2>Geniş zaman</h2>
+      <span class="suffix">-r / -ar / -ir · umumiy (doimiy) zamon</span>
+    </div>
+    <p><strong>Qachon:</strong> odatlar, umumiy haqiqatlar, iltimos va taklif, va'da, maqollar. O'zbekchada <em>-aman, -asan, -adi</em> (odatiy ma'noda).</p>
+    <ul class="examples">
+      <li>Odat: Her sabah kahve <b>içerim</b>. <span class="tr">Har tong qahva ichaman.</span></li>
+      <li>Haqiqat: Su 100 derecede <b>kaynar</b>. <span class="tr">Suv 100 darajada qaynaydi.</span></li>
+      <li>Iltimos: Kapıyı <b>açar mısın</b>? <span class="tr">Eshikni ochib yuborasanmi?</span></li>
+      <li>Va'da: Yarın <b>ararım</b>. <span class="tr">Ertaga qo'ng'iroq qilaman.</span></li>
+    </ul>
+    <h3>Yasalishi: 3 ta qoida</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Qoida</th><th>Qo'shimcha</th><th>Misollar</th></tr></thead>
+      <tbody>
+        <tr><td>Unli bilan tugasa</td><td><b>-r</b></td><td>oku<b>r</b>, bekle<b>r</b>, anla<b>r</b></td></tr>
+        <tr><td>Bir bo'g'inli, undoshli</td><td><b>-ar / -er</b></td><td>yaz<b>ar</b>, iç<b>er</b>, sev<b>er</b>, yap<b>ar</b></td></tr>
+        <tr><td>Ko'p bo'g'inli, undoshli</td><td><b>-ır/-ir/-ur/-ür</b></td><td>çalış<b>ır</b>, konuş<b>ur</b>, getir<b>ir</b>, düşün<b>ür</b></td></tr>
+      </tbody>
+    </table></div>
+    <h3>13 ta istisno <span class="lead">(bir bo'g'inli, lekin -ır/-ir/-ur/-ür oladi)</span></h3>
+    <div class="exc">
+      <div>al<b>ır</b><small>olmoq</small></div>
+      <div>bil<b>ir</b><small>bilmoq</small></div>
+      <div>bul<b>ur</b><small>topmoq</small></div>
+      <div>dur<b>ur</b><small>to'xtamoq</small></div>
+      <div>gel<b>ir</b><small>kelmoq</small></div>
+      <div>gör<b>ür</b><small>ko'rmoq</small></div>
+      <div>kal<b>ır</b><small>qolmoq</small></div>
+      <div>ol<b>ur</b><small>bo'lmoq</small></div>
+      <div>öl<b>ür</b><small>o'lmoq</small></div>
+      <div>san<b>ır</b><small>o'ylamoq</small></div>
+      <div>ver<b>ir</b><small>bermoq</small></div>
+      <div>var<b>ır</b><small>yetib bormoq</small></div>
+      <div>vur<b>ur</b><small>urmoq</small></div>
+    </div>
+    <p>Yana: git → <strong>gider</strong>, et → <strong>eder</strong> (t → d).</p>
+    <h3>Tuslanishi (yazmak)</h3>
+    <div class="tbl"><table class="conj">
+      <thead><tr><th>Shaxs</th><th>Bo'lishli (+)</th><th>Bo'lishsiz (–)</th><th>So'roq (?)</th><th>Bo'lishsiz so'roq</th></tr></thead>
+      <tbody>
+        <tr><td>Ben</td><td>yazar<b>ım</b></td><td>yaz<b>mam</b></td><td>yazar <b>mıyım</b>?</td><td>yazmaz <b>mıyım</b>?</td></tr>
+        <tr><td>Sen</td><td>yazar<b>sın</b></td><td>yaz<b>mazsın</b></td><td>yazar <b>mısın</b>?</td><td>yazmaz <b>mısın</b>?</td></tr>
+        <tr><td>O</td><td>yazar</td><td>yaz<b>maz</b></td><td>yazar <b>mı</b>?</td><td>yazmaz <b>mı</b>?</td></tr>
+        <tr><td>Biz</td><td>yazar<b>ız</b></td><td>yaz<b>mayız</b></td><td>yazar <b>mıyız</b>?</td><td>yazmaz <b>mıyız</b>?</td></tr>
+        <tr><td>Siz</td><td>yazar<b>sınız</b></td><td>yaz<b>mazsınız</b></td><td>yazar <b>mısınız</b>?</td><td>yazmaz <b>mısınız</b>?</td></tr>
+        <tr><td>Onlar</td><td>yazar<b>lar</b></td><td>yaz<b>mazlar</b></td><td>yazar<b>lar mı</b>?</td><td>yazmaz<b>lar mı</b>?</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note warn"><strong>Diqqat:</strong> inkorda <code>-maz/-mez</code>, lekin <strong>Ben</strong> va <strong>Biz</strong>da <code>z</code> tushib qoladi: yaz<strong>mam</strong>, yaz<strong>mayız</strong> (gel<strong>mem</strong>, gel<strong>meyiz</strong>). Inkorda 3 ta qoida ham, istisnolar ham ishlamaydi: hamma fe'l <code>-maz/-mez</code> oladi.</div>
+    <h3>Misollar</h3>
+    <ul class="examples">
+      <li>Ben sabahları erken <b>kalkarım</b>. <span class="tr">Men ertalablari erta turaman.</span></li>
+      <li>O sigara <b>içmez</b>. <span class="tr">U sigaret chekmaydi.</span></li>
+      <li>Bana yardım <b>eder misin</b>? <span class="tr">Menga yordam berasanmi?</span></li>
+      <li>Damlaya damlaya göl <b>olur</b>. <span class="tr">Tomchi-tomchi ko'l bo'lur (maqol).</span></li>
+    </ul>
+    <div class="markers"><span class="lbl">Vaqt so'zlari:</span><span class="chip">her gün</span><span class="chip">her zaman</span><span class="chip">genellikle</span><span class="chip">bazen</span><span class="chip">sık sık</span><span class="chip">asla</span><span class="chip">hiç</span></div>
+  </section>
+
+  <!-- 3. Geçmiş -->
+  <section id="gecmis" class="t3">
+    <div class="chapter-head">
+      <span class="eyebrow">3-zamon</span>
+      <h2>Geçmiş zaman</h2>
+      <span class="suffix">-dı / -mış · o'tgan zamon</span>
+    </div>
+    <p>Turk tilida o'tgan zamonning <strong>ikki</strong> asosiy turi bor: o'zi ko'rgan ish uchun <code>-dı</code>, eshitgan ish uchun <code>-mış</code>.</p>
+
+    <h3>3A. Görülen geçmiş zaman (-dı): aniq o'tgan zamon</h3>
+    <p>Gapiruvchi ishni o'zi ko'rgan yoki aniq biladi. O'zbekchada <em>-dim, -ding, -di</em>.</p>
+    <div class="formula">o'zak + <span>dı/di/du/dü</span> (jarangsizdan keyin <span>tı/ti/tu/tü</span>) + m/n/k/nız/lar</div>
+    <ul class="rules">
+      <li>gel<b>di</b>, oku<b>du</b>, gör<b>dü</b>, al<b>dı</b></li>
+      <li>yap<b>tı</b>, git<b>ti</b>, iç<b>ti</b>, konuş<b>tu</b></li>
+    </ul>
+    <div class="tbl"><table class="conj">
+      <thead><tr><th>Shaxs</th><th>Bo'lishli (+)</th><th>Bo'lishsiz (–)</th><th>So'roq (?)</th></tr></thead>
+      <tbody>
+        <tr><td>Ben</td><td>geldi<b>m</b></td><td>gel<b>me</b>dim</td><td>geldim <b>mi</b>?</td></tr>
+        <tr><td>Sen</td><td>geldi<b>n</b></td><td>gelmedin</td><td>geldin <b>mi</b>?</td></tr>
+        <tr><td>O</td><td>geldi</td><td>gelmedi</td><td>geldi <b>mi</b>?</td></tr>
+        <tr><td>Biz</td><td>geldi<b>k</b></td><td>gelmedik</td><td>geldik <b>mi</b>?</td></tr>
+        <tr><td>Siz</td><td>geldi<b>niz</b></td><td>gelmediniz</td><td>geldiniz <b>mi</b>?</td></tr>
+        <tr><td>Onlar</td><td>geldi<b>ler</b></td><td>gelmediler</td><td>geldiler <b>mi</b>?</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><strong>Eslatma:</strong> bu zamonda so'roq yuklamasi <code>mi</code> eng oxirida, shaxs qo'shimchasidan keyin keladi: geldin <strong>mi</strong>?</div>
+    <ul class="examples">
+      <li>Dün sinemaya <b>gittim</b>. <span class="tr">Kecha kinoga bordim.</span></li>
+      <li>Kahvaltı <b>yaptın mı</b>? <span class="tr">Nonushta qildingmi?</span></li>
+      <li>Onlar ödevi <b>yapmadılar</b>. <span class="tr">Ular uy vazifasini qilmadilar.</span></li>
+    </ul>
+
+    <h3>3B. Duyulan geçmiş zaman (-mış): eshitilgan o'tgan zamon</h3>
+    <p>Ishni o'zi ko'rmagan, boshqadan eshitgan yoki keyin bilib qolgan; ajablanish. O'zbekchada <em>-ibdi, -gan ekan, -ibman</em>.</p>
+    <div class="formula">o'zak + <span>mış/miş/muş/müş</span> + ım/sın/–/ız/sınız/lar</div>
+    <div class="tbl"><table class="conj">
+      <thead><tr><th>Shaxs</th><th>Bo'lishli (+)</th><th>Bo'lishsiz (–)</th><th>So'roq (?)</th></tr></thead>
+      <tbody>
+        <tr><td>Ben</td><td>gelmiş<b>im</b></td><td>gel<b>me</b>mişim</td><td>gelmiş <b>miyim</b>?</td></tr>
+        <tr><td>Sen</td><td>gelmiş<b>sin</b></td><td>gelmemişsin</td><td>gelmiş <b>misin</b>?</td></tr>
+        <tr><td>O</td><td>gelmiş</td><td>gelmemiş</td><td>gelmiş <b>mi</b>?</td></tr>
+        <tr><td>Biz</td><td>gelmiş<b>iz</b></td><td>gelmemişiz</td><td>gelmiş <b>miyiz</b>?</td></tr>
+        <tr><td>Siz</td><td>gelmiş<b>siniz</b></td><td>gelmemişsiniz</td><td>gelmiş <b>misiniz</b>?</td></tr>
+        <tr><td>Onlar</td><td>gelmiş<b>ler</b></td><td>gelmemişler</td><td>gelmiş<b>ler mi</b>?</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="examples">
+      <li>Ali dün hasta<b>lanmış</b>. <span class="tr">Ali kecha kasal bo'lib qolibdi (eshitdim).</span></li>
+      <li>Vay, çok <b>büyümüşsün</b>! <span class="tr">Voy, juda katta bo'lib qolibsan!</span></li>
+      <li>Bir <b>varmış</b>, bir <b>yokmuş</b>... <span class="tr">Bor ekan, yo'q ekan... (ertak boshlanishi)</span></li>
+    </ul>
+
+    <h3>-dı va -mış farqi</h3>
+    <div class="grid2">
+      <div class="compare"><span class="eyebrow">-dı · ko'rdim</span><span class="big">Ali geldi.</span><span>Ali keldi (o'zim ko'rdim).</span></div>
+      <div class="compare"><span class="eyebrow">-mış · eshitdim</span><span class="big">Ali gelmiş.</span><span>Ali kelibdi (eshitdim / endi bildim).</span></div>
+    </div>
+    <div class="markers"><span class="lbl">Vaqt so'zlari:</span><span class="chip">dün</span><span class="chip">geçen hafta</span><span class="chip">geçen yıl</span><span class="chip">önce</span><span class="chip">az önce</span><span class="chip">demin</span><span class="chip">2010'da</span></div>
+  </section>
+
+  <!-- 4. Gelecek -->
+  <section id="gelecek" class="t4">
+    <div class="chapter-head">
+      <span class="eyebrow">4-zamon</span>
+      <h2>Gelecek zaman</h2>
+      <span class="suffix">-acak / -ecek · kelasi zamon</span>
+    </div>
+    <p><strong>Qachon:</strong> kelajakdagi ish, reja, qaror, bashorat. O'zbekchada <em>-aman, -moqchiman</em>.</p>
+    <div class="formula">o'zak + (y) + <span>acak/ecek</span> + shaxs qo'shimchasi</div>
+    <ul class="rules">
+      <li>Undosh bilan tugasa: gel<b>ecek</b>, yap<b>acak</b></li>
+      <li>Unli bilan tugasa, <strong>y</strong> qo'shiladi: oku<b>yacak</b>, bekle<b>yecek</b></li>
+    </ul>
+    <div class="note warn"><strong>Diqqat:</strong> unli bilan boshlanadigan shaxs qo'shimchasidan oldin <strong>k → ğ</strong> bo'ladi: gelece<strong>k</strong> → gelece<strong>ğ</strong>im, gelece<strong>ğ</strong>iz.</div>
+    <div class="tbl"><table class="conj">
+      <thead><tr><th>Shaxs</th><th>Bo'lishli (+)</th><th>Bo'lishsiz (–)</th><th>So'roq (?)</th></tr></thead>
+      <tbody>
+        <tr><td>Ben</td><td>geleceğ<b>im</b></td><td>gel<b>me</b>yeceğim</td><td>gelecek <b>miyim</b>?</td></tr>
+        <tr><td>Sen</td><td>gelecek<b>sin</b></td><td>gelmeyeceksin</td><td>gelecek <b>misin</b>?</td></tr>
+        <tr><td>O</td><td>gelecek</td><td>gelmeyecek</td><td>gelecek <b>mi</b>?</td></tr>
+        <tr><td>Biz</td><td>geleceğ<b>iz</b></td><td>gelmeyeceğiz</td><td>gelecek <b>miyiz</b>?</td></tr>
+        <tr><td>Siz</td><td>gelecek<b>siniz</b></td><td>gelmeyeceksiniz</td><td>gelecek <b>misiniz</b>?</td></tr>
+        <tr><td>Onlar</td><td>gelecek<b>ler</b></td><td>gelmeyecekler</td><td>gelecek<b>ler mi</b>?</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Istisnolar</h3>
+    <div class="exc">
+      <div>git → <b>gid</b>eceğim<small>boraman</small></div>
+      <div>et → <b>ed</b>eceğim<small>qilaman</small></div>
+      <div>de → <b>di</b>yeceğim<small>deyman</small></div>
+      <div>ye → <b>yi</b>yeceğim<small>yeyman</small></div>
+    </div>
+    <ul class="examples">
+      <li>Yarın sana <b>yazacağım</b>. <span class="tr">Ertaga senga yozaman.</span></li>
+      <li>Gelecek yıl Türkiye'ye <b>gideceğiz</b>. <span class="tr">Kelasi yil Turkiyaga boramiz.</span></li>
+      <li>Bu akşam ne <b>yapacaksın</b>? <span class="tr">Bu kech nima qilmoqchisan?</span></li>
+      <li>O bu işi <b>yapmayacak</b>. <span class="tr">U bu ishni qilmaydi.</span></li>
+    </ul>
+    <div class="note"><strong>So'zlashuvda:</strong> ko'pincha qisqa aytiladi: geleceğim → <em>gelicem</em>, yapacağım → <em>yapıcam</em>. Yozuvda esa to'liq shakl ishlatiladi.</div>
+    <div class="markers"><span class="lbl">Vaqt so'zlari:</span><span class="chip">yarın</span><span class="chip">öbür gün</span><span class="chip">gelecek hafta</span><span class="chip">haftaya</span><span class="chip">seneye</span><span class="chip">birazdan</span></div>
+  </section>
+
+  <!-- 5. Jadval -->
+  <section id="jadval">
+    <div class="chapter-head">
+      <span class="eyebrow">Xulosa</span>
+      <h2>Bitta fe'l, barcha zamonlarda</h2>
+      <span class="suffix">yapmak · qilmoq</span>
+    </div>
+    <div class="tbl"><table class="conj">
+      <thead><tr><th>Shaxs</th><th style="color:var(--t1)">Şimdiki</th><th style="color:var(--t2)">Geniş</th><th style="color:var(--t3)">Geçmiş -dı</th><th style="color:var(--t3)">Geçmiş -mış</th><th style="color:var(--t4)">Gelecek</th></tr></thead>
+      <tbody>
+        <tr><td>Ben</td><td>yapıyorum</td><td>yaparım</td><td>yaptım</td><td>yapmışım</td><td>yapacağım</td></tr>
+        <tr><td>Sen</td><td>yapıyorsun</td><td>yaparsın</td><td>yaptın</td><td>yapmışsın</td><td>yapacaksın</td></tr>
+        <tr><td>O</td><td>yapıyor</td><td>yapar</td><td>yaptı</td><td>yapmış</td><td>yapacak</td></tr>
+        <tr><td>Biz</td><td>yapıyoruz</td><td>yaparız</td><td>yaptık</td><td>yapmışız</td><td>yapacağız</td></tr>
+        <tr><td>Siz</td><td>yapıyorsunuz</td><td>yaparsınız</td><td>yaptınız</td><td>yapmışsınız</td><td>yapacaksınız</td></tr>
+        <tr><td>Onlar</td><td>yapıyorlar</td><td>yaparlar</td><td>yaptılar</td><td>yapmışlar</td><td>yapacaklar</td></tr>
+        <tr><td>Inkor (Ben)</td><td>yapmıyorum</td><td>yapmam</td><td>yapmadım</td><td>yapmamışım</td><td>yapmayacağım</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Shaxs qo'shimchalarining 2 turi</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Shaxs</th><th>1-tur (-iyor, -r, -mış, -acak)</th><th>2-tur (faqat -dı)</th></tr></thead>
+      <tbody>
+        <tr><td>Ben</td><td>-(y)ım</td><td>-m</td></tr>
+        <tr><td>Sen</td><td>-sın</td><td>-n</td></tr>
+        <tr><td>O</td><td>—</td><td>—</td></tr>
+        <tr><td>Biz</td><td>-(y)ız</td><td>-k</td></tr>
+        <tr><td>Siz</td><td>-sınız</td><td>-nız</td></tr>
+        <tr><td>Onlar</td><td>-lar</td><td>-lar</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Bonus: murakkab o'tgan zamonlar</h3>
+    <p>Har bir zamonga <code>-dı</code> qo'shib, uning o'tgan shaklini olish mumkin:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Shakl</th><th>Misol</th><th>Ma'nosi</th></tr></thead>
+      <tbody>
+        <tr><td>-iyordu</td><td>geliyordum</td><td>kelayotgan edim</td></tr>
+        <tr><td>-ardı</td><td>gelirdim</td><td>kelardim (ilgari odatim edi)</td></tr>
+        <tr><td>-mıştı</td><td>gelmiştim</td><td>kelgan edim (undan oldin)</td></tr>
+        <tr><td>-acaktı</td><td>gelecektim</td><td>kelmoqchi edim (lekin kelmadim)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 6. Mashqlar -->
+  <section id="mashq">
+    <div class="chapter-head">
+      <span class="eyebrow">Amaliyot</span>
+      <h2>Mashqlar</h2>
+    </div>
+    <p>Qavs ichidagi fe'lni kerakli zamonga qo'yib yozing, so'ng "Tekshirish" tugmasini bosing.</p>
+    <form class="quiz" id="quiz" autocomplete="off">
+      <div class="q" data-a="dinliyorum"><span class="txt">Şu an müzik ______.</span><input id="q1" aria-label="1-javob"><span class="hint">dinlemek · ben · şimdiki</span><span class="fb"></span></div>
+      <div class="q" data-a="yapar"><span class="txt">Her gün spor ______.</span><input id="q2" aria-label="2-javob"><span class="hint">yapmak · o · geniş</span><span class="fb"></span></div>
+      <div class="q" data-a="yedin"><span class="txt">Dün akşam ne ______?</span><input id="q3" aria-label="3-javob"><span class="hint">yemek · sen · -dı</span><span class="fb"></span></div>
+      <div class="q" data-a="gideceğiz"><span class="txt">Haftaya Ankara'ya ______.</span><input id="q4" aria-label="4-javob"><span class="hint">gitmek · biz · gelecek</span><span class="fb"></span></div>
+      <div class="q" data-a="evlenmiş"><span class="txt">Ahmet ______ (eshitdim).</span><input id="q5" aria-label="5-javob"><span class="hint">evlenmek · o · -mış</span><span class="fb"></span></div>
+      <div class="q" data-a="içmem"><span class="txt">Ben kahve ______.</span><input id="q6" aria-label="6-javob"><span class="hint">içmek · ben · geniş · inkor</span><span class="fb"></span></div>
+      <div class="q" data-a="okudunuz mu|okudunuz"><span class="txt">Kitabı ______?</span><input id="q7" aria-label="7-javob"><span class="hint">okumak · siz · -dı · so'roq</span><span class="fb"></span></div>
+      <div class="q" data-a="gelmeyecekler"><span class="txt">Yarın ______.</span><input id="q8" aria-label="8-javob"><span class="hint">gelmek · onlar · gelecek · inkor</span><span class="fb"></span></div>
+      <div class="q" data-a="diyorsun"><span class="txt">Ne ______?</span><input id="q9" aria-label="9-javob"><span class="hint">demek · sen · şimdiki</span><span class="fb"></span></div>
+      <div class="q" data-a="açar mısın"><span class="txt">Kapıyı ______? (iltimos)</span><input id="q10" aria-label="10-javob"><span class="hint">açmak · sen · geniş · so'roq</span><span class="fb"></span></div>
+      <div class="actions">
+        <button type="submit" class="primary">Tekshirish</button>
+        <button type="button" id="show">Javoblarni ko'rsatish</button>
+        <button type="reset">Tozalash</button>
+        <span id="score" aria-live="polite"></span>
+      </div>
+    </form>
+  </section>
+
+  <footer>Omad! Başarılar!</footer>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('quiz');
+  var items = Array.prototype.slice.call(form.querySelectorAll('.q'));
+  function norm(s) {
+    return s.toLocaleLowerCase('tr').replace(/[?.!,]/g, '').replace(/\s+/g, ' ').trim();
+  }
+  function answers(q) { return q.dataset.a.split('|'); }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var right = 0;
+    items.forEach(function (q) {
+      var v = norm(q.querySelector('input').value);
+      var ok = answers(q).indexOf(v) !== -1;
+      q.classList.toggle('ok', ok);
+      q.classList.toggle('bad', !ok);
+      q.querySelector('.fb').textContent = ok ? "To'g'ri" : (v ? "Noto'g'ri. To'g'ri javob: " : "Javob: ") + answers(q)[0];
+      if (ok) right++;
+    });
+    document.getElementById('score').textContent = right + ' / ' + items.length + " to'g'ri";
+  });
+  document.getElementById('show').addEventListener('click', function () {
+    items.forEach(function (q) {
+      q.classList.remove('ok', 'bad');
+      q.querySelector('.fb').textContent = 'Javob: ' + answers(q)[0];
+    });
+  });
+  form.addEventListener('reset', function () {
+    items.forEach(function (q) { q.classList.remove('ok', 'bad'); q.querySelector('.fb').textContent = ''; });
+    document.getElementById('score').textContent = '';
+  });
+})();
+</script>
