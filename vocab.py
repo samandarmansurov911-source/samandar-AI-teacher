@@ -1,14 +1,21 @@
 import asyncio
 import logging
+import os
 import random
+import sys
 from aiogram import Bot, Dispatcher, F, types
 from aiogram.filters import Command
 
-# Telegram bot tokeningiz
-TELEGRAM_BOT_TOKEN = ""
+# Token Render environment variable'idan olinadi
+TELEGRAM_BOT_TOKEN = os.environ.get("VOCAB_BOT_TOKEN", "").strip()
+ADMIN_ID = int(os.environ.get("ADMIN_ID") or 8421438403)
+WORDS_FILE = os.environ.get(
+    "VOCAB_WORDS_FILE",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "words.txt"),
+)
 
-# O'ZINGIZNING TELEGRAM ID RAQAMINGIZNI SHU YERGA YOZING (Masalan: 123456789)
-ADMIN_ID = 8421438403  # <--- Shu raqamni o'zingizniki bilan almashtiring!
+if not TELEGRAM_BOT_TOKEN:
+    sys.exit("vocab.py: VOCAB_BOT_TOKEN environment variable'i kerak")
 
 bot = Bot(token=TELEGRAM_BOT_TOKEN)
 dp = Dispatcher()
@@ -20,7 +27,7 @@ def load_words():
     
     for enc in encodings:
         try:
-            with open("words.txt", "r", encoding=enc) as f:
+            with open(WORDS_FILE, "r", encoding=enc) as f:
                 for line in f:
                     clean_line = line.replace("*", "").strip()
                     if not clean_line:
@@ -35,7 +42,7 @@ def load_words():
             if words_list:
                 break
         except FileNotFoundError:
-            print("Diqqat: words.txt topilmadi!")
+            print(f"Diqqat: {WORDS_FILE} topilmadi!")
             break
         except Exception:
             continue

@@ -15,6 +15,7 @@ from google import genai
 
 import channel_manager
 import instagram_manager
+import side_bots
 
 
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
@@ -276,6 +277,9 @@ def main():
             check_essay
         )
     )
+
+    # Speaking, vocab va ustoz chat-botlari (tokeni berilganlari)
+    side_bots.start(TOKEN)
 
     print("Samandar Essay Checker ishga tushdi!")
 

@@ -1,16 +1,20 @@
 import asyncio
 import logging
+import os
+import sys
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from google import genai
 from google.genai import types as genai_types
 
-# Tokenlaringizni shu yerga yozasiz
-TELEGRAM_TOKEN = ""
-GEMINI_API_KEY = ""
+# Tokenlar Render environment variable'laridan olinadi
+TELEGRAM_TOKEN = os.environ.get("ESSAY_BOT_TOKEN", "").strip()
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+ADMIN_ID = int(os.environ.get("ADMIN_ID") or 0)
+GEMINI_MODEL = os.environ.get("ESSAY_GEMINI_MODEL", "gemini-3.5-flash-lite")
 
-# O'zingizning Telegram ID raqamingizni yozasiz
-ADMIN_ID = 
+if not TELEGRAM_TOKEN or not GEMINI_API_KEY:
+    sys.exit("main.py: ESSAY_BOT_TOKEN va GEMINI_API_KEY environment variable'lari kerak")
 
 bot = Bot(token=TELEGRAM_TOKEN)
 dp = Dispatcher()
@@ -51,8 +55,8 @@ async def chat_with_teacher(message: types.Message):
         )
 
         # Gemini yordamida javob olish
-        response = client.models.generate_content(
-            model='gemini-3.5-flash-lite',  
+        response = await client.aio.models.generate_content(
+            model=GEMINI_MODEL,
             contents=f"{system_instruction}\n\nO'quvchidan kelgan xabar/matn:\n{user_text}",
             config=config
         )
@@ -67,7 +71,7 @@ async def chat_with_teacher(message: types.Message):
             await message.answer(feedback)
 
         # 2. Natijani admin uchun yuborish
-        if user.id != ADMIN_ID:
+        if ADMIN_ID and user.id != ADMIN_ID:
             student_name = user.full_name
             student_username = f"@{user.username}" if user.username else "Username yo'q"
             
