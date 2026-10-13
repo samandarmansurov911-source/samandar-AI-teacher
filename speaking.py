@@ -1,14 +1,19 @@
 import asyncio
 import os
+import sys
 from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message
 from google import genai
 from google.genai import types as genai_types
 
-# API kalitlar va o'z ID raqamingiz
-TELEGRAM_BOT_TOKEN = ""
-GEMINI_API_KEY = ""
-USTOZ_TELEGRAM_ID = 
+# Tokenlar Render environment variable'laridan olinadi
+TELEGRAM_BOT_TOKEN = os.environ.get("SPEAKING_BOT_TOKEN", "").strip()
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+USTOZ_TELEGRAM_ID = int(os.environ.get("ADMIN_ID") or 0)
+GEMINI_MODEL = os.environ.get("SPEAKING_GEMINI_MODEL", "gemini-3.5-flash-lite")
+
+if not TELEGRAM_BOT_TOKEN or not GEMINI_API_KEY:
+    sys.exit("speaking.py: SPEAKING_BOT_TOKEN va GEMINI_API_KEY environment variable'lari kerak")
 
 bot = Bot(token=TELEGRAM_BOT_TOKEN)
 dp = Dispatcher()
@@ -33,7 +38,7 @@ async def handle_voice(message: Message):
     await bot.download_file(voice_file.file_path, file_path)
 
     try:
-        gemini_audio = client.files.upload(file=file_path)
+        gemini_audio = await client.aio.files.upload(file=file_path)
 
         # CEFR bo'yicha maxsus ko'rsatma
         prompt = """
@@ -62,8 +67,8 @@ async def handle_voice(message: Message):
             temperature=0.0
         )
 
-        response = client.models.generate_content(
-            model="gemini-3.5-flash-lite", 
+        response = await client.aio.models.generate_content(
+            model=GEMINI_MODEL,
             contents=[gemini_audio, prompt],
             config=config
         )

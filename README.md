@@ -1,6 +1,22 @@
 # samandar-AI-teacher
 AI assisstant
 
+## Botlarni ishga tushirish
+
+Render'dagi **Start Command**ni `python run_all.py` qiling. U barcha botlarni bitta servisda, har birini alohida jarayonda ishga tushiradi va biror bot yiqilsa uni qayta ko'taradi.
+
+| Bot | Fayl | Token o'zgaruvchisi |
+|---|---|---|
+| Essay checker + kanal + Instagram | `bot.py` | `TELEGRAM_BOT_TOKEN` |
+| Ustoz chat-bot | `main.py` | `ESSAY_BOT_TOKEN` |
+| Speaking (ovozli xabar) tekshiruvchi | `speaking.py` | `SPEAKING_BOT_TOKEN` |
+| So'z viktorinasi | `vocab.py` | `VOCAB_BOT_TOKEN` (+ `words.txt`) |
+
+- Tokeni berilmagan bot shunchaki o'tkazib yuboriladi.
+- **Har bir bot uchun @BotFather'dan alohida token oling.** Bitta token bilan ikkita bot ishlasa, Telegram ikkalasini ham `Conflict: terminated by other getUpdates request` xatosi bilan to'xtatadi. `run_all.py` takrorlangan tokenli botni ishga tushirmaydi.
+- `GEMINI_API_KEY` va `ADMIN_ID` hamma botlar uchun umumiy.
+- Tokenlarni kodga yozmang, faqat environment variable sifatida bering.
+
 ## Lug'at musobaqasi (Kahoot uslubida)
 
 O'quvchilar ism bilan kiradi, o'zbekcha so'zning inglizchasini yozadi, reyting jonli ko'rinadi. Batafsil: [`quiz/README.md`](quiz/README.md).

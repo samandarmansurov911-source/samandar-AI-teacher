@@ -4,3 +4,4 @@ tzdata
 httpx
 Pillow>=10.1
 imageio-ffmpeg
+aiogram>=3.13
