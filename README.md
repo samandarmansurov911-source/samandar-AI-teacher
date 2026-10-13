@@ -3,19 +3,19 @@ AI assisstant
 
 ## Botlarni ishga tushirish
 
-Render'dagi **Start Command**ni `python run_all.py` qiling. U barcha botlarni bitta servisda, har birini alohida jarayonda ishga tushiradi va biror bot yiqilsa uni qayta ko'taradi.
+Hamma Telegram botlar **bitta Render servisida** ishlaydi. Start Command o'zgarmaydi: `python bot.py`. U essay checker, kanal va Instagram menejerlari bilan birga quyidagi botlarni ham ishga tushiradi (`side_bots.py`):
 
 | Bot | Fayl | Token o'zgaruvchisi |
 |---|---|---|
 | Essay checker + kanal + Instagram | `bot.py` | `TELEGRAM_BOT_TOKEN` |
 | Ustoz chat-bot | `main.py` | `ESSAY_BOT_TOKEN` |
 | Speaking (ovozli xabar) tekshiruvchi | `speaking.py` | `SPEAKING_BOT_TOKEN` |
-| So'z viktorinasi | `vocab.py` | `VOCAB_BOT_TOKEN` (+ `words.txt`) |
+| So'z viktorinasi | `vocab.py` | `VOCAB_BOT_TOKEN` (so'zlar `words.txt` da) |
 
-- Tokeni berilmagan bot shunchaki o'tkazib yuboriladi.
-- **Har bir bot uchun @BotFather'dan alohida token oling.** Bitta token bilan ikkita bot ishlasa, Telegram ikkalasini ham `Conflict: terminated by other getUpdates request` xatosi bilan to'xtatadi. `run_all.py` takrorlangan tokenli botni ishga tushirmaydi.
+- Tokeni berilmagan bot o'chiq turadi. Biror bot yiqilsa, avtomatik qayta ishga tushadi va boshqalarga ta'sir qilmaydi.
+- **Har bir botning tokeni alohida bo'lishi shart.** Bitta token ikki joyda ishlasa, Telegram ikkalasini ham `Conflict: terminated by other getUpdates request` bilan to'xtatadi. Shu sababli botni boshqa servisga ko'chirganda eski servisni o'chiring (Suspend/Delete).
 - `GEMINI_API_KEY` va `ADMIN_ID` hamma botlar uchun umumiy.
-- Tokenlarni kodga yozmang, faqat environment variable sifatida bering.
+- Bepul Render servisi uxlab qoladi, shuning uchun botlarni u yerda alohida ishlatmang.
 
 ## Lug'at musobaqasi (Kahoot uslubida)
 
