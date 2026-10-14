@@ -3,19 +3,22 @@ AI assisstant
 
 ## Botlarni ishga tushirish
 
-Hamma Telegram botlar **bitta Render servisida** ishlaydi. Start Command o'zgarmaydi: `python bot.py`. U essay checker, kanal va Instagram menejerlari bilan birga quyidagi botlarni ham ishga tushiradi (`side_bots.py`):
+Hamma narsa **bitta pulli Render servisida** ishlaydi. Start Command: `python start_all.py`. U ikkita jarayonni ishga tushiradi va yiqilganini qayta ko'taradi:
 
-| Bot | Fayl | Token o'zgaruvchisi |
+1. `bot.py`: essay checker, kanal menejeri, Instagram menejeri (`TELEGRAM_BOT_TOKEN`).
+2. `telegram-agent/agent.py`: shaxsiy Telegram agenti (`TELEGRAM_API_ID`, `TELEGRAM_API_HASH`, `TELEGRAM_SESSION`). U ishga tushishi bilan o'quvchilar botlarini o'zi yoqadi:
+
+| Bot | Fayl | Token |
 |---|---|---|
-| Essay checker + kanal + Instagram | `bot.py` | `TELEGRAM_BOT_TOKEN` |
-| Ustoz chat-bot | `main.py` | `ESSAY_BOT_TOKEN` |
-| Speaking (ovozli xabar) tekshiruvchi | `speaking.py` | `SPEAKING_BOT_TOKEN` |
-| So'z viktorinasi | `vocab.py` | `VOCAB_BOT_TOKEN` (so'zlar `words.txt` da) |
+| Writing checker | `bots/writing.py` | `WRITING_BOT_TOKEN` |
+| Speaking checker | `bots/speaking.py` | `SPEAKING_BOT_TOKEN` |
+| Vocab quiz | `bots/vocab.py` (+ `bots/words.txt`) | `VOCAB_BOT_TOKEN` |
+| Intizor (to'lovlar) | `bots/intizor.py` | `INTIZOR_BOT_TOKEN` + Secret File `service_account.json` |
 
-- Tokeni berilmagan bot o'chiq turadi. Biror bot yiqilsa, avtomatik qayta ishga tushadi va boshqalarga ta'sir qilmaydi.
-- **Har bir botning tokeni alohida bo'lishi shart.** Bitta token ikki joyda ishlasa, Telegram ikkalasini ham `Conflict: terminated by other getUpdates request` bilan to'xtatadi. Shu sababli botni boshqa servisga ko'chirganda eski servisni o'chiring (Suspend/Delete).
-- `GEMINI_API_KEY` va `ADMIN_ID` hamma botlar uchun umumiy.
-- Bepul Render servisi uxlab qoladi, shuning uchun botlarni u yerda alohida ishlatmang.
+- Yonmay qolgan bot 1, 5 va 15 daqiqadan keyin qayta yoqiladi. Natija Saqlangan xabarlarga keladi.
+- Botlarni qo'lda boshqarish: `.hamma botlarni yoq`, `.vocabni o'chir`, `.qaysi botlar yoniq?`. `AUTO_START_BOTS=0` qilsangiz, botlar faqat buyruq bilan yonadi.
+- **Har bir token va `TELEGRAM_SESSION` faqat bitta joyda ishlashi kerak.** Ikki joyda ishlasa, Telegram ularni to'xtatadi yoki sessiyani bekor qiladi.
+- Bepul Render servisi uxlab qoladi, shuning uchun botlarni u yerda ishlatmang.
 
 ## Lug'at musobaqasi (Kahoot uslubida)
 
