@@ -7,6 +7,7 @@ from google import genai
 from google.genai import types as genai_types
 
 from bots.retry import gemini_generate
+from bots.score import extract_score, short_report
 
 # Kalitlar serverdagi (Render) Environment bo'limidan olinadi
 TELEGRAM_TOKEN = os.environ["WRITING_BOT_TOKEN"]
@@ -70,23 +71,10 @@ async def chat_with_teacher(message: types.Message):
         else:
             await message.answer(feedback)
 
-        # 2. Natijani admin uchun yuborish
-        if ADMIN_ID and user.id != ADMIN_ID:
-            student_name = user.full_name
-            student_username = f"@{user.username}" if user.username else "Username yo'q"
-            
-            admin_notification = (
-                f"📊 **Yangi essay natijasi!**\n\n"
-                f"👤 **O'quvchi:** {student_name} ({student_username})\n\n"
-                f"📝 **Yuborgan matni:**\n{user_text[:200]}...\n\n"
-                f"🤖 **Bot bergan tahlil:**\n{feedback}"
-            )
-            
-            if len(admin_notification) > 4000:
-                for i in range(0, len(admin_notification), 4000):
-                    await bot.send_message(chat_id=ADMIN_ID, text=admin_notification[i:i+4000])
-            else:
-                await bot.send_message(chat_id=ADMIN_ID, text=admin_notification)
+        # 2. Ustozga faqat ism va ball
+        score = extract_score(feedback)
+        if ADMIN_ID and user.id != ADMIN_ID and score is not None:
+            await bot.send_message(chat_id=ADMIN_ID, text=short_report(user.full_name, score))
 
     except Exception as e:
         await message.answer("qaren boshqattan tashenchi nimadir boldi")
