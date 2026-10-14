@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import os
 import threading
 from datetime import datetime
@@ -24,6 +25,9 @@ PREFIX = os.environ.get("AGENT_PREFIX", ".")
 TZ = ZoneInfo(os.environ.get("TIMEZONE", "Asia/Tashkent"))
 # Server qayta ishga tushganda botlar o'zi yonsin (0 qilsangiz, faqat buyruq bilan)
 AUTO_START_BOTS = os.environ.get("AUTO_START_BOTS", "1") != "0"
+
+# httpx har bir so'rovni bot tokeni bilan birga yozadi; tokenlar logga tushmasin
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 MAX_STEPS = 10
 MAX_HISTORY = 40

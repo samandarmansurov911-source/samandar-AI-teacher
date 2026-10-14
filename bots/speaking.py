@@ -7,6 +7,7 @@ from google import genai
 from google.genai import types as genai_types
 
 from bots.retry import gemini_generate, with_retry
+from bots.score import extract_score, short_report
 
 # Kalitlar serverdagi (Render) Environment bo'limidan olinadi
 TELEGRAM_BOT_TOKEN = os.environ["SPEAKING_BOT_TOKEN"]
@@ -82,17 +83,11 @@ async def handle_voice(message: Message):
             # O'quvchiga yuborish
             await message.answer(f"📊 **CEFR Speaking Tahlili:**\n\n{result_text}")
 
-            # Ustozga (sizga) bildirishnoma yuborish
-            if USTOZ_TELEGRAM_ID:
-                student_name = message.from_user.full_name if message.from_user.full_name else "O'quvchi"
-                student_username = f"@{message.from_user.username}" if message.from_user.username else "username yo'q"
-                
-                await bot.send_message(
-                    USTOZ_TELEGRAM_ID,
-                    f"👤 **Yangi o'quvchi audiosi tahlil qilindi!**\n"
-                    f"▪️ **O'quvchi:** {student_name} ({student_username})\n\n"
-                    f"{result_text}"
-                )
+            # Ustozga faqat ism va ball
+            score = extract_score(result_text)
+            if USTOZ_TELEGRAM_ID and score is not None:
+                student_name = message.from_user.full_name or "O'quvchi"
+                await bot.send_message(USTOZ_TELEGRAM_ID, short_report(student_name, score))
 
     except Exception as e:
         await message.answer("Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.")

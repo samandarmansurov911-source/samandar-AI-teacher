@@ -15,10 +15,12 @@ from google import genai
 
 import channel_manager
 import instagram_manager
+from bots.score import extract_score, short_report
 
 
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
+ADMIN_ID = int(os.environ.get("ADMIN_ID") or 0)
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -221,11 +223,16 @@ async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         result = response.text
 
-        await update.message.reply_text(
-            "👨‍🏫 guli teacher\n"
-            "━━━━━━━━━━━━━━━━\n\n"
-            + result
-        )
+        text = "👨‍🏫 guli teacher\n━━━━━━━━━━━━━━━━\n\n" + result
+        # Telegram bitta xabarga 4096 belgidan ko'p qabul qilmaydi
+        for i in range(0, len(text), 4000):
+            await update.message.reply_text(text[i:i + 4000])
+
+        # Ustozga faqat ism va ball
+        score = extract_score(result)
+        user = update.effective_user
+        if ADMIN_ID and user.id != ADMIN_ID and score is not None:
+            await context.bot.send_message(ADMIN_ID, short_report(user.full_name, score))
 
     except Exception as e:
 
