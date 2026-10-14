@@ -216,6 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-channel_memory.json
-instagram_memory.json
-quiz/data/
+
+# Telegram agent sessiyalari
+*.session
+*.session-journal
+qr.svg
+
+# Google maxfiy kalitlari hech qachon GitHub ga chiqmasin
+service_account*.json
+*credentials*.json
