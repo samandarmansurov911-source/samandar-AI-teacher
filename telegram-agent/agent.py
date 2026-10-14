@@ -1,9 +1,11 @@
 import asyncio
 import logging
 import os
+import sys
 import threading
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from google import genai
@@ -12,6 +14,10 @@ from telethon import TelegramClient, events, utils
 from telethon.sessions import StringSession
 
 from quick import run_quick
+
+# Umumiy Gemini yordamchisi repo ildizidagi bots/ papkasida
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from bots.retry import gemini_generate  # noqa: E402
 from tools import TOOL_SCHEMAS, TelegramTools
 
 
@@ -20,7 +26,7 @@ API_HASH = os.environ["TELEGRAM_API_HASH"]
 SESSION = os.environ["TELEGRAM_SESSION"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
+MODEL = os.environ.get("GEMINI_MODEL") or None
 PREFIX = os.environ.get("AGENT_PREFIX", ".")
 TZ = ZoneInfo(os.environ.get("TIMEZONE", "Asia/Tashkent"))
 # Server qayta ishga tushganda botlar o'zi yonsin (0 qilsangiz, faqat buyruq bilan)
@@ -98,15 +104,8 @@ def to_schema(s):
 
 
 async def generate(**kwargs):
-    # Gemini band bo'lsa (503) yoki limitga yetsak (429), biroz kutib qayta urinamiz
-    for delay in (2, 5, 10, None):
-        try:
-            return await gemini.aio.models.generate_content(model=MODEL, **kwargs)
-        except errors.APIError as e:
-            if e.code not in (429, 500, 503) or delay is None:
-                raise
-            print(f"Gemini {e.code}, {delay}s dan keyin qayta urinaman")
-            await asyncio.sleep(delay)
+    # Gemini band bo'lsa (503) yoki limitga yetsak (429), zaxira modellarni sinaydi
+    return await gemini_generate(gemini, model=MODEL, **kwargs)
 
 
 def tool_config():

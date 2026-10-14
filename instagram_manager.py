@@ -51,6 +51,7 @@ from telegram.error import BadRequest
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes, filters
 
 import reel_renderer
+from bots.retry import gemini_generate
 from channel_manager import ADMIN_ID, GEMINI_MODEL, TZ, is_quota_error, similar
 from instagram_api import GRAPH_HOST, InstagramAPI, InstagramError
 from tg_backup import find_pinned_document
@@ -483,7 +484,8 @@ class InstagramManager:
         last_error = None
         for attempt in range(3):
             try:
-                response = await self.client.aio.models.generate_content(
+                response = await gemini_generate(
+                    self.client,
                     model=GEMINI_MODEL,
                     contents=prompt,
                     config=genai_types.GenerateContentConfig(
@@ -689,7 +691,8 @@ report_uz: a concise report for the owner in Uzbek (Latin script), max
         trends["last_attempt"] = now.isoformat()
         self.memory.save_local()
         try:
-            response = await self.client.aio.models.generate_content(
+            response = await gemini_generate(
+                self.client,
                 model=GEMINI_MODEL,
                 contents=(
                     "Research what currently performs on Instagram Reels for English "

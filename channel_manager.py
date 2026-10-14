@@ -11,7 +11,7 @@ Environment variables:
     ADMIN_ID            owner's Telegram user id (alerts, memory backup, commands)
     POST_TIMES          daily posting times, default "08:30,13:30,19:30"
     TIMEZONE            default "Asia/Tashkent"
-    GEMINI_MODEL        default "gemini-3.1-flash-lite"
+    GEMINI_MODEL        default "gemini-3.5-flash-lite" (falls back to others when busy)
     EXPLANATION_LANGUAGE  language for short explanations, default "Uzbek"
     TREND_RESEARCH      "1" (default) to refresh trend notes weekly via Google Search
     MEMORY_FILE         default "channel_memory.json"
@@ -51,6 +51,7 @@ from telegram.ext import (
     filters,
 )
 
+from bots.retry import DEFAULT_MODEL, gemini_generate
 from tg_backup import find_pinned_document
 
 log =logging.getLogger("channel_manager")
@@ -64,7 +65,7 @@ CHANNEL_ID = os.environ.get("CHANNEL_ID", "").strip()
 ADMIN_ID = int(os.environ["ADMIN_ID"]) if os.environ.get("ADMIN_ID") else None
 POST_TIMES = os.environ.get("POST_TIMES", "08:30,13:30,19:30")
 TZ = ZoneInfo(os.environ.get("TIMEZONE", "Asia/Tashkent"))
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.1-flash-lite")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", DEFAULT_MODEL)
 EXPLANATION_LANGUAGE = os.environ.get("EXPLANATION_LANGUAGE", "Uzbek")
 TREND_RESEARCH = os.environ.get("TREND_RESEARCH", "1") == "1"
 MEMORY_FILE = os.environ.get("MEMORY_FILE", "channel_memory.json")
@@ -411,7 +412,8 @@ class ChannelManager:
         last_error = None
         for attempt in range(3):
             try:
-                response = await self.client.aio.models.generate_content(
+                response = await gemini_generate(
+                    self.client,
                     model=GEMINI_MODEL,
                     contents=prompt,
                     config=genai_types.GenerateContentConfig(
@@ -782,7 +784,8 @@ Before answering, double-check every answer key.{fix_note}"""
         trends["last_attempt"] = now.isoformat()
         self.memory.save_local()
         try:
-            response = await self.client.aio.models.generate_content(
+            response = await gemini_generate(
+                self.client,
                 model=GEMINI_MODEL,
                 contents=(
                     "Research current English-learning trends useful for an "

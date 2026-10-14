@@ -15,6 +15,7 @@ from google import genai
 
 import channel_manager
 import instagram_manager
+from bots.retry import gemini_generate
 from bots.score import extract_score, short_report
 
 
@@ -214,8 +215,9 @@ async def check_essay(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     try:
 
-        response = await client.aio.models.generate_content(
-            model="gemini-3.1-flash-lite",
+        response = await gemini_generate(
+            client,
+            model=os.environ.get("GEMINI_MODEL"),
             contents=SAMANDAR_PROMPT
             + "\n\nSTUDENT ESSAY:\n"
             + essay
