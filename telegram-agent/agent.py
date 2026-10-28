@@ -278,12 +278,35 @@ async def retry_failed_bots():
             try:
                 await tg.bots.start(name)
                 failed.remove(name)
-                await client.send_message("me", f"🤖 ✅ {BOTS[name]['title']} qayta urinishda yoqildi.")
+                await notify(f"🤖 ✅ {BOTS[name]['title']} qayta urinishda yoqildi.")
             except Exception as e:
                 print(f"{name} qayta yoqilmadi: {e}")
     if failed:
-        await client.send_message("me", "🤖 ❌ Yoqilmagan botlar: " + ", ".join(failed) +
-                                  ". Render Logs'ni tekshiring.")
+        await notify("🤖 ❌ Yoqilmagan botlar: " + ", ".join(failed) + ". Render Logs'ni tekshiring.")
+
+
+async def notify(text):
+    # Telegram sessiyasi ishlamasa, faqat logga yozamiz
+    print(text)
+    if tg.my_id is None:
+        return
+    try:
+        await client.send_message("me", text)
+    except Exception as e:
+        print(f"Saqlangan xabarlarga yozib bo'lmadi: {e}")
+
+
+async def login():
+    """Sessiya bilan kiradi. Sessiya bekor qilingan bo'lsa, telefon so'ramasdan None qaytaradi."""
+    try:
+        await client.connect()
+        if await client.is_user_authorized():
+            return await client.get_me()
+        print("❌ TELEGRAM_SESSION bekor qilingan yoki eskirgan. Agent buyruqlari ishlamaydi, "
+              "lekin o'quvchilar botlari ishlayveradi. Yangi sessiya: telegram-agent/login.py")
+    except Exception as e:
+        print(f"❌ Telegram agent ulana olmadi: {e}")
+    return None
 
 
 # ---------------------------------------------------------
@@ -317,11 +340,23 @@ async def main():
     threading.Thread(target=run_health_server, daemon=True).start()
 
     # Client event loop ichida yaratilishi kerak
-    client = TelegramClient(StringSession(SESSION), API_ID, API_HASH)
+    try:
+        session = StringSession(SESSION)
+    except ValueError:
+        print("❌ TELEGRAM_SESSION satri noto'g'ri, bo'sh sessiya bilan davom etaman")
+        session = StringSession()
+    client = TelegramClient(session, API_ID, API_HASH)
     tg = TelegramTools(client, TZ)
 
-    await client.start()
-    me = await client.get_me()
+    me = await login()
+    if me is None:
+        # Agentsiz rejim: o'quvchilar botlari baribir yonsin, natijalar ADMIN_ID ga borsin
+        if os.environ.get("ADMIN_ID"):
+            os.environ.setdefault("TEACHER_ID", os.environ["ADMIN_ID"])
+        print("O'quvchilar botlari:\n" + await tg.bots.start("all"))
+        asyncio.create_task(retry_failed_bots())
+        await asyncio.Event().wait()
+
     tg.my_id = me.id
     # Botlar natijalarni shu odamga (ustozga) yuboradi
     os.environ.setdefault("TEACHER_ID", str(me.id))
