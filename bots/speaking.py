@@ -1,7 +1,9 @@
 import asyncio
 import os
 import tempfile
+import uuid
 from aiogram import Bot, Dispatcher, F
+from aiogram.filters import CommandStart
 from aiogram.types import Message
 from google import genai
 from google.genai import types as genai_types
@@ -22,8 +24,49 @@ dp = Dispatcher()
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 
-@dp.message(F.voice)
+async def send_long(message: Message, text: str):
+    # Telegram bitta xabarga 4096 belgidan ko'p qabul qilmaydi
+    for i in range(0, len(text), 4000):
+        await message.answer(text[i:i + 4000])
+
+
+@dp.message(CommandStart())
+async def cmd_start(message: Message):
+    await message.answer(
+        "Assalomu alaykum! 🎙\n\n"
+        "Speaking javobingizni ovozli xabar qilib yuboring. "
+        "Men uni CEFR mezonlari bo'yicha tekshirib, ball va tahlil beraman."
+    )
+
+
+def audio_of(message: Message):
+    """Ovozli xabar, audio fayl, dumaloq video yoki audio hujjatdan (file_id, kengaytma) qaytaradi."""
+    if message.voice:
+        return message.voice.file_id, ".ogg"
+    if message.audio:
+        name = message.audio.file_name or ""
+        return message.audio.file_id, os.path.splitext(name)[1] or ".mp3"
+    if message.video_note:
+        return message.video_note.file_id, ".mp4"
+    doc = message.document
+    if doc and (doc.mime_type or "").startswith(("audio/", "video/")):
+        return doc.file_id, os.path.splitext(doc.file_name or "")[1] or ".ogg"
+    return None
+
+
+@dp.message(F.text & ~F.text.startswith("/"))
+async def handle_text(message: Message):
+    await message.answer("Men speaking'ni tekshiraman: javobingizni ovozli xabar qilib yuboring 🎙")
+
+
+@dp.message(F.voice | F.audio | F.video_note | F.document)
 async def handle_voice(message: Message):
+    audio = audio_of(message)
+    if audio is None:
+        await message.answer("Iltimos, speaking javobingizni ovozli xabar qilib yuboring 🎙")
+        return
+    file_id, ext = audio
+
     # Agar foydalanuvchi o'zingiz (ustoz) bo'lsangiz boshqacha, o'quvchi bo'lsa boshqacha munosabat bildirish uchun:
     is_admin = (message.from_user.id == USTOZ_TELEGRAM_ID)
 
@@ -32,12 +75,13 @@ async def handle_voice(message: Message):
     else:
         processing_msg = await message.answer("🎙 Audio qabul qilindi, CEFR mezonlari asosida tahlil qilinmoqda...")
 
-    voice_file = await bot.get_file(message.voice.file_id)
-    file_path = os.path.join(tempfile.gettempdir(), f"voice_{message.from_user.id}.ogg")
-
-    await bot.download_file(voice_file.file_path, file_path)
+    # Har bir xabar uchun alohida fayl: bir o'quvchi ketma-ket yuborsa ham aralashmaydi
+    file_path = os.path.join(tempfile.gettempdir(), f"voice_{uuid.uuid4().hex}{ext}")
 
     try:
+        voice_file = await bot.get_file(file_id)
+        await bot.download_file(voice_file.file_path, file_path)
+
         gemini_audio = await with_retry(lambda: client.aio.files.upload(file=file_path))
 
         # CEFR bo'yicha maxsus ko'rsatma
@@ -78,10 +122,10 @@ async def handle_voice(message: Message):
 
         if is_admin:
             # Agar o'zingiz yuborsangiz shunchaki natijani tashlaydi
-            await message.answer(f"📊 **Tekshiruv Natijasi (Ustoz uchun):**\n\n{result_text}")
+            await send_long(message, f"📊 Tekshiruv Natijasi (Ustoz uchun):\n\n{result_text}")
         else:
             # O'quvchiga yuborish
-            await message.answer(f"📊 **CEFR Speaking Tahlili:**\n\n{result_text}")
+            await send_long(message, f"📊 CEFR Speaking Tahlili:\n\n{result_text}")
 
             # Ustozga faqat ism va ball
             score = extract_score(result_text)
@@ -96,7 +140,10 @@ async def handle_voice(message: Message):
     finally:
         if os.path.exists(file_path):
             os.remove(file_path)
-        await processing_msg.delete()
+        try:
+            await processing_msg.delete()
+        except Exception:
+            pass
 
 
 async def main():
